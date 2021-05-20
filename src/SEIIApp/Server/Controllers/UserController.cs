@@ -32,6 +32,19 @@ namespace SEIIApp.Server.Controllers
             var mappedStudent = Mapper.Map<StudentDto>(student);
             return Ok(mappedStudent);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<StudentDto> GetStudentByNameAndPw([FromQuery] string name, [FromQuery]string password)
+        {
+            var student = UserService.GetStudentByNameAndPw(name, password);
+            if(student == null) return StatusCode(StatusCodes.Status404NotFound);
+
+            var mappedStudent = Mapper.Map<StudentDto>(student);
+            return Ok(mappedStudent);
+        }
         
     }
 }

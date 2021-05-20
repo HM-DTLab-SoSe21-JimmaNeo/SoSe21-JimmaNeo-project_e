@@ -3,20 +3,32 @@
 @inject Services.BackendAccessService BackendAccessService
 <h3>Login</h3>
 
-
+Name:
 <p>
-    <input type="number"
-           @bind-value="id"
+    <input type="text"
+           @bind-value="name"
+           @bind-value:event="oninput"/>
+</p>
+<br />
+Password:
+<p>
+    <input type="text"
+           @bind-value="password"
            @bind-value:event="oninput"/>
 </p>
 <br/>
 <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
 
 @code {
+    private string name;
+
+    private string password;
+
     private int id;
 
     private void RouteToHomepage()
     {
+        id = BackendAccessService.GetStudentByNameAndPw(name, password).Id;
         NavigationManager.NavigateTo($"/homepage/{id}");
     }
 

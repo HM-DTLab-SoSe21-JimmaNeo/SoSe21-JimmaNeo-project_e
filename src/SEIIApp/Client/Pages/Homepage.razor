@@ -5,11 +5,14 @@
 <h3>Homepage</h3>
 
 <p>
-Welcome home @if (StudentUser != null) @StudentUser.StudentName !
-
+    @if (StudentUser != null)
+    {
+        @StudentUser.StudentName
+    }
 </p>
 
 @code {
+
     [Parameter]
     public int UserId { get; set; }
 
@@ -19,7 +22,6 @@ Welcome home @if (StudentUser != null) @StudentUser.StudentName !
     {
         await base.OnParametersSetAsync();
         StudentUser = await BackendAccessService.GetStudentById(UserId);
-
     }
 
 }

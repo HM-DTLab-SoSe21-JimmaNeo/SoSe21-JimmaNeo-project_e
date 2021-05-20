@@ -27,6 +27,12 @@ namespace SEIIApp.Server.Services
         {
             return GetQueryableForStudent().FirstOrDefault(x => x.UserId == id);
         }
+
+        public Student GetStudentByNameAndPw(string name, string password)
+        {
+            return GetQueryableForStudent()
+                .FirstOrDefault(x => x.Password.Equals(password) && x.StudentName.Equals(name));
+        }
         
         public Student AddStudent(Student newStudent)
         {

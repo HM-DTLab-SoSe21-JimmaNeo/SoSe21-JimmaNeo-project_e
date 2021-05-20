@@ -19,9 +19,19 @@ namespace SEIIApp.Client.Services
           return $"api/users/{id}";
       }
 
+      private string GetUrlBasic()
+      {
+          return "api/users";
+      }
+
       public async Task<StudentDto> GetStudentById(int id)
       {
           return await HttpClient.GetFromJsonAsync<StudentDto>(/*GetUrlWithId(id)*/$"api/users/{id}");
+      }
+
+      public async Task<StudentDto> GetStudentByNameAndPw(string name, string pw)
+      {
+          return await HttpClient.GetFromJsonAsync<StudentDto>($"api/users?name={name}&password={pw}");
       }
     }
 }

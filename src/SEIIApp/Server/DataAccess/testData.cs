@@ -21,7 +21,7 @@ namespace SEIIApp.Server.DataAccess
 
             qs.AddQuiz(testQuiz);
 
-            var u1 = new Student() {StudentName = "Hans Meier"};
+            var u1 = new Student() {StudentName = "Hans Meier", Password = "123456"};
 
             us.AddStudent(u1);
 
