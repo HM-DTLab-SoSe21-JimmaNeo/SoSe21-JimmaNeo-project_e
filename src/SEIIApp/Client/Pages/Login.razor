@@ -1,0 +1,23 @@
+﻿@page "/login"
+@inject NavigationManager NavigationManager
+@inject Services.BackendAccessService BackendAccessService
+<h3>Login</h3>
+
+
+<p>
+    <input type="number"
+           @bind-value="id"
+           @bind-value:event="oninput"/>
+</p>
+<br/>
+<button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
+
+@code {
+    private int id;
+
+    private void RouteToHomepage()
+    {
+        NavigationManager.NavigateTo($"/homepage/{id}");
+    }
+
+}

@@ -78,6 +78,7 @@ namespace SEIIApp.Server
             //Daten in die Datenbank hinzuzufügen oder zu ändern.
             //Aber auch irgendwelche anderen Arten von Berechnungen.
             services.AddScoped<Services.QuizService>();
+            services.AddScoped<Services.UserService>();
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -90,7 +91,7 @@ namespace SEIIApp.Server
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            Services.QuizService quizService)
+            Services.QuizService quizService, Services.UserService userService)
         {
             if (env.IsDevelopment())
             {
@@ -132,7 +133,7 @@ namespace SEIIApp.Server
             });
             
 #if DEBUG
-            TestData.CreateTestData(quizService);
+            TestData.CreateTestData(quizService, userService);
 #endif
         }
     }
