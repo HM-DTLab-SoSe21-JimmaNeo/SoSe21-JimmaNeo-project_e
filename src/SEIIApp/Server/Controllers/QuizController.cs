@@ -32,12 +32,12 @@ namespace SEIIApp.Server.Controllers
             return Ok(mappedQuiz);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<QuestionDto[]> GetAllQuestions()
         {
             return Ok(Mapper.Map<QuestionDto[]>(QuizService.GetAllQuestions()));
-        }
+        }*/
         
     }
 }

@@ -8,7 +8,7 @@ namespace SEIIApp.Server.DataAccess
 {
     public static class TestData
     {
-        public static void CreateTestData(QuizService qs, UserService us, CourseService cs)
+        public static void CreateTestData(QuizService qs, UserService us, CourseService cs, QuestionService questionService)
         {
             var testQuiz = new Quiz {QuizName = "Test Quiz", Questions = new List<Question>()};
 
@@ -41,9 +41,11 @@ namespace SEIIApp.Server.DataAccess
             var courseList = new List<Course> {course1};
 
 
-            var u1 = new Student() {StudentName = "xy", Password = "123",EnrolledCourses = courseList};
+            var u1 = new Student() {StudentName = "xy", Password = "123",EnrolledCourses = courseList,WorkingQuestions = new List<Question>()};
 
             us.AddStudent(u1);
+
+            questionService.AddQuestionToUser(q1, u1, 1);
         }
     }
 }

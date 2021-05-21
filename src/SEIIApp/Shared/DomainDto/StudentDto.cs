@@ -12,5 +12,7 @@ namespace SEIIApp.Shared.DomainDto
         public CourseDto[] EnrolledCourses { get; set; }
         
         public int UserId { get; set; }
+        
+        public QuestionDto[] WorkingQuestions { get; set; }
     }
 }

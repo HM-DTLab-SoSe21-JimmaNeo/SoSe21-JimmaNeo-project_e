@@ -80,6 +80,7 @@ namespace SEIIApp.Server
             services.AddScoped<Services.QuizService>();
             services.AddScoped<Services.UserService>();
             services.AddScoped<Services.CourseService>();
+            services.AddScoped<Services.QuestionService>();
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -92,7 +93,7 @@ namespace SEIIApp.Server
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService)
+            Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService, Services.QuestionService questionService)
         {
             if (env.IsDevelopment())
             {
@@ -134,7 +135,7 @@ namespace SEIIApp.Server
             });
             
 #if DEBUG
-            TestData.CreateTestData(quizService, userService, courseService);
+            TestData.CreateTestData(quizService, userService, courseService, questionService);
 #endif
         }
     }

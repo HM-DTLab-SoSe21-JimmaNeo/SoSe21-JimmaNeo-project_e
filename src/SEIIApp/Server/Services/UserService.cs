@@ -22,7 +22,8 @@ namespace SEIIApp.Server.Services
         {
             return DatabaseContext
                 .Students
-                .Include(x => x.EnrolledCourses);
+                .Include(x => x.EnrolledCourses)
+                .Include(x => x.WorkingQuestions);
         }
         
         public Student GetStudentById(int id)

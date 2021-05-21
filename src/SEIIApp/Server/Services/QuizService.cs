@@ -34,12 +34,7 @@ namespace SEIIApp.Server.Services
                 .Answers;
         }
 
-        private IQueryable<Question> GetQueryableForQuestions()
-        {
-            return DatabaseContext
-                .Questions
-                .Include(question => question.Answers);
-        }
+        
 
         public Quiz[] GetAllQuizzes()
         {
@@ -50,11 +45,7 @@ namespace SEIIApp.Server.Services
         {
             return GetQueryableForAnswer().ToArray();
         }
-
-        public Question[] GetAllQuestions()
-        {
-            return GetQueryableForQuestions().ToArray();
-        }
+        
 
         public Quiz GetQuizById(int id)
         {
