@@ -27,14 +27,14 @@ namespace SEIIApp.Server.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<QuestionDto> AddQuestionToUser([FromQuery] int toAddQuestionId,[FromQuery] int toAddStudentId,[FromQuery] int questionStatus  )
+        public ActionResult<QuestionStatusDto> AddQuestionToUser([FromQuery] int toAddQuestionId,[FromQuery] int toAddStudentId,[FromQuery] int questionStatus  )
         {
             var toAddQuestion = QuestionService.GetQuestionById(toAddQuestionId);
             var toAddStudent = UserService.GetStudentById(toAddStudentId);
 
-            QuestionService.AddQuestionToUser(toAddQuestion, toAddStudent, questionStatus);
+            var result = QuestionService.AddOrUpdateQuestionStatus(toAddQuestion, toAddStudent, questionStatus);
 
-            return Ok(toAddQuestion);
+            return Ok(result);
 
         }
     }

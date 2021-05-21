@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SEIIApp.Server.DataAccess;
@@ -25,7 +26,7 @@ namespace SEIIApp.Server.Services
                 .Questions
                 .Include(question => question.Answers);
         }
-        
+
         public Question[] GetAllQuestions()
         {
             return GetQueryableForQuestions().ToArray();
@@ -58,21 +59,27 @@ namespace SEIIApp.Server.Services
             DatabaseContext.SaveChanges();
         }
 
-        public Question AddQuestionToUser(Question toAddQuestion, Student toAddStudent, int questionStatus)
+
+        public QuestionStatus AddOrUpdateQuestionStatus(Question question, Student student, int questionStatus)
         {
-            var userHistoryQuestion = new Question();
+            var searchStatus = student.QuestionStatusList.Find(x => x.Question.QuestionId == question.QuestionId);
 
-            Mapper.Map( toAddQuestion,userHistoryQuestion);
-            userHistoryQuestion.QuestionStatus = questionStatus;
-            userHistoryQuestion.QuestionId = 0;
+            if (searchStatus == null)
+            {
+                searchStatus = new QuestionStatus() {Question = question, QuestionLevel = questionStatus};
+                student.QuestionStatusList.Add(searchStatus);
+            }
+            else
+            {
+                searchStatus.QuestionLevel = questionStatus;
+            }
             
-            
-            toAddStudent.WorkingQuestions.Add(userHistoryQuestion);
+            searchStatus.LastAnswered = DateTime.Now;
 
-            DatabaseContext.Students.Update(toAddStudent);
+            DatabaseContext.Students.Update(student);
             DatabaseContext.SaveChanges();
 
-            return toAddQuestion;
+            return searchStatus;
         }
     }
 }

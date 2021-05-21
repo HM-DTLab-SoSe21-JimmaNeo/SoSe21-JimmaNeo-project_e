@@ -11,7 +11,7 @@ namespace SEIIApp.Shared.DomainDto
         [ValidateComplexType] 
         public AnswerDto[] Answers { get; set; }
         
-        public int QuestionStatus { get; set; }
+        
         
         public int QuestionId { get; set; }
     }

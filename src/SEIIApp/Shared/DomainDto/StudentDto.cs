@@ -13,6 +13,6 @@ namespace SEIIApp.Shared.DomainDto
         
         public int UserId { get; set; }
         
-        public QuestionDto[] WorkingQuestions { get; set; }
+        public QuestionStatusDto[] QuestionStatusList { get; set; }
     }
 }

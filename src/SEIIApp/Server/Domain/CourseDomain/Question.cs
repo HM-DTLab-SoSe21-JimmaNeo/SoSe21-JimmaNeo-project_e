@@ -12,6 +12,6 @@ namespace SEIIApp.Server.Domain.CourseDomain
 
         public List<Answer> Answers { get; set; }
 
-        public int QuestionStatus { get; set; }
+        
     }
 }

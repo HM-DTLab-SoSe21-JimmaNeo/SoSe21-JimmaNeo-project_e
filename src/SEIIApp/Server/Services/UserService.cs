@@ -17,15 +17,16 @@ namespace SEIIApp.Server.Services
             this.DatabaseContext = db;
             this.Mapper = m;
         }
-        
+
         private IQueryable<Student> GetQueryableForStudent()
         {
             return DatabaseContext
                 .Students
                 .Include(x => x.EnrolledCourses)
-                .Include(x => x.WorkingQuestions);
+                .Include(x => x.QuestionStatusList)
+                .ThenInclude(y => y.Question);
         }
-        
+
         public Student GetStudentById(int id)
         {
             return GetQueryableForStudent().FirstOrDefault(x => x.UserId == id);
@@ -36,7 +37,7 @@ namespace SEIIApp.Server.Services
             return GetQueryableForStudent()
                 .FirstOrDefault(x => x.Password.Equals(password) && x.StudentName.Equals(name));
         }
-        
+
         public Student AddStudent(Student newStudent)
         {
             DatabaseContext.Students.Add(newStudent);

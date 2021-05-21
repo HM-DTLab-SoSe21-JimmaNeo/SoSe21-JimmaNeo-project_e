@@ -12,7 +12,7 @@ namespace SEIIApp.Server.Domain
         public Mapper()
         {
             CreateMap<Question, Question>();
-            
+
             CreateMap<Quiz, QuizDto>()
                 .ForMember(quizDto => quizDto.Questions,
                     opts => opts.MapFrom(obj => obj.Questions.ToArray()));
@@ -34,13 +34,13 @@ namespace SEIIApp.Server.Domain
             CreateMap<Student, StudentDto>()
                 .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToArray()))
-                .ForMember(x => x.WorkingQuestions,
-                    y => y.MapFrom(z => z.WorkingQuestions.ToArray()));
+                .ForMember(x => x.QuestionStatusList,
+                    y => y.MapFrom(z => z.QuestionStatusList.ToArray()));
             CreateMap<StudentDto, Student>()
                 .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToList()))
-                .ForMember(x => x.WorkingQuestions,
-                    y => y.MapFrom(z => z.WorkingQuestions.ToList()));
+                .ForMember(x => x.QuestionStatusList,
+                    y => y.MapFrom(z => z.QuestionStatusList.ToList()));
 
             CreateMap<Content, ContentDto>();
             CreateMap<ContentDto, Content>();
@@ -58,6 +58,9 @@ namespace SEIIApp.Server.Domain
             CreateMap<CourseDto, Course>()
                 .ForMember(x => x.Chapters,
                     y => y.MapFrom(z => z.Chapters.ToList()));
+
+            CreateMap<QuestionStatus, QuestionStatusDto>();
+            CreateMap<QuestionStatusDto, QuestionStatus>();
         }
     }
 }

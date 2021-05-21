@@ -41,11 +41,11 @@ namespace SEIIApp.Server.DataAccess
             var courseList = new List<Course> {course1};
 
 
-            var u1 = new Student() {StudentName = "xy", Password = "123",EnrolledCourses = courseList,WorkingQuestions = new List<Question>()};
+            var u1 = new Student() {StudentName = "Peter", Password = "xyz",EnrolledCourses = courseList,QuestionStatusList = new List<QuestionStatus>()};
 
             us.AddStudent(u1);
 
-            questionService.AddQuestionToUser(q1, u1, 1);
+            questionService.AddOrUpdateQuestionStatus(q1, u1, 1);
         }
     }
 }
