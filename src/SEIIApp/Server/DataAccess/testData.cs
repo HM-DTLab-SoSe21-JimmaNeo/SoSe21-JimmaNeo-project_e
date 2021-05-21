@@ -20,10 +20,6 @@ namespace SEIIApp.Server.DataAccess
             testQuiz.Questions.Add(q1);
 
             qs.AddQuiz(testQuiz);
-            
-            var u1 = new Student() {StudentName = "xy", Password = "123"};
-
-            us.AddStudent(u1);
 
             var content1 = new Content {Path = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"};
 
@@ -42,8 +38,12 @@ namespace SEIIApp.Server.DataAccess
 
             cs.AddCourse(course1);
 
+            var courseList = new List<Course> {course1};
 
 
+            var u1 = new Student() {StudentName = "xy", Password = "123",EnrolledCourses = courseList};
+
+            us.AddStudent(u1);
         }
     }
 }

@@ -4,5 +4,20 @@
         <name>SEIIApp.Server</name>
     </assembly>
     <members>
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetStudent(System.Int32)">
+            <summary>
+             Returns Student by given Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetStudentByNameAndPw(System.String,System.String)">
+            <summary>
+            Return Student by given Name and Password
+            </summary>
+            <param name="name"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

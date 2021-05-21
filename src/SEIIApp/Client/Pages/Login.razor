@@ -19,12 +19,9 @@ Password:
 </p>
 <br/>
 <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
-
+<br />
 <p>
-    @if (student != null)
-    {
-        @student.UserId
-    }
+@message
 </p>
 
 @code {
@@ -36,10 +33,13 @@ Password:
 
     StudentDto student;
 
+    private string message = "Please log in.";
+
     private async Task RouteToHomepage()
     {
         student = await BackendAccessService.GetStudentByNameAndPw(name, password);
-        NavigationManager.NavigateTo($"/homepage/{student.UserId}");
+        if (student != null) NavigationManager.NavigateTo($"/homepage/{student.UserId}");
+        else message = "Wrong Login-Information!";
     }
 
 }

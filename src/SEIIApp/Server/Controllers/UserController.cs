@@ -20,6 +20,11 @@ namespace SEIIApp.Server.Controllers
             this.UserService = us;
         }
 
+        /// <summary>
+        ///  Returns Student by given Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -33,6 +38,12 @@ namespace SEIIApp.Server.Controllers
             return Ok(mappedStudent);
         }
 
+        /// <summary>
+        /// Return Student by given Name and Password
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
