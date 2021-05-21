@@ -2,7 +2,7 @@
 
 namespace SEIIApp.Server.Domain.CourseDomain
 {
-    public abstract class Content
+    public class Content
     {
         [Key]
         public int ContentId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SEIIApp.Server.DataAccess;
 using SEIIApp.Server.Domain.UserDomain;
 
@@ -20,7 +21,8 @@ namespace SEIIApp.Server.Services
         private IQueryable<Student> GetQueryableForStudent()
         {
             return DatabaseContext
-                .Students;
+                .Students
+                .Include(x => x.EnrolledCourses);
         }
         
         public Student GetStudentById(int id)

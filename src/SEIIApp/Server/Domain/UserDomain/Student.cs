@@ -9,7 +9,7 @@ namespace SEIIApp.Server.Domain.UserDomain
         
         public string Password { get; set; }
         
-        //public List<Course> EnrolledCourses { get; set; }
+        public List<Course> EnrolledCourses { get; set; }
 
     }
 }

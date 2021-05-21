@@ -9,6 +9,8 @@ namespace SEIIApp.Shared.DomainDto
         
         public string Password { get; set; }
 
-        // public List<Course> EnrolledCourses { get; set; }
+        public CourseDto[] EnrolledCourses { get; set; }
+        
+        public int UserId { get; set; }
     }
 }

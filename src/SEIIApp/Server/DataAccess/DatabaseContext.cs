@@ -26,6 +26,12 @@ namespace SEIIApp.Server.DataAccess
         
         public DbSet<Student> Students { get; set; }
         
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Chapter> Chapters { get; set; }
+
+        public DbSet<Content> Contents { get; set; }
+        
 
 
 

@@ -8,7 +8,7 @@ namespace SEIIApp.Server.DataAccess
 {
     public static class TestData
     {
-        public static void CreateTestData(QuizService qs, UserService us)
+        public static void CreateTestData(QuizService qs, UserService us, CourseService cs)
         {
             var testQuiz = new Quiz {QuizName = "Test Quiz", Questions = new List<Question>()};
 
@@ -20,10 +20,27 @@ namespace SEIIApp.Server.DataAccess
             testQuiz.Questions.Add(q1);
 
             qs.AddQuiz(testQuiz);
-
-            var u1 = new Student() {StudentName = "Hans Meier", Password = "123456"};
+            
+            var u1 = new Student() {StudentName = "xy", Password = "123"};
 
             us.AddStudent(u1);
+
+            var content1 = new Content {Path = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"};
+
+            cs.AddContent(content1);
+
+            var contentList = new List<Content> {content1};
+
+            var chapter1 = new Chapter
+                {ChapterName = "TestChapter", ChapterQuiz = testQuiz, ChapterContent = contentList};
+
+            cs.AddChapter(chapter1);
+
+            var chapterList = new List<Chapter> {chapter1};
+
+            var course1 = new Course {Chapters = chapterList, CourseName = "TestKurs"};
+
+            cs.AddCourse(course1);
 
 
 

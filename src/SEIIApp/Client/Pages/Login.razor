@@ -1,4 +1,5 @@
 ﻿@page "/login"
+@using SEIIApp.Shared.DomainDto
 @inject NavigationManager NavigationManager
 @inject Services.BackendAccessService BackendAccessService
 <h3>Login</h3>
@@ -9,7 +10,7 @@ Name:
            @bind-value="name"
            @bind-value:event="oninput"/>
 </p>
-<br />
+<br/>
 Password:
 <p>
     <input type="text"
@@ -19,6 +20,13 @@ Password:
 <br/>
 <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
 
+<p>
+    @if (student != null)
+    {
+        @student.UserId
+    }
+</p>
+
 @code {
     private string name;
 
@@ -26,10 +34,12 @@ Password:
 
     private int id;
 
-    private void RouteToHomepage()
+    StudentDto student;
+
+    private async Task RouteToHomepage()
     {
-        id = BackendAccessService.GetStudentByNameAndPw(name, password).Id;
-        NavigationManager.NavigateTo($"/homepage/{id}");
+        student = await BackendAccessService.GetStudentByNameAndPw(name, password);
+        NavigationManager.NavigateTo($"/homepage/{student.UserId}");
     }
 
 }
