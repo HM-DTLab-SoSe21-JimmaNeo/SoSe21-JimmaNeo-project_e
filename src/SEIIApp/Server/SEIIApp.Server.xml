@@ -4,19 +4,137 @@
         <name>SEIIApp.Server</name>
     </assembly>
     <members>
-        <member name="M:SEIIApp.Server.Controllers.UserController.GetStudent(System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
+            <summary>
+            Get a course by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseController.AddOrUpdateCourse(SEIIApp.Shared.DomainDto.CourseDto)">
+            <summary>
+            Update or Add a course
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseController.GetAllCourses">
+            <summary>
+            Get all courses
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddCourseStatus(System.Int32,System.Int32)">
+            <summary>
+            Adds a course status (= enroll a student in a course)
+            </summary>
+            <param name="courseId"></param>
+            <param name="studentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetCourseStatusById(System.Int32)">
+            <summary>
+            Get Course Status by Id
+            </summary>
+            <param name="courseStatusId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetAllEnrolledCoursesByStudentId(System.Int32)">
+            <summary>
+            Get all enrolled courses for a student by his userid
+            </summary>
+            <param name="studentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetQuestionStatusById(System.Int32)">
+            <summary>
+            Get a Question Status by Question Status Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetAllPendingQuestionStatusOfUser(System.Int32)">
+            <summary>
+            Get All Questions due for repetition for a user by userId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.AddOrUpdateQuestionStatusForUser(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            By giving Question (not questionstatus) id, userid(must be of student) and questionstatus add
+            a new or update an existing question status fot the given question for the given user.
+            </summary>
+            <param name="toAddQuestionId"></param>
+            <param name="toAddStudentId"></param>
+            <param name="questionStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetAllQuestionStatusOfUser(System.Int32)">
+            <summary>
+            Get all QuestionStatus for a user by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetUser(System.Int32)">
             <summary>
              Returns Student by given Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.UserController.GetStudentByNameAndPw(System.String,System.String)">
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetUserByNameAndPw(System.String,System.String)">
             <summary>
             Return Student by given Name and Password
             </summary>
             <param name="name"></param>
             <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetAllStudents">
+            <summary>
+            Returns all users who are students
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.GetQueryableForCourse">
+            <summary>
+            Database Query for Courses
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.GetCourseById(System.Int32)">
+            <summary>
+            Return Course By given Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.AddCourse(SEIIApp.Server.Domain.CourseDomain.Course)">
+            <summary>
+            Add a new course
+            </summary>
+            <param name="course"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.UpdateCourse(SEIIApp.Server.Domain.CourseDomain.Course)">
+            <summary>
+            Update a given course
+            </summary>
+            <param name="newCourse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.RemoveCourse(SEIIApp.Server.Domain.CourseDomain.Course)">
+            <summary>
+            Removes a given course from database
+            </summary>
+            <param name="course"></param>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.GetAllCourses">
+            <summary>
+            Returns Array of all Courses in the database
+            </summary>
             <returns></returns>
         </member>
     </members>

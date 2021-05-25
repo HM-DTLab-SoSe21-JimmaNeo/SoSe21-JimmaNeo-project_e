@@ -4,7 +4,10 @@ namespace SEIIApp.Shared.DomainDto
 {
     public class ContentDto
     {
-        [Required]
         public string Path { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 1)]
+        public string ContentName { get; set; }
     }
 }

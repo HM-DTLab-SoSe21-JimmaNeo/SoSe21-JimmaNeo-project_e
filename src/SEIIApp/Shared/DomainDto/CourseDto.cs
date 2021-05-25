@@ -4,9 +4,10 @@ namespace SEIIApp.Shared.DomainDto
 {
     public class CourseDto
     {
-        [Required]
-        public string CourseName { get; set; }
+        [Required] public string CourseName { get; set; }
 
         public ChapterDto[] Chapters { get; set; }
+        
+        public int CourseId { get; set; }
     }
 }

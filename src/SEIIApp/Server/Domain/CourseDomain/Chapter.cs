@@ -5,8 +5,8 @@ namespace SEIIApp.Server.Domain.CourseDomain
 {
     public class Chapter
     {
-        [Key]
-        public int ChapterId { get; set; }
+        [Key] public int ChapterId { get; set; }
+
         public string ChapterName { get; set; }
 
         public Quiz ChapterQuiz { get; set; }

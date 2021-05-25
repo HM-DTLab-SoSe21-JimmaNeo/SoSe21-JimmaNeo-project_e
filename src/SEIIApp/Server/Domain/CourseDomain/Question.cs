@@ -5,13 +5,10 @@ namespace SEIIApp.Server.Domain.CourseDomain
 {
     public class Question
     {
-        [Key] 
-        public int QuestionId { get; set; }
+        [Key] public int QuestionId { get; set; }
 
         public string QuestionText { get; set; }
 
         public List<Answer> Answers { get; set; }
-
-        
     }
 }

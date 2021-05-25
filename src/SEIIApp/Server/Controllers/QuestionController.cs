@@ -5,6 +5,7 @@ using SEIIApp.Server.Domain.CourseDomain;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
 using SEIIApp.Shared.DomainDto;
+using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Controllers
 {
@@ -24,19 +25,7 @@ namespace SEIIApp.Server.Controllers
             this.UserService = userService;
         }
         
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<QuestionStatusDto> AddQuestionToUser([FromQuery] int toAddQuestionId,[FromQuery] int toAddStudentId,[FromQuery] int questionStatus  )
-        {
-            var toAddQuestion = QuestionService.GetQuestionById(toAddQuestionId);
-            var toAddStudent = UserService.GetStudentById(toAddStudentId);
 
-            var result = QuestionService.AddOrUpdateQuestionStatus(toAddQuestion, toAddStudent, questionStatus);
-
-            return Ok(result);
-
-        }
     }
     
     

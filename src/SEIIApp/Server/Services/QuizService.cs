@@ -13,11 +13,14 @@ namespace SEIIApp.Server.Services
         private DatabaseContext DatabaseContext { get; set; }
 
         private IMapper Mapper { get; set; }
+        
+        private ChapterService ChapterService { get; set; }
 
-        public QuizService(DatabaseContext db, IMapper m)
+        public QuizService(DatabaseContext db, IMapper m, ChapterService chapterService)
         {
             this.DatabaseContext = db;
             this.Mapper = m;
+            this.ChapterService = chapterService;
         }
 
         private IQueryable<Quiz> GetQueryableForQuiz()
@@ -28,34 +31,23 @@ namespace SEIIApp.Server.Services
                 .ThenInclude(question => question.Answers);
         }
 
-        private IQueryable<Answer> GetQueryableForAnswer()
-        {
-            return DatabaseContext
-                .Answers;
-        }
 
-        
 
         public Quiz[] GetAllQuizzes()
         {
             return GetQueryableForQuiz().ToArray();
         }
 
-        public Answer[] GetAllAnswers()
-        {
-            return GetQueryableForAnswer().ToArray();
-        }
-        
 
         public Quiz GetQuizById(int id)
         {
             return GetQueryableForQuiz().FirstOrDefault(x => x.QuizId == id);
         }
 
-        public Quiz AddQuiz(Quiz newQuiz)
+        public Quiz AddQuiz(Quiz newQuiz, Chapter modifiedChapter)
         {
-            DatabaseContext.Quiz.Add(newQuiz);
-            DatabaseContext.SaveChanges();
+            modifiedChapter.ChapterQuiz = newQuiz;
+            ChapterService.UpdateChapter(modifiedChapter);
             return newQuiz;
         }
 

@@ -2,8 +2,11 @@
 using SEIIApp.Shared.DomainDto;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain.CourseDomain;
+using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
+using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Domain
 {
@@ -61,6 +64,25 @@ namespace SEIIApp.Server.Domain
 
             CreateMap<QuestionStatus, QuestionStatusDto>();
             CreateMap<QuestionStatusDto, QuestionStatus>();
+
+            CreateMap<CourseStatus, CourseStatusDto>()
+                .ForMember(x => x.ChapterStatusList,
+                    y => y.MapFrom(z => z.ChapterStatusList.ToArray()));
+            CreateMap<CourseStatusDto, CourseStatus>()
+                .ForMember(x => x.ChapterStatusList,
+                    y => y.MapFrom(z => z.ChapterStatusList.ToList()));
+
+            CreateMap<QuizStatus, QuizStatusDto>();
+            CreateMap<QuizStatusDto, QuizStatus>();
+
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
+
+            CreateMap<Instructor, InstructorDto>();
+            CreateMap<InstructorDto, Instructor>();
+
+            CreateMap<ChapterStatus, ChapterStatusDto>();
+            CreateMap<ChapterStatusDto, ChapterStatus>();
         }
     }
 }

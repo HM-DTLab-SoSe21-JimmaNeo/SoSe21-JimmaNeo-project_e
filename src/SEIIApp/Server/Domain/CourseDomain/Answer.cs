@@ -4,8 +4,7 @@ namespace SEIIApp.Server.Domain.CourseDomain
 {
     public class Answer
     {
-        [Key]
-        public int AnswerId { get; set; }
+        [Key] public int AnswerId { get; set; }
 
         public string AnswerText { get; set; }
 

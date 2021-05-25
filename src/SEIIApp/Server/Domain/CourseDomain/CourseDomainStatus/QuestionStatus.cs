@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SEIIApp.Server.Domain.CourseDomain
+namespace SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus
 {
     public class QuestionStatus
     {
@@ -11,7 +11,7 @@ namespace SEIIApp.Server.Domain.CourseDomain
         public Question Question { get; set; }
 
         public int QuestionLevel { get; set; }
-        
+
         public DateTime LastAnswered { get; set; }
     }
 }

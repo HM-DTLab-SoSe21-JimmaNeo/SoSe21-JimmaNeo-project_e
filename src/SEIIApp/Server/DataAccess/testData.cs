@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using SEIIApp.Server.Domain.CourseDomain;
+using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
 
@@ -8,44 +10,34 @@ namespace SEIIApp.Server.DataAccess
 {
     public static class TestData
     {
-        public static void CreateTestData(QuizService qs, UserService us, CourseService cs, QuestionService questionService)
+        public static void CreateTestData(QuizService qs, UserService us, CourseService cs,
+            QuestionService questionService, QuestionStatusService questionStatusService, CourseStatusService courseStatusService)
         {
-            var testQuiz = new Quiz {QuizName = "Test Quiz", Questions = new List<Question>()};
+            var question1 = new Question() {QuestionText = "Frage 1"};
 
-            var q1 = new Question {QuestionText = "Wie geht's?", Answers = new List<Answer>()};
+            var student1 = new Student()
+                {UserName = "Peter", Password = "123", QuestionStatusList = new List<QuestionStatus>()};
 
-            var a1 = new Answer {AnswerText = "Gut", IsCorrect = true};
+            var student2 = new Student()
+                {UserName = "Hannah", Password = "456", QuestionStatusList = new List<QuestionStatus>()};
 
-            q1.Answers.Add(a1);
-            testQuiz.Questions.Add(q1);
+            var instructor1 = new Instructor() {UserName = "Hr. Meier", Password = "passwort"};
 
-            qs.AddQuiz(testQuiz);
+            var quiz1 = new Quiz() {QuizName = "1. Quiz", Questions = new List<Question>() {question1}};
 
-            var content1 = new Content {Path = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"};
+            var chapter1 = new Chapter() {ChapterName = "Chapter 1", ChapterQuiz = quiz1};
 
-            cs.AddContent(content1);
+            var course1 = new Course() {CourseName = "1. Course", Chapters = new List<Chapter>() {chapter1}};
 
-            var contentList = new List<Content> {content1};
-
-            var chapter1 = new Chapter
-                {ChapterName = "TestChapter", ChapterQuiz = testQuiz, ChapterContent = contentList};
-
-            cs.AddChapter(chapter1);
-
-            var chapterList = new List<Chapter> {chapter1};
-
-            var course1 = new Course {Chapters = chapterList, CourseName = "TestKurs"};
+            us.AddUser(student1);
+            us.AddUser(student2);
+            us.AddUser(instructor1);
 
             cs.AddCourse(course1);
 
-            var courseList = new List<Course> {course1};
+            questionStatusService.AddOrUpdateQuestionStatus(question1, student1, 1);
 
-
-            var u1 = new Student() {StudentName = "Peter", Password = "xyz",EnrolledCourses = courseList,QuestionStatusList = new List<QuestionStatus>()};
-
-            us.AddStudent(u1);
-
-            questionService.AddOrUpdateQuestionStatus(q1, u1, 1);
+            var xyz = questionStatusService.GetAllQuestionStatusOfUser(2);
         }
     }
 }

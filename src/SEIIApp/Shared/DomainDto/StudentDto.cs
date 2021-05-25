@@ -1,18 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Shared.DomainDto
 {
-    public class StudentDto
+    public class StudentDto : UserDto
     {
-        [Required]
-        public string StudentName { get; set; }
-        
-        public string Password { get; set; }
+        public CourseStatusDto[] EnrolledCourses { get; set; }
 
-        public CourseDto[] EnrolledCourses { get; set; }
-        
-        public int UserId { get; set; }
-        
+
         public QuestionStatusDto[] QuestionStatusList { get; set; }
     }
 }

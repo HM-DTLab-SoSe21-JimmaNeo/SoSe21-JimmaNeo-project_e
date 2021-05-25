@@ -29,15 +29,26 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<StudentDto> GetStudent([FromRoute] int id)
+        public ActionResult<StudentDto> GetUser([FromRoute] int id)
         {
-            var student = UserService.GetStudentById(id);
-            if(student == null) return StatusCode(StatusCodes.Status404NotFound);
+            var user = UserService.GetUserById(id);
+            if (user == null) return StatusCode(StatusCodes.Status404NotFound);
+            if (user.GetType() == typeof(Student))
+            {
+                var mappedStudent = Mapper.Map<StudentDto>(user);
+                return Ok(mappedStudent);
 
-            var mappedStudent = Mapper.Map<StudentDto>(student);
-            return Ok(mappedStudent);
+            }
+            else
+            {
+                var mappedStudent = Mapper.Map<InstructorDto>(user);
+                return Ok(mappedStudent);
+
+            }
+
+            
         }
-
+        
         /// <summary>
         /// Return Student by given Name and Password
         /// </summary>
@@ -48,14 +59,41 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<StudentDto> GetStudentByNameAndPw([FromQuery] string name, [FromQuery]string password)
+        public ActionResult<StudentDto> GetUserByNameAndPw([FromQuery] string name, [FromQuery] string password)
         {
-            var student = UserService.GetStudentByNameAndPw(name, password);
-            if(student == null) return StatusCode(StatusCodes.Status404NotFound);
+            var user = UserService.GetUserByNameAndPw(name, password);
+            if (user == null) return StatusCode(StatusCodes.Status404NotFound);
 
-            var mappedStudent = Mapper.Map<StudentDto>(student);
-            return Ok(mappedStudent);
+
+            if (user.GetType() == typeof(Student))
+            {
+                var mappedStudent = Mapper.Map<StudentDto>(user);
+                return Ok(mappedStudent);
+
+            }
+            else
+            {
+                var mappedStudent = Mapper.Map<InstructorDto>(user);
+                return Ok(mappedStudent);
+
+            }
+            
+
+            
+            
         }
-        
+
+        /// <summary>
+        /// Returns all users who are students
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("~/allstudents")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<StudentDto[]> GetAllStudents()
+        {
+            var students = UserService.GetAllStudents();
+            var mapped = Mapper.Map<StudentDto[]>(students);
+            return Ok(mapped);
+        }
     }
 }

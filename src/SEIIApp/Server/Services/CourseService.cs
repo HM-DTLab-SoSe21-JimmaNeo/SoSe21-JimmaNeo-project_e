@@ -18,59 +18,70 @@ namespace SEIIApp.Server.Services
             this.Mapper = m;
         }
 
+        /// <summary>
+        /// Database Query for Courses
+        /// </summary>
+        /// <returns></returns>
         private IQueryable<Course> GetQueryableForCourse()
         {
             return DatabaseContext
                 .Courses
-                .Include(x => x.Chapters)
-                .ThenInclude(x => x.ChapterQuiz)
-                ;
+                .Include(x => x.Chapters);
         }
 
-        private IQueryable<Chapter> GetQueryableForChapter()
-        {
-            return DatabaseContext.Chapters;
-        }
-
-        private IQueryable<Content> GetQueryableForContent()
-        {
-            return DatabaseContext.Contents;
-        }
-
-        public Course AddCourse(Course newCourse)
-        {
-            DatabaseContext.Courses.Add(newCourse);
-            DatabaseContext.SaveChanges();
-            return newCourse;
-        }
-
-        public Chapter AddChapter(Chapter newChapter)
-        {
-            DatabaseContext.Chapters.Add(newChapter);
-            DatabaseContext.SaveChanges();
-            return newChapter;
-        }
-
-        public Content AddContent(Content newContent)
-        {
-            DatabaseContext.Contents.Add(newContent);
-            DatabaseContext.SaveChanges();
-            return newContent;
-        }
-
+        /// <summary>
+        /// Return Course By given Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Course GetCourseById(int id)
         {
             return GetQueryableForCourse().FirstOrDefault(x => x.CourseId == id);
         }
 
-        public Chapter GetChapterById(int id)
+        /// <summary>
+        /// Add a new course
+        /// </summary>
+        /// <param name="course"></param>
+        /// <returns></returns>
+        public Course AddCourse(Course course)
         {
-            return GetQueryableForChapter().FirstOrDefault(x => x.ChapterId == id);
+            DatabaseContext.Courses.Add(course);
+            DatabaseContext.SaveChanges();
+            return course;
         }
 
-        public Content GetContentById(int id)
+        /// <summary>
+        /// Update a given course
+        /// </summary>
+        /// <param name="newCourse"></param>
+        /// <returns></returns>
+        public Course UpdateCourse(Course newCourse)
         {
-            return GetQueryableForContent().FirstOrDefault(x => x.ContentId == id);
+            var existingCourse = GetCourseById(newCourse.CourseId);
+
+            Mapper.Map(newCourse, existingCourse);
+            DatabaseContext.SaveChanges();
+            return existingCourse;
+        }
+
+        /// <summary>
+        /// Removes a given course from database
+        /// </summary>
+        /// <param name="course"></param>
+        public void RemoveCourse(Course course)
+        {
+            DatabaseContext.Courses.Remove(course);
+            DatabaseContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Returns Array of all Courses in the database
+        /// </summary>
+        /// <returns></returns>
+        public Course[] GetAllCourses()
+        {
+            return GetQueryableForCourse().ToArray();
         }
     }
 }

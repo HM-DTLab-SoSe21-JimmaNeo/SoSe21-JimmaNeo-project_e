@@ -5,7 +5,6 @@ namespace SEIIApp.Server.Domain.UserDomain
 {
     public class Instructor : User
     {
-        public List<Course> ManagedCourses { get; set; }
 
     }
 }
