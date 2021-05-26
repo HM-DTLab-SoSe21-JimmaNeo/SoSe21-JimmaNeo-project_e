@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using SEIIApp.Server.Services.StatusServices;
 
 
 namespace SEIIApp.Server
@@ -82,10 +83,10 @@ namespace SEIIApp.Server
             services.AddScoped<Services.CourseService>();
             services.AddScoped<Services.QuestionService>();
             services.AddScoped<Services.ChapterService>();
-            services.AddScoped<Services.ChapterStatusService>();
-            services.AddScoped<Services.QuestionStatusService>();
-            services.AddScoped<Services.CourseStatusService>();
-            services.AddScoped<Services.QuizStatusService>();
+            services.AddScoped<ChapterStatusService>();
+            services.AddScoped<QuestionStatusService>();
+            services.AddScoped<CourseStatusService>();
+            services.AddScoped<QuizStatusService>();
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -99,8 +100,8 @@ namespace SEIIApp.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService, Services.QuestionService questionService,
-            Services.ChapterService chapterService, Services.ChapterStatusService chapterStatusService, Services.QuestionStatusService questionStatusService,
-            Services.CourseStatusService courseStatusService, Services.QuizStatusService quizStatusService)
+            Services.ChapterService chapterService, ChapterStatusService chapterStatusService, QuestionStatusService questionStatusService,
+            CourseStatusService courseStatusService, QuizStatusService quizStatusService)
         {
             if (env.IsDevelopment())
             {

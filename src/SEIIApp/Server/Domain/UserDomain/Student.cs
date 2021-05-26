@@ -11,6 +11,10 @@ namespace SEIIApp.Server.Domain.UserDomain
 
         public List<QuestionStatus> QuestionStatusList { get; set; }
         
+        public List<ChapterStatus> ChapterStatuslist { get; set; }
+        
+        public List<QuizStatus> QuizStatusList { get; set; }
+        
         
     }
 }

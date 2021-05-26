@@ -22,10 +22,11 @@ namespace SEIIApp.Server.Services
         {
             return DatabaseContext
                 .Chapters
-                .Include(x => x.ChapterName)
+                //.Include(x => x.ChapterName)
                 .Include(x => x.ChapterQuiz)
                 .Include(x => x.ChapterContent)
-                .ThenInclude(y => y.ContentName);
+                //.ThenInclude(y => y.ContentName)
+                ;
         }
 
         public Chapter GetChapterById(int id)

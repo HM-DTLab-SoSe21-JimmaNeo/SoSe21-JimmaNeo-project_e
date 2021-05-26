@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
+using SEIIApp.Server.Services.StatusServices;
 using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Controllers

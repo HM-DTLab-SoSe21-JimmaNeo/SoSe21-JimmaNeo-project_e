@@ -10,7 +10,9 @@ namespace SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus
         public Chapter Chapter { get; set; }
 
         public bool Finished { get; set; }
+        
+        public DateTime LastWorkedOn { get; set; }
 
-        public QuizStatus QuizStatus { get; set; }
+        //public QuizStatus QuizStatus { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using SEIIApp.Server.Domain.CourseDomain;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
+using SEIIApp.Server.Services.StatusServices;
 
 namespace SEIIApp.Server.DataAccess
 {

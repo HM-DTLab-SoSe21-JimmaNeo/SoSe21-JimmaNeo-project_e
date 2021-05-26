@@ -9,5 +9,9 @@ namespace SEIIApp.Shared.DomainDto
 
 
         public QuestionStatusDto[] QuestionStatusList { get; set; }
+        
+        public ChapterStatusDto[] ChapterStatuslist { get; set; }
+        
+        public QuizStatusDto[] QuizStatusList { get; set; }
     }
 }

@@ -35,7 +35,11 @@ namespace SEIIApp.Server.Services
                 .Include(x => x.QuestionStatusList)
                 .ThenInclude(x => x.Question)
                 .Include(x => x.EnrolledCourses)
-                .ThenInclude(a => a.Course);
+                .ThenInclude(a => a.Course)
+                .Include(x => x.ChapterStatuslist)
+                .ThenInclude(x => x.Chapter)
+                .Include(x => x.QuizStatusList)
+                .ThenInclude(x => x.Quiz);
         }
         
         public User GetUserById(int id)

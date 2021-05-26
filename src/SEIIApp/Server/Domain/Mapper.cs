@@ -38,12 +38,20 @@ namespace SEIIApp.Server.Domain
                 .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToArray()))
                 .ForMember(x => x.QuestionStatusList,
-                    y => y.MapFrom(z => z.QuestionStatusList.ToArray()));
+                    y => y.MapFrom(z => z.QuestionStatusList.ToArray()))
+                .ForMember(x => x.ChapterStatuslist,
+                    y => y.MapFrom(z => z.ChapterStatuslist.ToArray()))
+                .ForMember(x => x.QuizStatusList,
+                    y => y.MapFrom(z => z.QuizStatusList.ToArray()));
             CreateMap<StudentDto, Student>()
                 .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToList()))
                 .ForMember(x => x.QuestionStatusList,
-                    y => y.MapFrom(z => z.QuestionStatusList.ToList()));
+                    y => y.MapFrom(z => z.QuestionStatusList.ToList()))
+                .ForMember(x => x.ChapterStatuslist,
+                    y => y.MapFrom(z => z.ChapterStatuslist.ToList()))
+                .ForMember(x => x.QuizStatusList,
+                    y => y.MapFrom(z => z.QuizStatusList.ToList()));
 
             CreateMap<Content, ContentDto>();
             CreateMap<ContentDto, Content>();
@@ -66,11 +74,11 @@ namespace SEIIApp.Server.Domain
             CreateMap<QuestionStatusDto, QuestionStatus>();
 
             CreateMap<CourseStatus, CourseStatusDto>()
-                .ForMember(x => x.ChapterStatusList,
-                    y => y.MapFrom(z => z.ChapterStatusList.ToArray()));
+                /*.ForMember(x => x.ChapterStatusList,
+                    y => y.MapFrom(z => z.ChapterStatusList.ToArray()))*/;
             CreateMap<CourseStatusDto, CourseStatus>()
-                .ForMember(x => x.ChapterStatusList,
-                    y => y.MapFrom(z => z.ChapterStatusList.ToList()));
+                /*.ForMember(x => x.ChapterStatusList,
+                    y => y.MapFrom(z => z.ChapterStatusList.ToList()))*/;
 
             CreateMap<QuizStatus, QuizStatusDto>();
             CreateMap<QuizStatusDto, QuizStatus>();

@@ -7,7 +7,8 @@ namespace SEIIApp.Shared.DomainDto.StatusDto
         public ChapterDto Chapter { get; set; }
 
         public bool Finished { get; set; }
-
-        public QuizStatusDto QuizStatus { get; set; }
+        
+        public DateTime LastWorkedOn { get; set; }
+        
     }
 }

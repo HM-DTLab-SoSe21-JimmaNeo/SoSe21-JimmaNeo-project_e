@@ -4,6 +4,21 @@
         <name>SEIIApp.Server</name>
     </assembly>
     <members>
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetChapterStatusById(System.Int32)">
+            <summary>
+            Get a ChapterStatus by chapterStatusId
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.AddOrUpdateChapterStatus(System.Int32,System.Int32)">
+            <summary>
+            Add or update a chapterStatus for a given chapter and user
+            </summary>
+            <param name="chapterId"></param>
+            <param name="studentId"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
             <summary>
             Get a course by id
@@ -24,9 +39,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddCourseStatus(System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(System.Int32,System.Int32)">
             <summary>
-            Adds a course status (= enroll a student in a course)
+            Adds or updates a course status (= enroll a student in a course or set new finishStatus or LastWorkedOn)
             </summary>
             <param name="courseId"></param>
             <param name="studentId"></param>
@@ -44,6 +59,12 @@
             Get all enrolled courses for a student by his userid
             </summary>
             <param name="studentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetLastCourseStatusWorkedOn(System.Int32)">
+            <summary>
+            Get the CourseStatus for the last course a student worked on 
+            </summary>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetQuestionStatusById(System.Int32)">
@@ -75,6 +96,22 @@
             Get all QuestionStatus for a user by id
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizStatusController.AddOrUpdateQuizStatus(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Add or update a quiz status for a quiz and a student. finished (true/false) required.
+            </summary>
+            <param name="quizId"></param>
+            <param name="studentId"></param>
+            <param name="finished"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizStatusController.GetQuizStatusById(System.Int32)">
+            <summary>
+            Get Course Status by Id
+            </summary>
+            <param name="quizStatusId"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.UserController.GetUser(System.Int32)">
