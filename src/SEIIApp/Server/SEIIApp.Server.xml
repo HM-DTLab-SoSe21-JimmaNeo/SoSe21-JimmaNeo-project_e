@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SEIIApp.Server</name>
+    </assembly>
+    <members>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetQuiz(System.Int32)">
+            <summary>
+            Return the quiz with the given id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.GetAllQuizes">
+            <summary>
+            Returns all quizzes names and ids.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.AddOrUpdateQuiz(SEIIApp.Shared.DomainTdo.QuizDefinitionDto)">
+            <summary>
+            Adds or updates a quiz definition.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizDefinitionController.DeleteQuiz(System.Int32)">
+            <summary>
+            Removes a quiz definition.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataGenerator.CreateQuizDefinition(System.Int32,System.Int32)">
+            <summary>
+            Creates a test quiz definition, with the number of questions and the number of answers per question defined
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.DataAccess.TestDataInitializer.InitializeTestData(SEIIApp.Server.Services.QuizDefinitionService)">
+            <summary>
+            Initialze test data (just for in-memory database)
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetAllQuizzes">
+            <summary>
+            Returns all quiz definitions. Includes also questions and their answers.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.GetQuizWithId(System.Int32)">
+            <summary>
+            Returns the quiz with the given id. Includes also questions and their answers.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.AddQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Adds a quiz.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.UpdateQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Updates a quiz.
+            </summary>
+        </member>
+        <member name="M:SEIIApp.Server.Services.QuizDefinitionService.RemoveQuiz(SEIIApp.Server.Domain.QuizDefinition)">
+            <summary>
+            Removes a quiz and all dependencies.
+            </summary>
+        </member>
+    </members>
+</doc>

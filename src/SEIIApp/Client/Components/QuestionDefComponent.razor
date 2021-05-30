@@ -1,0 +1,55 @@
+﻿
+
+<h3>Question</h3>
+@{ 
+    if (QuestionDefinitionDto != null) {
+    <EditForm Model="QuestionDefinitionDto">
+        <DataAnnotationsValidator/>
+
+        <label>Question Text</label>
+        <InputText @bind-Value="QuestionDefinitionDto.QuestionText" />
+        <ValidationSummary />
+
+        @foreach (var a in QuestionDefinitionDto.Answers) {
+            <AnswerDefComponent AnswerDefinitionDto="a"></AnswerDefComponent>
+            <button class="btn btn-light btn-sm" @onclick="() => RemoveAnswer(a)">Remove Answer</button>
+        }
+
+        <button class="btn btn-light btn-sm" @onclick="AddAnswer">Add Answer</button>
+
+    </EditForm>
+    }
+    else {
+            <label>Loading Question Definition ...</label>
+        }
+    }
+
+@code {
+
+    [Parameter]
+    public QuestionDefinitionDto QuestionDefinitionDto { get; set; }
+
+    protected override void OnParametersSet() {
+        base.OnParametersSet();
+
+        InitiQuestionDefintionDto();
+    }
+
+    private void InitiQuestionDefintionDto() {
+        if (QuestionDefinitionDto.Answers == null)
+            QuestionDefinitionDto.Answers = Array.Empty<AnswerDefinitionDto>();
+
+    }
+
+    private void AddAnswer() {
+        QuestionDefinitionDto.Answers = QuestionDefinitionDto.Answers.Concat(new AnswerDefinitionDto[] {
+            new AnswerDefinitionDto()
+        }).ToArray();
+    }
+
+    private void RemoveAnswer(AnswerDefinitionDto answer) {
+        QuestionDefinitionDto.Answers = QuestionDefinitionDto.Answers.Where(a => a != answer).ToArray();
+    }
+
+
+}

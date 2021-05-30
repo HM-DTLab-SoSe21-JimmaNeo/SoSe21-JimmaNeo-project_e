@@ -1,0 +1,88 @@
+﻿@page "/quizdefedit/{QuizId:int}"
+
+@inject Services.QuizDefinitionBackendAccessService QuizDefinitionService
+
+<h3>Quiz Definitions Editor</h3>
+
+@if (QuizDefinitionDto != null) {
+
+<EditForm EditContext="@context" OnSubmit="OnSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+
+    <label>Quiz Name</label>
+    <InputText @bind-Value="QuizDefinitionDto.QuizName" />
+
+    @foreach (var question in QuizDefinitionDto.Questions) {
+        <div class="card">
+            <div class="card-body">
+                <!-- Component for questions in quiz -->
+                <QuestionDefComponent QuestionDefinitionDto="question"></QuestionDefComponent>
+                <button class="btn btn-light btn-sm" @onclick="() => RemoveQuestion(question)">Remove Question</button>
+            </div>
+        </div>
+    }
+
+    <ValidationSummary />
+
+    <button class="btn btn-light btn-sm" @onclick="AddQuestion">Add Question</button>
+    <button class="btn btn-light" @onclick="SaveQuizToBackend">Save Complete Quiz</button>
+</EditForm>
+
+    }
+else {
+    <h5>Quiz definition in loading (or not found) ...</h5>
+}
+
+@code { 
+
+    [Parameter]
+    public int QuizId { get; set; }
+
+    public QuizDefinitionDto QuizDefinitionDto { get; set; }
+
+    private EditContext context { get; set; }
+
+    protected override async Task OnParametersSetAsync() {
+        if (QuizId != 0) {
+            var existingQuiz = await QuizDefinitionService.GetQuizById(QuizId);
+            PrepareEditOrAddOfQuizDefinition(existingQuiz);
+        }
+        else {
+            PrepareEditOrAddOfQuizDefinition(new QuizDefinitionDto());
+        }
+        await base.OnParametersSetAsync();
+
+        context = new EditContext(QuizDefinitionDto);
+    }
+
+    private void PrepareEditOrAddOfQuizDefinition(QuizDefinitionDto q) {
+        if (q.Questions == null) q.Questions = Array.Empty<QuestionDefinitionDto>();
+        this.QuizDefinitionDto = q;
+    }
+
+    private void AddQuestion() {
+        //Add element to question definition array
+        QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Concat(new QuestionDefinitionDto[] {
+            new QuestionDefinitionDto()
+        }).ToArray();
+    }
+
+    private void RemoveQuestion(QuestionDefinitionDto question) {
+        QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Where(q => q != question).ToArray();
+    }
+
+    private void OnSubmit(EditContext context) {
+
+    }
+
+    private async void SaveQuizToBackend() {
+        var isValid = context.Validate();
+        if (isValid) {
+            var answer = await QuizDefinitionService.AddOrUpdateQuiz(QuizDefinitionDto);
+            if (answer != null) {
+                this.QuizDefinitionDto.Id = answer.Id; //refresh id (if created)
+            }
+        }
+    }
+
+}

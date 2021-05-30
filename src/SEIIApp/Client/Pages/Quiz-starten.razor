@@ -1,0 +1,21 @@
+﻿@page "/quizstart"
+@inject Services.QuizDefinitionBackendAccessService QuizDefinitionService
+@inject NavigationManager NavigationManager
+
+<h3>@Quizzes[0].QuizName</h3>
+
+
+
+
+@code {
+
+    public QuizDefinitionBaseDto[] Quizzes { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Quizzes = await QuizDefinitionService.GetQuizOverview();
+    }
+
+
+}

@@ -1,0 +1,25 @@
+﻿<h5>Answer Definition</h5>
+
+<EditForm Model="AnswerDefinitionDto">
+    <DataAnnotationsValidator />
+
+    <InputText @bind-Value="AnswerDefinitionDto.AnswerText" />
+
+    <label>Is correct answer?</label>
+    <InputCheckbox @bind-Value="AnswerDefinitionDto.IsCorrectAnswer"></InputCheckbox>
+
+    <ValidationSummary />
+</EditForm>
+
+    @code {
+
+        [Parameter]
+        public AnswerDefinitionDto AnswerDefinitionDto { get; set; }
+
+        protected override void OnInitialized() {
+            base.OnInitialized();
+
+
+        }
+
+    }
