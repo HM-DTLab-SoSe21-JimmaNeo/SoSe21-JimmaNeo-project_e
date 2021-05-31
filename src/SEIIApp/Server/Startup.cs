@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using SEIIApp.Server.Services;
 using SEIIApp.Server.Services.StatusServices;
 
 
@@ -87,6 +88,7 @@ namespace SEIIApp.Server
             services.AddScoped<QuestionStatusService>();
             services.AddScoped<CourseStatusService>();
             services.AddScoped<QuizStatusService>();
+            services.AddScoped<ContentService>();
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -101,7 +103,7 @@ namespace SEIIApp.Server
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService, Services.QuestionService questionService,
             Services.ChapterService chapterService, ChapterStatusService chapterStatusService, QuestionStatusService questionStatusService,
-            CourseStatusService courseStatusService, QuizStatusService quizStatusService)
+            CourseStatusService courseStatusService, QuizStatusService quizStatusService, ContentService contentService)
         {
             if (env.IsDevelopment())
             {

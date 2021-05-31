@@ -61,6 +61,7 @@ namespace SEIIApp.Server.Services
             var existingCourse = GetCourseById(newCourse.CourseId);
 
             Mapper.Map(newCourse, existingCourse);
+            DatabaseContext.Courses.Update(existingCourse);
             DatabaseContext.SaveChanges();
             return existingCourse;
         }

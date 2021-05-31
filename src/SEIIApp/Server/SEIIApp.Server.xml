@@ -19,6 +19,20 @@
             <param name="studentId"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.ContentController.AddOrUpdateCourse(SEIIApp.Shared.DomainDto.ContentDto)">
+            <summary>
+            Update or Add a course
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ContentController.GetContent(System.Int32)">
+            <summary>
+            Get content by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
             <summary>
             Get a course by id
@@ -109,7 +123,7 @@
         </member>
         <member name="M:SEIIApp.Server.Controllers.QuizStatusController.GetQuizStatusById(System.Int32)">
             <summary>
-            Get Course Status by Id
+            Get Quiz Status by Id
             </summary>
             <param name="quizStatusId"></param>
             <returns></returns>

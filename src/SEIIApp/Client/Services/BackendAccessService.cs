@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using SEIIApp.Shared.DomainDto;
@@ -26,7 +27,7 @@ namespace SEIIApp.Client.Services
 
         public async Task<StudentDto> GetStudentById(int id)
         {
-            return await HttpClient.GetFromJsonAsync<StudentDto>( GetUrlWithId(id));
+            return await HttpClient.GetFromJsonAsync<StudentDto>(GetUrlWithId(id));
         }
 
         public async Task<StudentDto> GetStudentByNameAndPw(string name, string pw)
@@ -38,6 +39,17 @@ namespace SEIIApp.Client.Services
             }
 
             return null;
+        }
+
+        public async Task<bool> UploadContentFile(ContentDto entryFile)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/content", entryFile);
+            return response.StatusCode == System.Net.HttpStatusCode.OK;
+        }
+
+        public async Task<ContentDto> GetContentById(int id)
+        {
+            return await HttpClient.GetFromJsonAsync<ContentDto>($"api/content/{id}");
         }
     }
 }

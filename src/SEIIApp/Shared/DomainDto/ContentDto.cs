@@ -9,5 +9,7 @@ namespace SEIIApp.Shared.DomainDto
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public string ContentName { get; set; }
+        
+        public int ContentId { get; set; }
     }
 }
