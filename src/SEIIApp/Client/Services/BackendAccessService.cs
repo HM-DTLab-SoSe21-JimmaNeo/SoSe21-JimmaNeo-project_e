@@ -51,5 +51,10 @@ namespace SEIIApp.Client.Services
         {
             return await HttpClient.GetFromJsonAsync<ContentDto>($"api/content/{id}");
         }
+
+        public async Task<ContentDto[]> GetAllContent()
+        {
+            return await HttpClient.GetFromJsonAsync<ContentDto[]>("api/content");
+        }
     }
 }

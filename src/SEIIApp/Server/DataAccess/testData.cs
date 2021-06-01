@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using AutoMapper;
 using SEIIApp.Server.Domain.CourseDomain;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
 using SEIIApp.Server.Services.StatusServices;
+using SEIIApp.Shared.DomainDto;
 
 namespace SEIIApp.Server.DataAccess
 {
     public static class TestData
     {
         public static void CreateTestData(QuizService qs, UserService us, CourseService cs,
-            QuestionService questionService, QuestionStatusService questionStatusService, CourseStatusService courseStatusService)
+            QuestionService questionService, QuestionStatusService questionStatusService, CourseStatusService courseStatusService, ContentService contentService)
         {
             var question1 = new Question() {QuestionText = "Frage 1"};
 
@@ -39,6 +41,35 @@ namespace SEIIApp.Server.DataAccess
             questionStatusService.AddOrUpdateQuestionStatus(question1, student1, 1);
 
             var xyz = questionStatusService.GetAllQuestionStatusOfUser(2);
+
+            string stringResult;
+            
+            var filePath1 =
+                @"examplefiles\Musterbogen_EingangstestatKUM-LS-BLS2-KS.pdf";
+
+            Byte[] bytes = File.ReadAllBytes(filePath1);
+
+            String dataurl = $"data:pdf;base64,{Convert.ToBase64String(bytes)}";
+
+            var filePath2 =
+                @"examplefiles\Working Backwards PR 1-pager.pdf";
+             
+            Byte[] bytes2 = File.ReadAllBytes(filePath2);
+            
+            String dataurl2 = $"data:pdf;base64,{Convert.ToBase64String(bytes2)}";
+          
+
+            Content file1 = new Content() {ContentName = "Musterbogen_EingangstestatKUM-LS-BLS2-KS", Path = dataurl};
+            
+            Content file2 = new Content() {ContentName = "Working Backwards PR 1-pager", Path = dataurl2};
+
+            contentService.AddContent(file1);
+            contentService.AddContent(file2);
+
+
+
+
+
         }
     }
 }

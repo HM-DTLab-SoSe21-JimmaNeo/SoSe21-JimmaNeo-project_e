@@ -16,15 +16,18 @@
 
 
 <br/>
-<p>ID des gesuchten Content:</p>
-<p>
-    <input type="text"
-           @bind-value="downloadId"
-           @bind-value:event="oninput"/>
-</p>
 <br/>
-<button class="btn btn-primary" @onclick="DownloadContent">Download</button>
 
+@{ if (allContent?.Length > 0)
+    {
+        <ol>
+            @foreach (var content in allContent)
+            {
+                <li>@content.ContentName <button class="btn btn-primary" @onclick="() => DownloadContent(content)">Download</button></li>
+            }
+        </ol>
+        }
+}
 
 @code {
 
@@ -32,11 +35,11 @@
 
     public ContentDto newContent = new ContentDto();
 
-    private ContentDto getContent;
-
     private PdfLoadedDocument loadedDocument;
 
     private string downloadId;
+
+    private ContentDto[] allContent;
 
     private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
     {
@@ -53,16 +56,25 @@
         newContent.ContentName = file.Name;
 
         await BackendAccessService.UploadContentFile(newContent);
+        allContent = await BackendAccessService.GetAllContent();
     }
 
-    private async void DownloadContent()
+    private async void DownloadContent(ContentDto contentDto)
     {
-        int downloadIdAsInt = Convert.ToInt32(downloadId);
-        getContent = await BackendAccessService.GetContentById(downloadIdAsInt);
+    
+        
+    //int downloadIdAsInt = Convert.ToInt32(downloadId);
+        var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
 
         string[] base64String = getContent.Path.Split(',');
 
         await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        allContent = await BackendAccessService.GetAllContent();
     }
 
 

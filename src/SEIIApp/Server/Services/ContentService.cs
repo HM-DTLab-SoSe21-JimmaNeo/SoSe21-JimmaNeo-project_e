@@ -44,5 +44,10 @@ namespace SEIIApp.Server.Services
             DatabaseContext.SaveChanges();
             return existingContent;
         }
+
+        public Content[] GetAllContent()
+        {
+            return GetQueryableForContent().ToArray();
+        }
     }
 }

@@ -22,14 +22,14 @@ namespace SEIIApp.Server.Controllers
         }
         
         /// <summary>
-        /// Update or Add a course
+        /// Update or Add content
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ContentDto> AddOrUpdateCourse([FromBody] ContentDto model)
+        public ActionResult<ContentDto> AddOrUpdateContent([FromBody] ContentDto model)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +68,19 @@ namespace SEIIApp.Server.Controllers
             var mappedCourse = Mapper.Map<ContentDto>(content);
 
             return Ok(mappedCourse);
+        }
+        
+        /// <summary>
+        /// Get all content
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<ContentDto[]> GetAllContent()
+        {
+            var content = ContentService.GetAllContent();
+            var mapped = Mapper.Map<ContentDto[]>(content);
+            return Ok(mapped);
         }
         
     }

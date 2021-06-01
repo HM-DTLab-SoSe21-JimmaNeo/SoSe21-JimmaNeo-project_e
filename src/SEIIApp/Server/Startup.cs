@@ -145,7 +145,7 @@ namespace SEIIApp.Server
             });
             
 #if DEBUG
-            TestData.CreateTestData(quizService, userService, courseService, questionService, questionStatusService, courseStatusService);
+            TestData.CreateTestData(quizService, userService, courseService, questionService, questionStatusService, courseStatusService, contentService);
 #endif
         }
     }

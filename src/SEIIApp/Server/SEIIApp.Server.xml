@@ -19,9 +19,9 @@
             <param name="studentId"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.ContentController.AddOrUpdateCourse(SEIIApp.Shared.DomainDto.ContentDto)">
+        <member name="M:SEIIApp.Server.Controllers.ContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.ContentDto)">
             <summary>
-            Update or Add a course
+            Update or Add content
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -31,6 +31,12 @@
             Get content by id
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ContentController.GetAllContent">
+            <summary>
+            Get all content
+            </summary>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
