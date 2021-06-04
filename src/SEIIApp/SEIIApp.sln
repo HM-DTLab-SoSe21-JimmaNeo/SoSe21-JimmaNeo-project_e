@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEIIApp.Server", "Server\SEIIApp.Server.csproj", "{88335715-145F-4E52-9AF4-6BBD5726755B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEIIApp.Server", "Server\SEIIApp.Server.csproj", "{88335715-145F-4E52-9AF4-6BBD5726755B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEIIApp.Client", "Client\SEIIApp.Client.csproj", "{2E9ACBF8-3294-4AC2-A3E4-22F487C700BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEIIApp.Client", "Client\SEIIApp.Client.csproj", "{2E9ACBF8-3294-4AC2-A3E4-22F487C700BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEIIApp.Shared", "Shared\SEIIApp.Shared.csproj", "{B2B00248-57F1-4B28-9037-8305CFA7E439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEIIApp.Shared", "Shared\SEIIApp.Shared.csproj", "{B2B00248-57F1-4B28-9037-8305CFA7E439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

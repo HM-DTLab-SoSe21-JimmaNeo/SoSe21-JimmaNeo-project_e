@@ -1,0 +1,85 @@
+﻿@page "/UploadFileTest"
+@using System.Net.Mime
+@using SEIIApp.Shared.DomainDto
+@using Syncfusion.Pdf
+@using Syncfusion.Pdf.Graphics;
+@using Syncfusion.Pdf.Parsing
+@using System.IO
+@using System.Reflection.Metadata
+@using System.Runtime.InteropServices
+@inject Services.BackendAccessService BackendAccessService
+@inject IJSRuntime JsRuntime
+<h3>UploadFileTest</h3>
+
+<InputFile OnChange="OnInputFileChanged"></InputFile>
+
+
+
+<br/>
+<br/>
+
+@{ if (allContent?.Length > 0)
+    {
+        <ol>
+            @foreach (var content in allContent)
+            {
+                <li>@content.ContentName <button class="btn btn-primary" @onclick="() => DownloadContent(content)">Download</button></li>
+            }
+        </ol>
+        }
+}
+
+@code {
+
+    public string dataurl { get; set; }
+
+    public ContentDto newContent = new ContentDto();
+
+    private PdfLoadedDocument loadedDocument;
+
+    private string downloadId;
+
+    private ContentDto[] allContent;
+
+    private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
+    {
+        var file = inputFileChangeEventArgs.File;
+
+
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+
+
+        dataurl = $"data:pdf;base64,{Convert.ToBase64String(buffer)}";
+
+        newContent.Path = dataurl;
+        newContent.ContentName = file.Name;
+
+        await BackendAccessService.UploadContentFile(newContent);
+        allContent = await BackendAccessService.GetAllContent();
+    }
+
+    private async void DownloadContent(ContentDto contentDto)
+    {
+    
+        
+    //int downloadIdAsInt = Convert.ToInt32(downloadId);
+        var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
+
+        string[] base64String = getContent.Path.Split(',');
+
+        await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        allContent = await BackendAccessService.GetAllContent();
+    }
+
+
+
+
+
+
+}
