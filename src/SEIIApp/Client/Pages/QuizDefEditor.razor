@@ -1,6 +1,7 @@
 ﻿@page "/quizdefedit/{QuizId:int}"
+@using SEIIApp.Shared.DomainDto
 
-@inject Services.QuizDefinitionBackendAccessService QuizDefinitionService
+@inject Services.BackendAccessService QuizDefinitionService
 
 <center><h3>Quiz Definitions Editor</h3></center>
 <br />
@@ -44,36 +45,36 @@ else {
     [Parameter]
     public int QuizId { get; set; }
 
-    public QuizDefinitionDto QuizDefinitionDto { get; set; }
+    public QuizDto QuizDefinitionDto { get; set; }
 
     private EditContext context { get; set; }
 
     protected override async Task OnParametersSetAsync() {
         if (QuizId != 0) {
-            var existingQuiz = await QuizDefinitionService.GetQuizById(QuizId);
-            PrepareEditOrAddOfQuizDefinition(existingQuiz);
+            //var existingQuiz = await QuizDefinitionService.GetQuizById(QuizId);
+            //PrepareEditOrAddOfQuizDefinition(existingQuiz);
         }
         else {
-            PrepareEditOrAddOfQuizDefinition(new QuizDefinitionDto());
+            PrepareEditOrAddOfQuizDefinition(new QuizDto());
         }
         await base.OnParametersSetAsync();
 
         context = new EditContext(QuizDefinitionDto);
     }
 
-    private void PrepareEditOrAddOfQuizDefinition(QuizDefinitionDto q) {
-        if (q.Questions == null) q.Questions = Array.Empty<QuestionDefinitionDto>();
+    private void PrepareEditOrAddOfQuizDefinition(QuizDto q) {
+        if (q.Questions == null) q.Questions = Array.Empty<QuestionDto>();
         this.QuizDefinitionDto = q;
     }
 
     private void AddQuestion() {
         //Add element to question definition array
-        QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Concat(new QuestionDefinitionDto[] {
-            new QuestionDefinitionDto()
+        QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Concat(new QuestionDto[] {
+            new QuestionDto()
         }).ToArray();
     }
 
-    private void RemoveQuestion(QuestionDefinitionDto question) {
+    private void RemoveQuestion(QuestionDto question) {
         QuizDefinitionDto.Questions = QuizDefinitionDto.Questions.Where(q => q != question).ToArray();
     }
 
@@ -84,9 +85,9 @@ else {
     private async void SaveQuizToBackend() {
         var isValid = context.Validate();
         if (isValid) {
-            var answer = await QuizDefinitionService.AddOrUpdateQuiz(QuizDefinitionDto);
-            if (answer != null) {
-                this.QuizDefinitionDto.Id = answer.Id; //refresh id (if created)
+            //var answer = await QuizDefinitionService.AddOrUpdateQuiz(QuizDefinitionDto);
+            //if (answer != null) {
+           //     this.QuizDefinitionDto.Id = answer.Id; //refresh id (if created)
             }
         }
     }
