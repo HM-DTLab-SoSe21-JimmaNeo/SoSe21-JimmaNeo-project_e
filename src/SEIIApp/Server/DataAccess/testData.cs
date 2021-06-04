@@ -19,12 +19,12 @@ namespace SEIIApp.Server.DataAccess
             var question1 = new Question() {QuestionText = "Frage 1"};
 
             var student1 = new Student()
-                {UserName = "Peter", Password = "123", QuestionStatusList = new List<QuestionStatus>()};
+                {UserName = "Peter", Password = "123", QuestionStatusList = new List<QuestionStatus>(),adminRights = false, EnrolledCourses = new List<CourseStatus>()};
 
             var student2 = new Student()
-                {UserName = "Hannah", Password = "456", QuestionStatusList = new List<QuestionStatus>()};
+                {UserName = "Hannah", Password = "456", QuestionStatusList = new List<QuestionStatus>(), adminRights = false};
 
-            var instructor1 = new Instructor() {UserName = "Hr. Meier", Password = "passwort"};
+            var instructor1 = new Instructor() {UserName = "Hr. Meier", Password = "passwort",adminRights = true};
 
             var quiz1 = new Quiz() {QuizName = "1. Quiz", Questions = new List<Question>() {question1}};
 
@@ -66,7 +66,7 @@ namespace SEIIApp.Server.DataAccess
             contentService.AddContent(file1);
             contentService.AddContent(file2);
 
-
+            courseStatusService.AddOrUpdateCourseStatus(course1, student1);
 
 
 

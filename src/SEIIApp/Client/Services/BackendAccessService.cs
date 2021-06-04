@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using SEIIApp.Shared.DomainDto;
+using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Client.Services
 {
@@ -30,12 +31,12 @@ namespace SEIIApp.Client.Services
             return await HttpClient.GetFromJsonAsync<StudentDto>(GetUrlWithId(id));
         }
 
-        public async Task<StudentDto> GetStudentByNameAndPw(string name, string pw)
+        public async Task<UserDto> GetUserByNameAndPw(string name, string pw)
         {
             var response = await HttpClient.GetAsync($"api/users?name={name}&password={pw}");
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<StudentDto>();
+                return await response.Content.ReadFromJsonAsync<UserDto>();
             }
 
             return null;
@@ -55,6 +56,17 @@ namespace SEIIApp.Client.Services
         public async Task<ContentDto[]> GetAllContent()
         {
             return await HttpClient.GetFromJsonAsync<ContentDto[]>("api/content");
+        }
+
+        public async Task<CourseStatusDto[]> GetAllEnrolledCourses(int id)
+        {
+            var response = await HttpClient.GetAsync($"api/coursestatus?studentId={id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CourseStatusDto[]>();
+            }
+
+            return null;
         }
     }
 }

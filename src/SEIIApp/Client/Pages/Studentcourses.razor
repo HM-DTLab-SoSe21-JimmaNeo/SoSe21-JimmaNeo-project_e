@@ -1,0 +1,43 @@
+﻿@page "/studentcourses/{UserId:int}"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Shared.DomainDto.StatusDto
+@inject Services.BackendAccessService BackendAccessService
+<h2>Hello @studentIdentity! </h2>
+<h3>These are your enrolled courses:</h3>
+
+<br/>
+<br/>
+
+@{
+    if (AllCourses?.Length > 0)
+    {
+        <ol>
+            @foreach (var course in AllCourses)
+            {
+                <li>@course.Course.CourseName</li>
+            }
+        </ol>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    private StudentDto StudentUser { get; set; }
+
+    private string studentIdentity = "student";
+
+    private CourseStatusDto[] AllCourses { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        StudentUser = await BackendAccessService.GetStudentById(UserId);
+        studentIdentity = StudentUser.UserName;
+
+        AllCourses = await BackendAccessService.GetAllEnrolledCourses(StudentUser.UserId);
+    }
+
+}
