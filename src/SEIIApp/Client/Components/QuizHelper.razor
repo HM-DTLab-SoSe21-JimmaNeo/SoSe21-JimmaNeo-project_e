@@ -1,0 +1,67 @@
+﻿@using SEIIApp.Shared.DomainDto
+@if (Question != null)
+{
+
+    <p style="font-size:14pt">@Question.QuestionText</p>
+
+    foreach (var answer in Question.Answers)
+    {
+        <input type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind-value="answer.IsSelected">
+        <label for="answerCheckbox">@answer.AnswerText</label>
+        <br />
+    }
+
+    <br />
+
+    @if (answeredRight == true)
+    {
+        <p style="color:green">Die Frage wurde richtig beantwortet!</p>
+        <br />
+        <button class="btn btn-primary" @onclick="@(() => next.InvokeAsync(true))">Weiter</button>
+        <br />
+    }
+    @if (answeredWrong == true)
+    {
+        <p style="color:red">Die Frage wurde leider falsch beantwortet!</p>
+        answeredWrong = false;
+    }
+    <br />
+
+    <button class="btn btn-success" disabled="@isFinished" @onclick="() => Antworten()">Antworten</button>
+}
+
+@code {
+    [Parameter]
+    public QuestionDto Question { get; set; }
+
+    [Parameter]
+    public bool isFinished { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> next { get; set; }
+
+    public bool answeredWrong { get; set; }
+    public bool answeredRight { get; set; }
+
+    public bool Antworten()
+    {
+        foreach (var answer in Question.Answers)
+        {
+            if (answer.IsSelected != answer.IsCorrect)
+            {
+                answeredWrong = true;
+                return false;
+            }
+        }
+        answeredRight = true;
+        return true;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        answeredWrong = false;
+        answeredRight = false;
+    }
+}
