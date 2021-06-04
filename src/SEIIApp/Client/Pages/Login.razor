@@ -2,24 +2,55 @@
 @using SEIIApp.Shared.DomainDto
 @inject NavigationManager NavigationManager
 @inject Services.BackendAccessService BackendAccessService
-<h3>Login</h3>
 
-Name:
-<p>
-    <input type="text"
-           @bind-value="name"
-           @bind-value:event="oninput"/>
-</p>
-<br/>
-Password:
-<p>
-    <input type="text"
-           @bind-value="password"
-           @bind-value:event="oninput"/>
-</p>
-<br/>
-<button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
-<br/>
+<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+
+<style>
+    p {
+        width: 15em;
+        padding-top: 50px;
+    }
+</style>
+<body>
+    <p> </p>
+</body>
+
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <label for="benutzername">Username:</label>
+            <input type="text"
+                   @bind-value="name"
+                   @bind-value:event="oninput" /><br><br>
+            <label for="kennwort">Password:</label>
+            <input type="password"
+                   @bind-value="password"
+                   @bind-value:event="oninput" /><br><br>
+        </fieldset>
+    </div>
+</div>
+
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
+            <br /><br><br>
+            @if (message.Equals("Wrong Login-Information!"))
+            {
+                <p style="color:red">
+                    @message
+                </p>
+            }
+            else
+            {
+                <p>
+                    @message
+                </p>
+            }
+        </fieldset>
+    </div>
+</div>
+
 
 
 
@@ -34,6 +65,7 @@ Password:
 
     private string message = "Please log in.";
 
+
     private async Task RouteToHomepage()
     {
         student = await BackendAccessService.GetStudentByNameAndPw(name, password);
@@ -42,3 +74,4 @@ Password:
     }
 
 }
+
