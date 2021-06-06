@@ -87,7 +87,7 @@ namespace SEIIApp.Server.Controllers
         /// Returns all users who are students
         /// </summary>
         /// <returns></returns>
-        [HttpGet("~/allstudents")]
+        [HttpGet("allstudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<StudentDto[]> GetAllStudents()
         {

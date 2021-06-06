@@ -43,6 +43,7 @@ namespace SEIIApp.Server.Services.StatusServices
             if (result == null)
             {
                 result = new ChapterStatus() {Chapter = chapter, Finished = false};
+                student.ChapterStatuslist.Add(result);
             }
             else
             {

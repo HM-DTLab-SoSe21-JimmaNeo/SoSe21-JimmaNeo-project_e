@@ -1,0 +1,28 @@
+﻿@page "/studentregistry"
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+<h3>Studentregistry</h3>
+
+@{
+    <ol>
+        @foreach (var student in _allStudents)
+        {
+            <li>Name: @student.UserName</li>
+        }
+    </ol>
+
+}
+
+@code {
+
+    StudentDto[] _allStudents = new StudentDto[0];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        _allStudents = await BackendAccessService.GetAllStudents();
+    }
+
+
+}

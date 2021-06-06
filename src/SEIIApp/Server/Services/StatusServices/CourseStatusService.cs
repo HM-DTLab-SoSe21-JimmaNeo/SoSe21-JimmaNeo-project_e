@@ -30,7 +30,8 @@ namespace SEIIApp.Server.Services.StatusServices
             return DatabaseContext
                     .CourseStatus
                     .Include(x => x.Course)
-                /*.Include(x => x.ChapterStatusList)*/;
+                    .ThenInclude(y => y.Chapters)
+                ;
         }
 
         public CourseStatus GetCourseStatusById(int id)
@@ -58,13 +59,14 @@ namespace SEIIApp.Server.Services.StatusServices
                 List<Chapter> foundChapters = new List<Chapter>();
                 foreach (var chapterStatus in student.ChapterStatuslist)
                 {
-                   var x = course.Chapters.Find(x => x.ChapterId == chapterStatus.Chapter.ChapterId && chapterStatus.Finished == true);
-                   foundChapters.Add(x);
+                    var x = course.Chapters.Find(x =>
+                        x.ChapterId == chapterStatus.Chapter.ChapterId && chapterStatus.Finished == true);
+                    foundChapters.Add(x);
                 }
 
                 searchStatus.FinishStatus = foundChapters.Count / course.Chapters.Count;
             }
-            
+
             searchStatus.LastWorkedOn = DateTime.Now;
 
             DatabaseContext.Users.Update(student);

@@ -25,8 +25,14 @@ namespace SEIIApp.Server.Services
         private IQueryable<Course> GetQueryableForCourse()
         {
             return DatabaseContext
-                .Courses
-                .Include(x => x.Chapters);
+                    .Courses
+                    .Include(x => x.Chapters)
+                    .ThenInclude(x => x.ChapterQuiz)
+                    .ThenInclude(x => x.Questions)
+                    .ThenInclude(x => x.Answers)
+                    .Include(x => x.Chapters)
+                    .ThenInclude(x => x.ChapterContent)
+                ;
         }
 
         /// <summary>

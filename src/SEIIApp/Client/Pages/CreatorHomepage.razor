@@ -1,6 +1,42 @@
 ﻿@page "/CreatorHomepage"
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
 <h3>CreatorHomepage</h3>
+<br/>
+<br/>
+
+<h4>These are all courses:</h4>
+
+@{
+    <ol>
+        @foreach (var course in allCourses)
+        {
+            <li>@course.CourseName</li>
+        }
+    </ol>
+
+}
+<br/>
+<br/>
+<h4>Access Student Registry:</h4>
+
+<button class="btn btn-primary" @onclick="RouteToStudentList">Student Registry</button>
+
 
 @code {
+
+    CourseDto[] allCourses = new CourseDto[0];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        allCourses = await BackendAccessService.GetAllCourses();
+    }
     
+    private void RouteToStudentList()
+    {
+        NavigationManager.NavigateTo("/studentregistry");
+    }
+
 }

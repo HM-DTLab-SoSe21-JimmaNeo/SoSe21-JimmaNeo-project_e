@@ -68,5 +68,27 @@ namespace SEIIApp.Client.Services
 
             return null;
         }
+
+        public async Task<CourseDto[]> GetAllCourses()
+        {
+            var response = await HttpClient.GetAsync("api/course");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CourseDto[]>();
+            }
+
+            return null;
+        }
+
+        public async Task<StudentDto[]> GetAllStudents()
+        {
+            var response = await HttpClient.GetAsync("api/users/allstudents");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<StudentDto[]>();
+            }
+
+            return null;
+        }
     }
 }
