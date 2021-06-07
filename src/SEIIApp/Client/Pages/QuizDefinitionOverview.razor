@@ -3,6 +3,7 @@
 @inject Services.BackendAccessService QuizDefinitionService
 @inject NavigationManager NavigationManager
 
+
 <center>
     <h3>Quiz Definitions Overview</h3>
 </center>
@@ -46,7 +47,7 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-    //Quizzes = await QuizDefinitionService.GetQuizOverview();
+    Quizzes = await QuizDefinitionService.GetQuizOverview();
     }
 
     private void EditQuiz(QuizDto quiz)

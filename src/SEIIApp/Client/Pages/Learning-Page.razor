@@ -6,9 +6,7 @@
 @inject NavigationManager NavigationManager
 
 
-<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
-
-<h3 align="center">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
+<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
 
 <style>
     p {
@@ -16,15 +14,11 @@
         padding-top: 100px;
     }
 </style>
-<body>
-<p> </p>
-</body>
 
 
 <div style="text-align: center">
-    <button class="btn btn-primary" @onclick="() => DownloadContent(content[0])">Download PDF</button><br><br>
-    <button class="btn btn-primary" @onclick="RouteToQuizpage">Go to Quiz</button>
-    
+    <button class="btn btn-primary" @onclick="() => DownloadContent(content[0])"style="margin-top:24px">Download PDF</button><br><br>
+    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
 
 </div>
 
@@ -34,9 +28,7 @@
         padding-top: 100px;
     }
 </style>
-<body>
-<p> </p>
-</body>
+
 
 
 <div style="text-align: center">
