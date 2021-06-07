@@ -1,4 +1,5 @@
 ﻿@page "/repetionpage"
+@using SEIIApp.Shared.DomainDto
 
 
 <h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
@@ -10,7 +11,22 @@
     }
 </style>
 <body>
-    <p> </p>
+<p> </p>
+
+@{
+if (questionsUnanswered)
+{
+    <div class="container-md">
+        <SEIIApp.Client.Components.QuizHelper isFinished=@false Question="    Question1" next="    ClickHandler"></SEIIApp.Client.Components.QuizHelper>
+    </div>
+}
+else
+{
+    <br/> <p style="font-size:16pt;color:green"><b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b></p>
+}
+
+}
+
 </body>
 <div style="text-align: center">
     <a href="/homepageuser" class="btn btn-primary" role="button" data-bs-toggle="button"> Back to Homepage</a><br><br>
@@ -24,3 +40,28 @@
         </div>
     </div>
 </div>
+
+@code {
+
+    bool questionsUnanswered = true;
+
+
+    public void ClickHandler(bool next)
+    {
+        questionsUnanswered = false;
+    }
+
+    static AnswerDto Answer11 = new AnswerDto() {AnswerText = "Der Großteil aller Neugeborenen bedarf nach der Geburt keiner besonderen medizinischen Unterstützung.", IsCorrect = false};
+    static AnswerDto Answer12 = new AnswerDto() {AnswerText = "Der Wärmeerhalt (36,5 -37,5 °C) nach Geburt ist für alle gesunden Neugeborenen von großer Wichtigkeit.", IsCorrect = true};
+    static AnswerDto Answer13 = new AnswerDto() {AnswerText = "Nur ca. 30% aller Neugeborenen müssen nach Geburt beatmet werden.", IsCorrect = false};
+    static AnswerDto Answer14 = new AnswerDto() {AnswerText = "ca. 10% aller Neugeborenen müssen nach Geburt intubiert werden.", IsCorrect = false};
+    static AnswerDto Answer15 = new AnswerDto() {AnswerText = "Die medikamentöse Therapie spielt eine größere Rolle als die Herz-Druck-Massage.", IsCorrect = false};
+
+    QuestionDto Question1 = new QuestionDto()
+    {
+        QuestionText = "Welche Aussagen zur Erstversorgung Neugeborener treffen zu?",
+        Answers = new AnswerDto[5] {Answer11, Answer12, Answer13, Answer14, Answer15},
+        QuestionId = 0
+    };
+
+}
