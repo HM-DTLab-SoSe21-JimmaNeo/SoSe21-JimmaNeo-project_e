@@ -5,7 +5,7 @@
 @inject NavigationManager NavigationManager
 
 
-<h1 style="color:dodgerblue" align="center">NeoLearn</h1>
+<h1 style="color:dodgerblue" align="center" xmlns="http://www.w3.org/1999/html">NeoLearn</h1>
 
 <div data-role="fieldcontain">
     <div style="text-align: center">
@@ -32,10 +32,10 @@
 
 
 <div style="text-align: center">
-    <a href="/learning" class="btn btn-primary" role="button" data-bs-toggle="button"> Start/ Continue</a><br><br>
-    <a href="/repetionpage" class="btn btn-primary" role="button" data-bs-toggle="button"> Repetionpage</a><br><br>
-    <a  class="btn btn-primary" role="button" data-bs-toggle="button" > All Courses</a>
-    <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button>
+    <a href="/learning" class="btn btn-primary" role="button" data-bs-toggle="button"> Start/ Continue</a><br/>
+
+    <button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br/>
+    <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br/>
 </div>
 
 <p>
@@ -73,6 +73,11 @@
     private void RouteToCourses()
     {
         NavigationManager.NavigateTo($"/studentcourses/{UserId}");
+    }
+
+    private void RouteToRepetition()
+    {
+        NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
     }
 
 }

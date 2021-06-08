@@ -138,5 +138,17 @@ namespace SEIIApp.Client.Services
             var response = await HttpClient.DeleteAsync(GetQuizUrlWithId(quizId));
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
+        
+        
+        public async Task<QuestionStatusDto[]> GetAllQuestionsForRepetition(int id)
+        {
+            var response = await HttpClient.GetAsync($"api/questionstatus?userId={id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<QuestionStatusDto[]>();
+            }
+
+            return null;
+        }
     }
 }
