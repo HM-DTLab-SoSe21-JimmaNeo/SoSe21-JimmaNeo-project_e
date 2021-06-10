@@ -2,11 +2,11 @@
 @using SEIIApp.Shared.DomainDto
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
-<h3 style="font-family: 'Mate SC', serif;">CreatorHomepage</h3>
+<h3>CreatorHomepage</h3>
 <br/>
 <br/>
 
-<h4 style="font-family: 'Merriweather', serif;">These are all courses:</h4>
+<h4>These are all courses:</h4>
 
 @{
     <ol>
@@ -19,9 +19,9 @@
 }
 <br/>
 <br/>
-<h4 style="font-family: 'Merriweather', serif;">Access Student Registry:</h4>
+<h4>Access Student Registry:</h4>
 
-<button class="btn btn-warning" style=" font-family: 'Merriweather' , serif;" @onclick="RouteToStudentList" >Student Registry</button>
+<button class="btn btn-primary" @onclick="RouteToStudentList">Student Registry</button>
 
 
 @code {
