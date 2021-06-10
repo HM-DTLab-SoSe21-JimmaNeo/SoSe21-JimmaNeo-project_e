@@ -9,7 +9,7 @@
 @using System.Runtime.InteropServices
 @inject Services.BackendAccessService BackendAccessService
 @inject IJSRuntime JsRuntime
-<h3 style="font-family: 'Mate SC'">UploadFileTest</h3>
+<h3>UploadFileTest</h3>
 
 <InputFile OnChange="OnInputFileChanged"></InputFile>
 
@@ -24,7 +24,7 @@
             @foreach (var content in allContent)
             {
                 <li>
-                    @content.ContentName <button class="btn btn-warning" style="font-family: 'Merriweather'" color: #68a2a0;" @onclick="() => DownloadContent(content)">Download</button>
+                    @content.ContentName <button class="btn btn-primary" @onclick="() => DownloadContent(content)">Download</button>
                 </li>
             }
         </ol>

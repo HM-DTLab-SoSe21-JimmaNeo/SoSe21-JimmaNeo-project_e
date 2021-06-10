@@ -2,14 +2,13 @@
 @using SEIIApp.Shared.DomainDto
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
-
-<h3 style="font-family:'Mate SC'" color: #68a2a0;">Studentregistry</h3>
+<h3>Studentregistry</h3>
 
 @{
     <ol>
         @foreach (var student in _allStudents)
         {
-            <li style="font-family: 'Merriweather', serif;">Name: @student.UserName</li>
+            <li>Name: @student.UserName</li>
         }
     </ol>
 
