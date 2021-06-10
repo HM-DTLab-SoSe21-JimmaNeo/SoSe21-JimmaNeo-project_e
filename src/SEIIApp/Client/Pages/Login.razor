@@ -3,8 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject Services.BackendAccessService BackendAccessService
 
-<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
-
+<h1 style="font-family: 'Mate SC'"; align: center">Login</h1>
 <style>
     p {
         width: 15em;
@@ -12,20 +11,20 @@
     }
 </style>
 <body>
-<p> </p>
+    <p> </p>
 </body>
 
 <div data-role="fieldcontain">
     <div style="text-align: center">
         <fieldset>
-            <label for="benutzername">Username:</label>
-            <input type="text"
+            <label for="benutzername" style="font-family: 'Merriweather', serif;">Username:</label>
+            <input style="font-family: 'Merriweather', serif;" type="text"
                    @bind-value="name"
-                   @bind-value:event="oninput"/><br><br>
-            <label for="kennwort">Password:</label>
+                   @bind-value:event="oninput" /><br><br>
+            <label for="kennwort" style="font-family: 'Merriweather', serif;">Password:</label>
             <input type="password"
                    @bind-value="password"
-                   @bind-value:event="oninput"/><br><br>
+                   @bind-value:event="oninput" /><br><br>
         </fieldset>
     </div>
 </div>
@@ -33,8 +32,8 @@
 <div data-role="fieldcontain">
     <div style="text-align: center">
         <fieldset>
-            <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
-            <br/>
+            <button class="btn btn-warning" style=" font-family: 'Merriweather' , serif;" @onclick="RouteToHomepage">Login</button>
+            <br />
             <label>
                 <p style="color:@messageColor">@message</p>
             </label>

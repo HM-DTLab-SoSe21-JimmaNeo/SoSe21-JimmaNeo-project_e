@@ -5,7 +5,7 @@
 @inject NavigationManager NavigationManager
 
 
-<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+<h1 style="font-family: 'Mate SC'" color: #68a2a0; align: center">NeoLearn</h1>
 
 <style>
     p {
@@ -14,39 +14,39 @@
     }
 </style>
 <body>
-<p> </p>
+    <p> </p>
 
 
-@{
-    if (questions != null)
-    {
-        if (questions.Count > 0)
+    @{
+        if (questions != null)
         {
-            <div class="container-md">
-                <SEIIApp.Client.Components.QuizHelper isFinished=@pileFinished Question="questions.First()" next="ClickHandler"></SEIIApp.Client.Components.QuizHelper>
-            </div>
+            if (questions.Count > 0)
+            {
+                <div class="container-md">
+                    <SEIIApp.Client.Components.QuizHelper isFinished=@pileFinished Question="questions.First()" next="ClickHandler"></SEIIApp.Client.Components.QuizHelper>
+                </div>
+            }
+            else
+            {
+                <br />
+                <p style="font-size:16pt;color:green">
+                    <b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b>
+                </p>
+            }
         }
         else
         {
-            <br/>
-            <p style="font-size:16pt;color:green">
-                <b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b>
+            <p style="font-size:16pt;color:green" align="center">
+                <b>Toll, Du bist auf dem aktuellen Stand. Keine Wiederholungsfragen zu beantworten!</b>
             </p>
         }
-    }
-    else
-    {
-        <p style="font-size:16pt;color:green" align="center">
-            <b>Toll, Du bist auf dem aktuellen Stand. Keine Wiederholungsfragen zu beantworten!</b>
-        </p>
-    }
 
-}
+    }
 
 </body>
 <div style="text-align: center">
 
-        <button class="btn btn-primary" @onclick="RouteToHomepageUser">Back to Homepage</button><br/>
+    <button class="btn btn-warning" style=" font-family: 'Merriweather' , serif;" @onclick="RouteToHomepageUser">Back to Homepage</button><br />
 
 </div>
 

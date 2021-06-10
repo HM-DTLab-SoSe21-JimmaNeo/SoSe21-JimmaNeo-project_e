@@ -6,7 +6,8 @@
 @inject NavigationManager NavigationManager
 
 
-<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
+
+<h3 align="center" style="font-family: 'Mate SC', serif;">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
 
 <style>
     p {
@@ -16,9 +17,9 @@
 </style>
 
 
-<div style="text-align: center">
-    <button class="btn btn-primary" @onclick="() => DownloadContent(content[0])"style="margin-top:24px">Download PDF</button><br><br>
-    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
+<div style= "font-family: 'Merriweather',"text-align: center,>
+    <button class="btn btn-warning" @onclick="() => DownloadContent(content[0])" style="margin-top:24px">Download PDF</button><br><br>
+    <button class="btn btn-warning" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
 
 </div>
 
