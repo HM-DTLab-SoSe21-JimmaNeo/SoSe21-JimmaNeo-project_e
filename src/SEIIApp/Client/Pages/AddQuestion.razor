@@ -1,4 +1,6 @@
 ﻿@page "/AddQuestion"
+@inject NavigationManager NavigationManager
+
 <center><h2>Add new Question</h2></center>
 <br />
 <br />
@@ -42,12 +44,17 @@
 
 <div>
     <p align="right">
-        <a href="" class="btn btn-dark btn-sm"> Add Question</a>
-        <a href="/AddQuiz" class="btn btn-success btn-sm"> Save Complete Quiz</a>
+        <button class="btn btn-dark btn-sm" @onclick="refresh" style="margin-top:24px">Add Question</button>
+        <button class="btn btn-success btn-sm" @onclick="refresh2" style="margin-top:24px">Save Complete Quiz</button>
     </p>
 </div>
-  
-    <br>
+
+<br>
+
+@code{      
+    public void refresh() { NavigationManager.NavigateTo("/AddQuestion", forceLoad: true); }
+    public void refresh2() { NavigationManager.NavigateTo("/chapter", forceLoad: false); }
+}
 
 
 
@@ -57,18 +64,18 @@
 
 
 
-    @code {
+@code {
 
 
-        private List<AnswerItem> todos = new();
-        private string newTodo;
+    private List<AnswerItem> todos = new();
+    private string newTodo;
 
-        private void AddTodo()
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
         {
-            if (!string.IsNullOrWhiteSpace(newTodo))
-            {
-                todos.Add(new AnswerItem { Title = newTodo });
-                newTodo = string.Empty;
-            }
+            todos.Add(new AnswerItem { Title = newTodo });
+            newTodo = string.Empty;
         }
     }
+}
