@@ -18,7 +18,10 @@ namespace SEIIApp.Server.DataAccess
             CourseStatusService courseStatusService, ContentService contentService,
             ChapterStatusService chapterStatusService, QuizStatusService quizStatusService)
         {
-            var question1 = new Question() {QuestionText = "Frage 1"};
+            var answer1 = new Answer() {AnswerText = "Dies ist die richtige Antwort.", IsCorrect = false};
+            var answer2 = new Answer() {AnswerText = "Oder ist es diese?", IsCorrect = true};
+
+            var question1 = new Question() {QuestionText = "Frage 1",Answers = new List<Answer>(){answer1,answer2}};
 
             var student1 = new Student()
             {
@@ -48,7 +51,7 @@ namespace SEIIApp.Server.DataAccess
 
             cs.AddCourse(course1);
 
-            questionStatusService.AddOrUpdateQuestionStatus(question1, student1, 1);
+            questionStatusService.AddOrUpdateQuestionStatus(question1, student1, 1, DateTime.Now - TimeSpan.FromHours(30));
 
             var xyz = questionStatusService.GetAllQuestionStatusOfUser(2);
 

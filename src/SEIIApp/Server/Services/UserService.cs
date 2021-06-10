@@ -34,6 +34,7 @@ namespace SEIIApp.Server.Services
                 .Students
                 .Include(x => x.QuestionStatusList)
                 .ThenInclude(x => x.Question)
+                .ThenInclude(x => x.Answers)
                 .Include(x => x.EnrolledCourses)
                 .ThenInclude(a => a.Course)
                 .Include(x => x.ChapterStatuslist)
