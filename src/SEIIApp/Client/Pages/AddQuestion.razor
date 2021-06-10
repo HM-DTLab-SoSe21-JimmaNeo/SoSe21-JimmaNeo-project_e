@@ -1,0 +1,74 @@
+﻿@page "/AddQuestion"
+<center><h2>Add new Question</h2></center>
+<br />
+<br />
+<br />
+<center>
+    <div>
+        <label for="QuestionName">Question</label>
+        <input type="text" class="solid" name="QuestionName" value="" />
+        <a class="btn btn-light btn-sm"> Confirm Question</a>
+        <br />
+        <br />
+        <ul>
+            @foreach (var todo in todos)
+            {
+                <center>
+                    <li>
+                        <input type="checkbox" @bind="todo.IsDone" />
+                        <input @bind="todo.Title" />
+                    </li>
+                </center>
+
+            }
+        </ul>
+        <br />
+        <br />
+        <input placeholder="add an Answer" @bind="newTodo" />
+        <button @onclick="AddTodo">Add Answer</button>
+        <br />
+        <br />
+        <h5>Wrong Answers: (@todos.Count(todo => !todo.IsDone))</h5>
+        <br />
+        <br />
+        <a href="/chapter" class="btn btn-outline-danger btn-sm"> Remove Question</a>
+        <br />
+        <br />
+        <br />
+        <br />
+
+    </div>
+</center>
+
+<div>
+    <p align="right">
+        <a href="" class="btn btn-dark btn-sm"> Add Question</a>
+        <a href="/AddQuiz" class="btn btn-success btn-sm"> Save Complete Quiz</a>
+    </p>
+</div>
+  
+    <br>
+
+
+
+
+
+
+
+
+
+    @code {
+
+
+        private List<AnswerItem> todos = new();
+        private string newTodo;
+
+        private void AddTodo()
+        {
+            if (!string.IsNullOrWhiteSpace(newTodo))
+            {
+                todos.Add(new AnswerItem { Title = newTodo });
+                newTodo = string.Empty;
+            }
+        }
+    }
