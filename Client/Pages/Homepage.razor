@@ -1,0 +1,27 @@
+﻿@page "/homepage/{UserId:int}"
+@using SEIIApp.Client.Services
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+<h3 style="font-family: 'Mate SC'" color: #68a2a0;">Homepage</h3>
+
+<p>
+    @if (StudentUser != null)
+    {
+        <p style="font-family: 'Mate SC'" color: #68a2a0;">Willkommen @StudentUser.UserName ! </p> 
+    }
+</p>
+
+@code {
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    private StudentDto StudentUser { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        StudentUser = await BackendAccessService.GetStudentById(UserId);
+    }
+
+}

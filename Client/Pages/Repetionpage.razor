@@ -1,0 +1,99 @@
+﻿@page "/repetitionpage/{UserId:int}"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Shared.DomainDto.StatusDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+
+
+<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+
+<style>
+    p {
+        width: 30em;
+        padding-top: 100px;
+    }
+</style>
+<body>
+<p> </p>
+
+
+@{
+    if (questions != null)
+    {
+        if (questions.Count > 0)
+        {
+            <div class="container-md">
+                <SEIIApp.Client.Components.QuizHelper isFinished=@pileFinished Question="questions.First()" next="ClickHandler"></SEIIApp.Client.Components.QuizHelper>
+            </div>
+        }
+        else
+        {
+            <br/>
+            <p style="font-size:16pt;color:green">
+                <b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b>
+            </p>
+        }
+    }
+    else
+    {
+        <p style="font-size:16pt;color:green" align="center">
+            <b>Toll, Du bist auf dem aktuellen Stand. Keine Wiederholungsfragen zu beantworten!</b>
+        </p>
+    }
+
+}
+
+</body>
+<div style="text-align: center">
+
+        <button class="btn btn-info" @onclick="RouteToHomepageUser">Back to Homepage</button><br/>
+
+</div>
+
+<div style="text-align: end">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+            40%
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    bool pileFinished = false;
+
+
+    public void ClickHandler(bool next)
+    {
+        if (questions.Count > 0)
+        {
+            questions.Remove(questions.First());
+        }
+        else
+        {
+            pileFinished = true;
+        }
+    }
+
+    List<QuestionDto> questions;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        QuestionStatusDto[] contentStatus = await BackendAccessService.GetAllQuestionsForRepetition(UserId);
+        if (contentStatus.Length > 0)
+        {
+            questions = contentStatus.Select(x => x.Question).ToList();
+        }
+    }
+
+    private void RouteToHomepageUser()
+    {
+        NavigationManager.NavigateTo($"/homepageuser/{UserId}");
+    }
+
+}

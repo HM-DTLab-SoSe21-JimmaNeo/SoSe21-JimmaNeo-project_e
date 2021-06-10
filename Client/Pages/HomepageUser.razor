@@ -1,0 +1,83 @@
+﻿@page "/homepageuser/{UserId:int}"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Services
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+
+
+<h1 style="color:dodgerblue" align="center" xmlns="http://www.w3.org/1999/html">NeoLearn</h1>
+
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <label>
+                @if (StudentUser != null)
+                {
+                    <div style="text-align: center">
+                        <p style="text-align: center">Willkommen @StudentUser.UserName ! </p>
+                    </div>
+                }
+            </label>
+        </fieldset>
+    </div>
+</div>
+
+
+<style>
+        p {
+            width: 15em;
+            padding-top: 50px;
+        }
+</style>
+
+
+<div style="text-align: center">
+    <a href="/learning" class="btn btn-info" role="button" data-bs-toggle="button"> Start/ Continue</a><br/>
+
+    <button class="btn btn-info" @onclick="RouteToRepetition">Repetitionpage</button><br/>
+    <button class="btn btn-info" @onclick="RouteToCourses">All Courses</button><br/>
+</div>
+
+<p>
+</p>
+
+<div style="text-align: end">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+            40%
+        </div>
+    </div>
+</div>
+
+<p>
+</p>
+
+<div style="text-align: end">
+    <span>&#9993;</span> <a href="mailto:someone@example.com">Send email</a>
+</div>
+
+@code {
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    private StudentDto StudentUser { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        StudentUser = await BackendAccessService.GetStudentById(UserId);
+    }
+
+    private void RouteToCourses()
+    {
+        NavigationManager.NavigateTo($"/studentcourses/{UserId}");
+    }
+
+    private void RouteToRepetition()
+    {
+        NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
+    }
+
+}

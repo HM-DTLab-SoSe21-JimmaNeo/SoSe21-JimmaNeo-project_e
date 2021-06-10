@@ -1,0 +1,80 @@
+﻿@page "/login"
+@using SEIIApp.Shared.DomainDto
+@inject NavigationManager NavigationManager
+@inject Services.BackendAccessService BackendAccessService
+
+
+
+<h2 style="font-family: 'Mate SC'" color: #68a2a0;">Login</h2>
+    <style>
+        p {
+            width: 15em;
+            padding-top: 50px;
+        }
+    </style>
+    <body>
+        <p> </p>
+    </body>
+
+    <div data-role="fieldcontain">
+        <div style="text-align: center">
+            <fieldset>
+                <label for="benutzername" style="font-family: 'Merriweather', serif;">Username:</label>
+                <input type="text"
+                       @bind-value="name"
+                       @bind-value:event="oninput" /><br><br>
+                <label for="kennwort" style="font-family: 'Merriweather', serif;" >Password:</label>
+                <input type="password"
+                       @bind-value="password"
+                       @bind-value:event="oninput" /><br><br>
+            </fieldset>
+        </div>
+    </div>
+
+    <div data-role="fieldcontain">
+        <div style="text-align: center">
+            <fieldset>
+                <button class="btn btn-info" style="font-family: 'Merriweather', serif;" @onclick="RouteToHomepage">Login</button>
+                <br />
+                <label>
+                    <p style="font-family: 'Merriweather', serif;color:@messageColor">@message</p>
+                </label>
+
+            </fieldset>
+        </div>
+    </div>
+
+
+    @code { private string name;
+
+                private string password;
+
+                private int id;
+
+                UserDto user;
+
+                private string message = "Please log in.";
+
+                private string messageColor = "black";
+
+
+                private async Task RouteToHomepage()
+                {
+                    user = await BackendAccessService.GetUserByNameAndPw(name, password);
+                    if (user != null)
+                    {
+                        if (!user.adminRights)
+                        {
+                            NavigationManager.NavigateTo($"/homepageuser/{user.UserId}");
+                        }
+                        else if (user.adminRights)
+                        {
+                            NavigationManager.NavigateTo("/CreatorHomepage");
+                        }
+                    }
+                    else
+                    {
+                        message = "Wrong Login-Information!";
+                        messageColor = "red";
+                    }
+                } }
