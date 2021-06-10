@@ -1,29 +1,45 @@
 ﻿@page "/chapter"
-<h3>Chapter</h3>
 
-<label for="ChapterName">Chapter name:</label>
-<input type="text" name="ChapterName" value="" />
-<br />
-<br />
-<label for="Description">Add description:</label>
-<input type="text" name="Description" value="" />
-<br />
-<br />
-<div>
-    <a href="/UploadFileTest" class="btn btn-primary"> Add Content</a>
-</div>
-<br />
-<br />
-<div>
-    <a href="/chapter" class="btn btn-primary"> add Quiz</a>
-</div>
-<br />
-<br />
-<details>
-    Contact
-    E-mail: example@neolearn.com
-</details>
+    <center><strong><p style="font-size:3rem;" class="h1">Chapter</p></strong></center>
+    <br />
+    <br />
 
-@code {
+    <center>
+        <div>
+            <label for="ChapterName">Chapter name:</label>
+            <input type="text" name="ChapterName" value="" />
+            <a class="btn btn-primary"> Create </a>
+        </div></center>
+    <br />
+    <br />
+    <center>
+        <div>
+            <label for="Description">Add description:</label>
+            <input type="text" name="Description" value="" />
+            <a class="btn btn-primary"> Create </a>
+        </div>
+    </center>
+    <br />
+    <br />
+    <center>
+        <div>
+            <a href="/UploadFileTest" class="btn btn-primary"> Add Content</a>
+        </div>
+    </center>
+    <br />
+    <br />
+    <center>
+        <div>
+            <a href="/chapter" class="btn btn-primary"> add Quiz</a>
+        </div>
+    </center>
+    <br />
+    <br />
+    <details>
+        Contact
+        E-mail: example@neolearn.com
+    </details>
 
-}
+    @code {
+
+    }
