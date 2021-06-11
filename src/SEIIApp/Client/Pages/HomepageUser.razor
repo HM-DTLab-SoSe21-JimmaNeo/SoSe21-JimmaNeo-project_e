@@ -32,8 +32,8 @@
 
 
 <div style="text-align: center">
-    <a href="learningpage" class="btn btn-primary" role="button" data-bs-toggle="button"> Start/ Continue</a><br/>
-
+    
+    <button class="btn btn-primary" @onclick="RouteToLearning">Start / Continue</button><br/>
     <button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br/>
     <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br/>
 </div>
@@ -78,6 +78,11 @@
     private void RouteToRepetition()
     {
         NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
+    }
+
+    private void RouteToLearning()
+    {
+        NavigationManager.NavigateTo($"/learningpage/{UserId}");
     }
 
 }

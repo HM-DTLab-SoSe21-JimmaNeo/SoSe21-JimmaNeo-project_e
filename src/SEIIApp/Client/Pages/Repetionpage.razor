@@ -23,7 +23,7 @@
         if (questions.Count > 0)
         {
             <div class="container-md">
-                <SEIIApp.Client.Components.QuizHelper isFinished=@pileFinished Question="questions.First()" next="ClickHandler"></SEIIApp.Client.Components.QuizHelper>
+                <SEIIApp.Client.Components.QuizHelper isFinished=@pileFinished Question="questions.First()" next="ClickHandler" studentId="@UserId"></SEIIApp.Client.Components.QuizHelper>
             </div>
         }
         else

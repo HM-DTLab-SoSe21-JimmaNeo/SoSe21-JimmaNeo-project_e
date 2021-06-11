@@ -108,7 +108,7 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.AddOrUpdateQuestionStatusForUser(System.Int32,System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.AddOrUpdateQuestionStatusForUser(SEIIApp.Shared.DomainDto.questionStatusTransfer)">
             <summary>
             By giving Question (not questionstatus) id, userid(must be of student) and questionstatus add
             a new or update an existing question status fot the given question for the given user.
@@ -121,6 +121,21 @@
         <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetAllQuestionStatusOfUser(System.Int32)">
             <summary>
             Get all QuestionStatus for a user by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetQuestionStatusQuestionAndUser(System.Int32,System.Int32)">
+            <summary>
+            Get Question Status by Question and User
+            </summary>
+            <param name="userId"></param>
+            <param name="questionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizController.GetQuizById(System.Int32)">
+            <summary>
+            Get a Quiz by Id
             </summary>
             <param name="id"></param>
             <returns></returns>

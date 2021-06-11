@@ -1,15 +1,21 @@
-﻿@page "/chapterquiz"
+﻿@page "/chapterquiz/{UserId:int}/{QuizId:int}"
 @using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Services
+@inject BackendAccessService _backendAccessService
 
-<h2><b><u>@Quiz.QuizName</u></b></h2>
-<br />
-<h4>Frage @(questionNumber + 1):</h4>
-<br />
+@if (Quiz != null)
+{
+    <h2><b><u>@Quiz.QuizName</u></b></h2>
+    <br />
+    <h4>Frage @(questionNumber + 1):</h4>
+    <br />  
+}
+
 
 @if (Quiz != null)
 {
     <div class="container-md">
-        <SEIIApp.Client.Components.QuizHelper isFinished="quizFinished" Question="Quiz.Questions[questionNumber]" next="ClickHandler"></SEIIApp.Client.Components.QuizHelper>
+        <SEIIApp.Client.Components.QuizHelper isFinished="quizFinished" Question="Quiz.Questions[questionNumber]" next="ClickHandler" studentId="@UserId"></SEIIApp.Client.Components.QuizHelper>
     </div>
     @if (quizFinished)
                 {
@@ -18,6 +24,14 @@
 }
 
 @code {
+    [Parameter]
+    public int UserId { get; set; }
+    
+    [Parameter]
+    public int QuizId { get; set; }
+
+    
+    
     public int questionNumber = 0;
     public bool quizFinished = false;
 
@@ -96,10 +110,19 @@
             QuestionId = 2
         };
 
-        Quiz = new QuizDto()
+        /*Quiz = new QuizDto()
         {
             QuizName = "Quiz Chapter 1",
             Questions = new QuestionDto[3] { Question1, Question2, Question3 }
-        };
+        };*/
+
+
     }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Quiz = await _backendAccessService.GetQuizById(QuizId);
+    }
+
 }

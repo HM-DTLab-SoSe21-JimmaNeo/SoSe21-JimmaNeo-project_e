@@ -6,6 +6,7 @@ using SEIIApp.Server.DataAccess;
 using SEIIApp.Server.Domain.CourseDomain;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
+using SEIIApp.Shared.DomainDto;
 
 namespace SEIIApp.Server.Services.StatusServices
 {
@@ -85,6 +86,13 @@ namespace SEIIApp.Server.Services.StatusServices
             DatabaseContext.SaveChanges();
 
             return searchStatus;
+        }
+
+        public QuestionStatus GetQuestionStatusByQuestionAndUser(Question question, Student student)
+        {
+            var searchStatus = student.QuestionStatusList.Find(x => x.Question.QuestionId == question.QuestionId);
+            return searchStatus;
+
         }
     }
 }

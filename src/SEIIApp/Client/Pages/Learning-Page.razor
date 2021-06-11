@@ -1,4 +1,4 @@
-﻿@page "/learningpage"
+﻿@page "/learningpage/{UserId:int}"
 @using SEIIApp.Shared.DomainDto.StatusDto
 @using SEIIApp.Shared.DomainDto
 @inject Services.BackendAccessService BackendAccessService
@@ -41,6 +41,13 @@
 
 @code
 {
+    [Parameter]
+    public int UserId { get; set; }
+
+    public int QuizId { get; set; }
+    
+    
+    
     string currentChapter = "Emergency Situations";
 
     string currentCourse = "Basics of Neonatology I";
@@ -65,6 +72,7 @@
 
     private void RouteToQuizpage()
     {
-        NavigationManager.NavigateTo("/chapterquiz");
+        QuizId = 1;
+        NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
     }
 }

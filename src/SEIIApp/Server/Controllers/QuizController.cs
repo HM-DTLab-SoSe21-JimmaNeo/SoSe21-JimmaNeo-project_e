@@ -18,6 +18,24 @@ namespace SEIIApp.Server.Controllers
             this.Mapper = mapper;
             this.QuizService = quizService;
         }
+        
+        /// <summary>
+        /// Get a Quiz by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<QuizDto> GetQuizById([FromRoute] int id)
+        {
+            var result = QuizService.GetQuizById(id);
+            if (result == null) return StatusCode(StatusCodes.Status404NotFound);
+
+            var mapped = Mapper.Map<QuizDto>(result);
+            return Ok(mapped);
+        }
 
         
     }
