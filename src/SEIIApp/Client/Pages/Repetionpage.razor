@@ -29,16 +29,20 @@
         else
         {
             <br/>
-            <p style="font-size:16pt;color:green">
-                <b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b>
-            </p>
+            <div align="center">
+                <p style="font-size:16pt;color:green">
+                    <b>Super! Alle Fragen auf dem Stapel wurden abgearbeitet!</b>
+                </p>
+            </div>
         }
     }
-    else
+    else if(noQuestions)
     {
-        <p style="font-size:16pt;color:green" align="center">
-            <b>Toll, Du bist auf dem aktuellen Stand. Keine Wiederholungsfragen zu beantworten!</b>
-        </p>
+        <div align="center">
+            <p style="font-size:16pt;color:green" align="center">
+                <b>Toll, Du bist auf dem aktuellen Stand. Keine Wiederholungsfragen zu beantworten!</b>
+            </p>
+        </div>
     }
 
 }
@@ -46,7 +50,7 @@
 </body>
 <div style="text-align: center">
 
-        <button class="btn btn-primary" @onclick="RouteToHomepageUser">Back to Homepage</button><br/>
+    <button class="btn btn-primary" @onclick="RouteToHomepageUser">Back to Homepage</button><br/>
 
 </div>
 
@@ -66,6 +70,8 @@
 
     bool pileFinished = false;
 
+    bool noQuestions = false;
+
 
     public void ClickHandler(bool next)
     {
@@ -81,13 +87,17 @@
 
     List<QuestionDto> questions;
 
-    protected override async Task OnParametersSetAsync()
+   protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
         QuestionStatusDto[] contentStatus = await BackendAccessService.GetAllQuestionsForRepetition(UserId);
         if (contentStatus.Length > 0)
         {
             questions = contentStatus.Select(x => x.Question).ToList();
+        }
+        else
+        {
+            noQuestions = true;
         }
     }
 
