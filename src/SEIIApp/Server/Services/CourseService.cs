@@ -31,7 +31,7 @@ namespace SEIIApp.Server.Services
                     .ThenInclude(x => x.Questions)
                     .ThenInclude(x => x.Answers)
                     .Include(x => x.Chapters)
-                    .ThenInclude(x => x.ChapterContent)
+                    .ThenInclude(x => x.ChapterContentPdf)
                 ;
         }
 

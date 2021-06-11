@@ -10,6 +10,9 @@ namespace SEIIApp.Shared.DomainDto
 
         public QuizDto ChapterQuiz { get; set; }
 
-        public ContentDto[] ChapterContent { get; set; }
+        public PdfContentDto[] ChapterContentPdf { get; set; }
+        
+        public VideoContentDto[] ChapterContentVideo { get; set; }
+
     }
 }

@@ -42,20 +42,20 @@ namespace SEIIApp.Client.Services
             return null;
         }
 
-        public async Task<bool> UploadContentFile(ContentDto entryFile)
+        public async Task<bool> UploadContentFile(PdfContentDto entryFile)
         {
-            var response = await HttpClient.PutAsJsonAsync("api/content", entryFile);
+            var response = await HttpClient.PutAsJsonAsync("api/pdfcontent", entryFile);
             return response.StatusCode == System.Net.HttpStatusCode.OK;
         }
 
-        public async Task<ContentDto> GetContentById(int id)
+        public async Task<PdfContentDto> GetContentById(int id)
         {
-            return await HttpClient.GetFromJsonAsync<ContentDto>($"api/content/{id}");
+            return await HttpClient.GetFromJsonAsync<PdfContentDto>($"api/pdfcontent/{id}");
         }
 
-        public async Task<ContentDto[]> GetAllContent()
+        public async Task<PdfContentDto[]> GetAllContent()
         {
-            return await HttpClient.GetFromJsonAsync<ContentDto[]>("api/content");
+            return await HttpClient.GetFromJsonAsync<PdfContentDto[]>("api/pdfcontent");
         }
 
         public async Task<CourseStatusDto[]> GetAllEnrolledCourses(int id)
@@ -132,5 +132,15 @@ namespace SEIIApp.Client.Services
             return await HttpClient.GetFromJsonAsync<QuizDto>($"api/quiz/{id}");
 
         }
+
+        public async Task<CourseDto> GetCourseById(int id)
+        {
+            return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/{id}");
+        }
+        
+        public async Task<ChapterDto> GetChapterById(int id)
+        {
+            return await HttpClient.GetFromJsonAsync<ChapterDto>($"api/chapter/{id}");
+        } 
     }
 }

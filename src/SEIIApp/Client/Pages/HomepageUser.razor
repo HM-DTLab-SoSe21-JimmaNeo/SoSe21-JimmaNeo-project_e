@@ -82,7 +82,8 @@
 
     private void RouteToLearning()
     {
-        NavigationManager.NavigateTo($"/learningpage/{UserId}");
+        var ChapterId = 1;
+        NavigationManager.NavigateTo($"/learningpage/{UserId}/{ChapterId}");
     }
 
 }

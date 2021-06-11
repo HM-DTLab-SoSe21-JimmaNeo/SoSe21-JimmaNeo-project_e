@@ -10,5 +10,7 @@ namespace SEIIApp.Shared.DomainDto
 
         [ValidateComplexType] 
         public QuestionDto[] Questions { get; set; }
+        
+        public int QuizId { get; set; }
     }
 }

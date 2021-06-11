@@ -11,6 +11,9 @@ namespace SEIIApp.Server.Domain.CourseDomain
 
         public Quiz ChapterQuiz { get; set; }
 
-        public List<Content> ChapterContent { get; set; }
+        public List<PdfContent> ChapterContentPdf { get; set; }
+        
+        public List<VideoContent> ChapterContentVideo { get; set; }
+
     }
 }

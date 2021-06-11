@@ -8,17 +8,17 @@ using SEIIApp.Shared.DomainDto;
 namespace SEIIApp.Server.Controllers
 {
     [ApiController]
-    [Route("api/content")]
-    public class ContentController : ControllerBase
+    [Route("api/pdfcontent")]
+    public class PdfContentController : ControllerBase
     {
         private IMapper Mapper { get; set; }
         
-        private ContentService ContentService { get; set; }
+        private PdfContentService PdfContentService { get; set; }
 
-        public ContentController(ContentService contentService, IMapper mapper)
+        public PdfContentController(PdfContentService pdfContentService, IMapper mapper)
         {
             this.Mapper = mapper;
-            this.ContentService = contentService;
+            this.PdfContentService = pdfContentService;
         }
         
         /// <summary>
@@ -29,22 +29,22 @@ namespace SEIIApp.Server.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ContentDto> AddOrUpdateContent([FromBody] ContentDto model)
+        public ActionResult<PdfContentDto> AddOrUpdateContent([FromBody] PdfContentDto model)
         {
             if (ModelState.IsValid)
             {
-                var mappedmodel = Mapper.Map<Content>(model);
+                var mappedmodel = Mapper.Map<PdfContent>(model);
                 
                 if (model.ContentId == 0)
                 {
-                    mappedmodel = ContentService.AddContent(mappedmodel);
+                    mappedmodel = PdfContentService.AddPdfContent(mappedmodel);
                 }
                 else
                 {
-                    mappedmodel = ContentService.UpdateContent(mappedmodel);
+                    mappedmodel = PdfContentService.UpdateContent(mappedmodel);
                 }
 
-                model = Mapper.Map<ContentDto>(mappedmodel);
+                model = Mapper.Map<PdfContentDto>(mappedmodel);
                 return Ok(model);
             }
 
@@ -60,12 +60,12 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<ContentDto> GetContent([FromRoute] int id)
+        public ActionResult<PdfContentDto> GetContent([FromRoute] int id)
         {
-            var content = ContentService.GetContentById(id);
+            var content = PdfContentService.GetPdfContentById(id);
             if(content == null) return StatusCode(StatusCodes.Status404NotFound);
 
-            var mappedCourse = Mapper.Map<ContentDto>(content);
+            var mappedCourse = Mapper.Map<PdfContentDto>(content);
 
             return Ok(mappedCourse);
         }
@@ -76,10 +76,10 @@ namespace SEIIApp.Server.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<ContentDto[]> GetAllContent()
+        public ActionResult<PdfContentDto[]> GetAllContent()
         {
-            var content = ContentService.GetAllContent();
-            var mapped = Mapper.Map<ContentDto[]>(content);
+            var content = PdfContentService.GetAllContent();
+            var mapped = Mapper.Map<PdfContentDto[]>(content);
             return Ok(mapped);
         }
         
