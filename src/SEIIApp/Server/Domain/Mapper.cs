@@ -34,24 +34,27 @@ namespace SEIIApp.Server.Domain
             CreateMap<Answer, AnswerDto>();
             CreateMap<AnswerDto, Answer>();
 
+            //TODO auskommentiertes Entfernen, hängt von StudentDto ab
             CreateMap<Student, StudentDto>()
-                .ForMember(studentDto => studentDto.EnrolledCourses,
+             /*   .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToArray()))
                 .ForMember(x => x.QuestionStatusList,
                     y => y.MapFrom(z => z.QuestionStatusList.ToArray()))
                 .ForMember(x => x.ChapterStatuslist,
                     y => y.MapFrom(z => z.ChapterStatuslist.ToArray()))
                 .ForMember(x => x.QuizStatusList,
-                    y => y.MapFrom(z => z.QuizStatusList.ToArray()));
+                    y => y.MapFrom(z => z.QuizStatusList.ToArray()))*/
+                ;
             CreateMap<StudentDto, Student>()
-                .ForMember(studentDto => studentDto.EnrolledCourses,
+               /* .ForMember(studentDto => studentDto.EnrolledCourses,
                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToList()))
                 .ForMember(x => x.QuestionStatusList,
                     y => y.MapFrom(z => z.QuestionStatusList.ToList()))
                 .ForMember(x => x.ChapterStatuslist,
                     y => y.MapFrom(z => z.ChapterStatuslist.ToList()))
                 .ForMember(x => x.QuizStatusList,
-                    y => y.MapFrom(z => z.QuizStatusList.ToList()));
+                    y => y.MapFrom(z => z.QuizStatusList.ToList()))*/
+                ;
 
             CreateMap<Content, ContentDto>();
             CreateMap<ContentDto, Content>();

@@ -15,11 +15,11 @@ namespace SEIIApp.Server.Controllers
     public class QuestionStatusController : ControllerBase
     {
         private QuestionStatusService QuestionStatusService { get; set; }
-        
+
         private UserService UserService { get; set; }
-        
+
         private QuestionService QuestionService { get; set; }
-        
+
         private IMapper Mapper { get; set; }
 
         public QuestionStatusController(QuestionStatusService questionStatusService, UserService userService,
@@ -43,7 +43,7 @@ namespace SEIIApp.Server.Controllers
         public ActionResult<QuestionStatus> GetQuestionStatusById([FromRoute] int id)
         {
             var status = QuestionStatusService.GetQuestionStatusById(id);
-            if(status == null) return StatusCode(StatusCodes.Status404NotFound);
+            if (status == null) return StatusCode(StatusCodes.Status404NotFound);
 
             var mapped = Mapper.Map<QuestionStatusDto>(status);
             return Ok(mapped);
@@ -62,12 +62,12 @@ namespace SEIIApp.Server.Controllers
         {
             var statusList = QuestionStatusService.GetAllPendingQuestionStatusOfUser(userId);
             //var statusList = QuestionStatusService.GetAllQuestionStatusOfUser(userId);
-            if(statusList == null) return StatusCode(StatusCodes.Status404NotFound);
+            if (statusList == null) return StatusCode(StatusCodes.Status404NotFound);
 
             var mapped = Mapper.Map<QuestionStatusDto[]>(statusList);
             return Ok(mapped);
         }
-        
+
         /// <summary>
         /// By giving Question (not questionstatus) id, userid(must be of student) and questionstatus add
         /// a new or update an existing question status fot the given question for the given user.
@@ -79,15 +79,21 @@ namespace SEIIApp.Server.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<QuestionStatusDto> AddOrUpdateQuestionStatusForUser([FromQuery] int toAddQuestionId,[FromQuery] int toAddStudentId,[FromQuery] int questionStatus)
+        public ActionResult<QuestionStatusDto> AddOrUpdateQuestionStatusForUser([FromQuery] int toAddQuestionId,
+            [FromQuery] int toAddStudentId, [FromQuery] int questionStatus)
         {
             var toAddQuestion = QuestionService.GetQuestionById(toAddQuestionId);
             var toAddStudent = UserService.GetStudentById(toAddStudentId);
 
+            if (toAddQuestion == null || toAddStudent == null) return StatusCode(StatusCodes.Status404NotFound);
+
+
             var result = QuestionStatusService.AddOrUpdateQuestionStatus(toAddQuestion, toAddStudent, questionStatus);
 
-            return Ok(result);
+            if (result == null) return StatusCode(StatusCodes.Status404NotFound);
 
+
+            return Ok(result);
         }
 
         /// <summary>
@@ -102,13 +108,10 @@ namespace SEIIApp.Server.Controllers
         public ActionResult<QuestionStatusDto[]> GetAllQuestionStatusOfUser([FromRoute] int id)
         {
             var questionstatuslist = QuestionStatusService.GetAllQuestionStatusOfUser(id);
-            if(questionstatuslist == null) return StatusCode(StatusCodes.Status404NotFound);
+            if (questionstatuslist == null) return StatusCode(StatusCodes.Status404NotFound);
 
             var mapped = Mapper.Map<QuestionStatusDto[]>(questionstatuslist);
             return Ok(mapped);
-
         }
-
-
     }
 }

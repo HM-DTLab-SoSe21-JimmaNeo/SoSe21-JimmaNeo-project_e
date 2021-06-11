@@ -44,7 +44,12 @@ namespace SEIIApp.Server.Controllers
             var course = CourseService.GetCourseById(courseId);
             var student = UserService.GetStudentById(studentId);
 
+            if (course == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
+
             var result = CourseStatusService.AddOrUpdateCourseStatus(course, student);
+
+            if (result == null) return StatusCode(StatusCodes.Status404NotFound);
+
 
             return Ok(result);
         }
