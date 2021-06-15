@@ -6,86 +6,85 @@
 @inject NavigationManager NavigationManager
 
 
-<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
-
-<style>
-    p {
-        width: 30em;
-        padding-top: 100px;
-    }
-</style>
-
-
-<div style="text-align: center">
-    <button class="btn btn-primary" @onclick="() => DownloadContent(pdfContent[0])"style="margin-top:24px">Download PDF</button><br><br>
-    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
-
-</div>
-
-<style>
-    p {
-        width: 30em;
-        padding-top: 100px;
-    }
-</style>
+<h3 align="center" style="margin: 32px; font-family: 'Mate SC'">Learning Page for Chapter: " @currentChapter " of Course " @currentCourse "</h3>
+    <style>
+        p {
+            width: 30em;
+            padding-top: 100px;
+        }
+    </style>
 
 
-@if (VideoSource != null)
-{
     <div style="text-align: center">
+        <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="() => DownloadContent(pdfContent[0])">Download PDF</button><br><br>
+        <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="RouteToQuizpage">Go to Quiz</button><br><br>
 
-        <iframe width="560" height="315" src="@VideoSource" title="YouTube video player"
-                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-        </iframe>
     </div>
-}
+
+    <style>
+        p {
+            width: 30em;
+            padding-top: 100px;
+        }
+    </style>
 
 
-@code
+    @if (VideoSource != null)
+    {
+        <div style="text-align: center">
+
+            <iframe width="560" height="315" src="@VideoSource" title="YouTube video player"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    }
+
+
+    @code
 {
-    [Parameter]
-    public int UserId { get; set; }
+        [Parameter]
+        public int UserId { get; set; }
 
-    [Parameter]
-    public int ChapterId { get; set; }
+        [Parameter]
+        public int ChapterId { get; set; }
 
-    public int QuizId { get; set; }
+        public int QuizId { get; set; }
 
-    string currentChapter = "";
+        string currentChapter = "";
 
-    string currentCourse = $"'Ein sehr guter Kurs!'";
+        string currentCourse = $"'Ein sehr guter Kurs!'";
 
-    PdfContentDto[] pdfContent = new PdfContentDto[0];
+        PdfContentDto[] pdfContent = new PdfContentDto[0];
 
-    ChapterDto chapter;
+        ChapterDto chapter;
 
-    string VideoSource;
+        string VideoSource;
 
 
-    private async void DownloadContent(PdfContentDto contentDto)
-    {
-        var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
+        private async void DownloadContent(PdfContentDto contentDto)
+        {
+            var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
 
-        string[] base64String = getContent.baseString.Split(',');
+            string[] base64String = getContent.baseString.Split(',');
 
-        await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
+            await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+            //content = await BackendAccessService.GetAllContent();
+            chapter = await BackendAccessService.GetChapterById(ChapterId);
+            pdfContent = chapter.ChapterContentPdf;
+            currentChapter = chapter.ChapterName;
+
+            VideoSource = chapter.ChapterContentVideo.FirstOrDefault()?.Path;
+        }
+
+        private void RouteToQuizpage()
+        {
+            QuizId = chapter.ChapterQuiz.QuizId;
+            NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
+        }
     }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-    //content = await BackendAccessService.GetAllContent();
-        chapter = await BackendAccessService.GetChapterById(ChapterId);
-        pdfContent = chapter.ChapterContentPdf;
-        currentChapter = chapter.ChapterName;
-
-        VideoSource = chapter.ChapterContentVideo.FirstOrDefault()?.Path;
-    }
-
-    private void RouteToQuizpage()
-    {
-        QuizId = chapter.ChapterQuiz.QuizId;
-        NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
-    }
-}

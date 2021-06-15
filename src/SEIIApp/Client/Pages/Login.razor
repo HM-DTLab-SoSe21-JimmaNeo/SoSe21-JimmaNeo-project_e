@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject Services.BackendAccessService BackendAccessService
 
-<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+<h1 style="font-family: 'Mate SC'" align="center">NeoLearn</h1>
 
 <style>
     p {
@@ -12,20 +12,20 @@
     }
 </style>
 <body>
-<p> </p>
+    <p> </p>
 </body>
 
 <div data-role="fieldcontain">
     <div style="text-align: center">
         <fieldset>
-            <label for="benutzername">Username:</label>
-            <input type="text"
+            <label for="benutzername" style="font-family: 'Merriweather'">Username:</label>
+            <input type="text" style="font-family: 'Merriweather'"
                    @bind-value="name"
-                   @bind-value:event="oninput"/><br><br>
-            <label for="kennwort">Password:</label>
+                   @bind-value:event="oninput" /><br><br>
+            <label for="kennwort" style="font-family: 'Merriweather'">Password:</label>
             <input type="password"
                    @bind-value="password"
-                   @bind-value:event="oninput"/><br><br>
+                   @bind-value:event="oninput" /><br><br>
         </fieldset>
     </div>
 </div>
@@ -33,8 +33,8 @@
 <div data-role="fieldcontain">
     <div style="text-align: center">
         <fieldset>
-            <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
-            <br/>
+            <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="RouteToHomepage">Login</button>
+            <br />
             <label>
                 <p style="color:@messageColor">@message</p>
             </label>
@@ -44,38 +44,36 @@
 </div>
 
 
-@code {
-    private string name;
+@code { private string name;
 
-    private string password;
+            private string password;
 
-    private int id;
+            private int id;
 
-    UserDto user;
+            UserDto user;
 
-    private string message = "Please log in.";
+            private string message = "Please log in.";
 
-    private string messageColor = "black";
+            private string messageColor = "black";
 
-    private async Task RouteToHomepage()
-    {
-        user = await BackendAccessService.GetUserByNameAndPw(name, password);
-        if (user != null)
-        {
-            if (!user.adminRights)
+
+            private async Task RouteToHomepage()
             {
-                NavigationManager.NavigateTo($"/homepageuser/{user.UserId}");
-            }
-            else if (user.adminRights)
-            {
-                NavigationManager.NavigateTo("/CreatorHomepage");
-            }
-        }
-        else
-        {
-            message = "Wrong Login-Information!";
-            messageColor = "red";
-        }
-    }
-
-}
+                user = await BackendAccessService.GetUserByNameAndPw(name, password);
+                if (user != null)
+                {
+                    if (!user.adminRights)
+                    {
+                        NavigationManager.NavigateTo($"/homepageuser/{user.UserId}");
+                    }
+                    else if (user.adminRights)
+                    {
+                        NavigationManager.NavigateTo("/CreatorHomepage");
+                    }
+                }
+                else
+                {
+                    message = "Wrong Login-Information!";
+                    messageColor = "red";
+                }
+            } }

@@ -1,14 +1,14 @@
 ﻿@page "/AddQuestion"
 @inject NavigationManager NavigationManager
 
-<center><h2>Add new Question</h2></center>
+<center><h2 style="font-family: 'Mate SC'">Add new Question</h2></center>
 <br />
 <br />
 <br />
 <center>
     <div>
         <label for="QuestionName">Question</label>
-        <input type="text" class="solid" name="QuestionName" value="" />
+        <input type="text" class="solid" style=" font-family: 'Merriweather'" name="QuestionName" value="" />
         <a class="btn btn-light btn-sm"> Confirm Question</a>
         <br />
         <br />
@@ -27,13 +27,13 @@
         <br />
         <br />
         <input placeholder="add an Answer" @bind="newTodo" />
-        <button @onclick="AddTodo">Add Answer</button>
+        <button style=" font-family: 'Merriweather'" @onclick="AddTodo">Add Answer</button>
         <br />
         <br />
-        <h5>Wrong Answers: (@todos.Count(todo => !todo.IsDone))</h5>
+        <h5 style=" font-family: 'Mate SC'">Wrong Answers: (@todos.Count(todo => !todo.IsDone))</h5>
         <br />
         <br />
-        <a href="/chapter" class="btn btn-outline-danger btn-sm"> Remove Question</a>
+        <a href="/chapter" class="btn btn-outline-danger btn-sm" style=" font-family: 'Merriweather'"> Remove Question</a>
         <br />
         <br />
         <br />
@@ -44,8 +44,8 @@
 
 <div>
     <p align="right">
-        <button class="btn btn-dark btn-sm" @onclick="refresh" style="margin-top:24px">Add Question</button>
-        <button class="btn btn-success btn-sm" @onclick="refresh2" style="margin-top:24px">Save Complete Quiz</button>
+        <button class="btn btn-dark btn-sm" @onclick="refresh" style=" font-family: 'Merriweather'" margin-top:24px">Add Question</button>
+        <button class="btn btn-success btn-sm" @onclick="refresh2" style=" font-family: 'Merriweather'" margin-top:24px">Save Complete Quiz</button>
     </p>
 </div>
 

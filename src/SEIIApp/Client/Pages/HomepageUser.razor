@@ -5,7 +5,7 @@
 @inject NavigationManager NavigationManager
 
 
-<h1 style="color:dodgerblue" align="center" xmlns="http://www.w3.org/1999/html">NeoLearn</h1>
+<h1 style="font-family: 'Mate SC'"; align="center" xmlns="http://www.w3.org/1999/html">NeoLearn</h1>
 
 <div data-role="fieldcontain">
     <div style="text-align: center">
@@ -13,9 +13,9 @@
             <label>
                 @if (StudentUser != null)
                 {
-                    <div style="text-align: center">
-                        <p style="text-align: center">Willkommen @StudentUser.UserName ! </p>
-                    </div>
+                <div style="font-family: 'Mate SC';text-align: center">
+                    <p style="text-align: center">Willkommen @StudentUser.UserName ! </p>
+                </div>
                 }
             </label>
         </fieldset>
@@ -32,10 +32,10 @@
 
 
 <div style="text-align: center">
-    
-    <button class="btn btn-primary" @onclick="RouteToLearning">Start / Continue</button><br/>
-    <button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br/>
-    <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br/>
+
+    <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="RouteToLearning">Start / Continue</button><br><br>
+    <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="RouteToRepetition">Repetitionpage</button><br><br>
+    <button class="btn btn-warning" style="font-family: 'Merriweather'" @onclick="RouteToCourses">All Courses</button><br />
 </div>
 
 <p>
