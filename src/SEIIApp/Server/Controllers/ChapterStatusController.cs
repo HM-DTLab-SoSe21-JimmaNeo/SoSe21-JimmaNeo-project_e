@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Services;
 using SEIIApp.Server.Services.StatusServices;
+using SEIIApp.Shared.DomainDto;
 using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Controllers
@@ -58,17 +59,15 @@ namespace SEIIApp.Server.Controllers
         /// <summary>
         /// Add or update a chapterStatus for a given chapter and user
         /// </summary>
-        /// <param name="chapterId"></param>
-        /// <param name="studentId"></param>
+        /// <param name="chapterStatusTransfer"></param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ChapterStatusDto> AddOrUpdateChapterStatus([FromQuery] int chapterId,
-            [FromQuery] int studentId)
+        public ActionResult<ChapterStatusDto> AddOrUpdateChapterStatus([FromBody] chapterStatusTransfer chapterStatusTransfer)
         {
-            var chapter = ChapterService.GetChapterById(chapterId);
-            var student = UserService.GetStudentById(studentId);
+            var chapter = ChapterService.GetChapterById(chapterStatusTransfer.ChapterId);
+            var student = UserService.GetStudentById(chapterStatusTransfer.ChapterId);
 
             if (chapter == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
 

@@ -1,6 +1,7 @@
 ﻿@page "/studentcourses/{UserId:int}"
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Shared.DomainDto.StatusDto
+@using SEIIApp.Client.Components
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
 
@@ -17,8 +18,11 @@
             @foreach (var course in AllCourses)
             {
                 <li>@course.Course.CourseName</li>
-                <button class="btn btn-primary" @onclick="@(e => StartCourse(course))">Start Course</button>
-
+                <br />
+                <CourseComponent CourseId="@course.Course.CourseId" UserId="@StudentUser.UserId"></CourseComponent>
+                
+                <br />
+                <label>These are the chapters you already worked on:</label>
                 <ol>
                     @foreach (var chapter in course.Course.Chapters)
                     {

@@ -18,12 +18,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.AddOrUpdateChapterStatus(System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.AddOrUpdateChapterStatus(SEIIApp.Shared.DomainDto.chapterStatusTransfer)">
             <summary>
             Add or update a chapterStatus for a given chapter and user
             </summary>
-            <param name="chapterId"></param>
-            <param name="studentId"></param>
+            <param name="chapterStatusTransfer"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetLastChapterStatusWorkedOn(System.Int32)">

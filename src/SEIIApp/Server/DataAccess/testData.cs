@@ -114,7 +114,7 @@ namespace SEIIApp.Server.DataAccess
             courseStatusService.AddOrUpdateCourseStatus(course1, student1);
 
             chapterStatusService.AddOrUpdateChapterStatus(chapter1, student1);
-            chapterStatusService.AddOrUpdateChapterStatus(chapter2, student1);
+           // chapterStatusService.AddOrUpdateChapterStatus(chapter2, student1);
 
 
             quizStatusService.AddOrUpdateQuizStatus(quiz1, student1, true);

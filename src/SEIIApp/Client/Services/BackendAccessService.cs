@@ -159,13 +159,21 @@ namespace SEIIApp.Client.Services
                 return await response.DeserializeResponseContent<CourseStatusDto>();
             }
             else return null;
-            
+        }
+
+        public async Task<ChapterStatusDto> AddOrUpdateChapterStatus(chapterStatusTransfer chapterStatusTransfer)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/chapterstatus", chapterStatusTransfer);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<ChapterStatusDto>();
+            }
+            else return null;
         }
 
         public async Task<CourseDto> GetCourseByName(string name)
         {
             return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/byname?name={name}");
- 
         }
 
         public async Task<ChapterStatusDto> GetLastChapterStatusWorkedOn(int id)
