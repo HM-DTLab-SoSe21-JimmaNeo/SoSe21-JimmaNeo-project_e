@@ -46,7 +46,13 @@ namespace SEIIApp.Server.Controllers
             var quiz = QuizService.GetQuizById(quizId);
             var student = UserService.GetStudentById(studentId);
 
+            if (quiz == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
+
+
             var result = QuizStatusService.AddOrUpdateQuizStatus(quiz, student, finished);
+
+            if (result == null) return StatusCode(StatusCodes.Status404NotFound);
+
 
             return Ok(result);
         }

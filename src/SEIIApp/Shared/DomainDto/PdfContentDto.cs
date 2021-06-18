@@ -2,14 +2,15 @@
 
 namespace SEIIApp.Shared.DomainDto
 {
-    public class ContentDto
+    public class PdfContentDto
     {
-        public string Path { get; set; }
-
+     
         [Required]
         [StringLength(100, MinimumLength = 1)]
         public string ContentName { get; set; }
         
         public int ContentId { get; set; }
+        
+        public string baseString { get; set; }
     }
 }

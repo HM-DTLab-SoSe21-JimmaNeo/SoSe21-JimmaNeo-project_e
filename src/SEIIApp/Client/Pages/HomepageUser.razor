@@ -115,4 +115,10 @@
         NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
     }
 
+    private void RouteToLearning()
+    {
+        var ChapterId = 1;
+        NavigationManager.NavigateTo($"/learningpage/{UserId}/{ChapterId}");
+    }
+
 }

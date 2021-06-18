@@ -8,7 +8,8 @@ namespace SEIIApp.Shared.DomainDto
         [StringLength(250, MinimumLength = 1)]
         public string QuestionText { get; set; }
 
-        [ValidateComplexType] public AnswerDto[] Answers { get; set; }
+        [ValidateComplexType] 
+        public AnswerDto[] Answers { get; set; }
 
 
         public int QuestionId { get; set; }

@@ -88,7 +88,8 @@ namespace SEIIApp.Server
             services.AddScoped<QuestionStatusService>();
             services.AddScoped<CourseStatusService>();
             services.AddScoped<QuizStatusService>();
-            services.AddScoped<ContentService>();
+            services.AddScoped<PdfContentService>();
+            services.AddScoped<VideoContentService>();
 
 
             //Allgemeines zu Warnungen in der Visual Studio Fehlerliste
@@ -105,7 +106,8 @@ namespace SEIIApp.Server
             Services.QuestionService questionService,
             Services.ChapterService chapterService, ChapterStatusService chapterStatusService,
             QuestionStatusService questionStatusService,
-            CourseStatusService courseStatusService, QuizStatusService quizStatusService, ContentService contentService)
+            CourseStatusService courseStatusService, QuizStatusService quizStatusService, PdfContentService pdfContentService,
+            VideoContentService videoContentService)
         {
             if (env.IsDevelopment())
             {
@@ -148,7 +150,7 @@ namespace SEIIApp.Server
 
 #if DEBUG
             TestData.CreateTestData(quizService, userService, courseService, questionService, questionStatusService,
-                courseStatusService, contentService, chapterStatusService, quizStatusService);
+                courseStatusService, pdfContentService, chapterStatusService, quizStatusService, videoContentService);
 #endif
         }
     }

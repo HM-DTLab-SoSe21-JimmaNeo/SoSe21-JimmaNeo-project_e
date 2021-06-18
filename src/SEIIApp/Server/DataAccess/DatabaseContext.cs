@@ -30,7 +30,9 @@ namespace SEIIApp.Server.DataAccess
 
         public DbSet<Chapter> Chapters { get; set; }
 
-        public DbSet<Content> Contents { get; set; }
+        public DbSet<PdfContent> PdfContents { get; set; }
+        public DbSet<VideoContent> VideoContents { get; set; }
+
 
         public DbSet<ChapterStatus> ChapterStatus { get; set; }
 

@@ -31,7 +31,7 @@ namespace SEIIApp.Server.Services
                     .ThenInclude(x => x.Questions)
                     .ThenInclude(x => x.Answers)
                     .Include(x => x.Chapters)
-                    .ThenInclude(x => x.ChapterContent)
+                    .ThenInclude(x => x.ChapterContentPdf)
                 ;
         }
 
@@ -89,6 +89,16 @@ namespace SEIIApp.Server.Services
         public Course[] GetAllCourses()
         {
             return GetQueryableForCourse().ToArray();
+        }
+
+        /// <summary>
+        /// Return Course by given name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Course GetCourseByName(string name)
+        {
+            return GetQueryableForCourse().FirstOrDefault(x => x.CourseName.Equals(name));
         }
     }
 }

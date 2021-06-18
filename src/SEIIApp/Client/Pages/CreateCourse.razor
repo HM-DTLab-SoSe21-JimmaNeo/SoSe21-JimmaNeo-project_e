@@ -1,0 +1,53 @@
+﻿@page "/CreateCourse"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Components
+@inject Services.BackendAccessService _backendAccessService
+<h3>Create a new Course</h3>
+<br/>
+<br/>
+<label >Course name: </label>
+<input type="text"
+       @bind-value="CourseName"
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
+<h4>Chapters: </h4>
+<br/>
+@foreach (var chapter in Chapters)
+{
+    <li>
+        <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
+    </li>
+}
+<br/>
+<button @onclick="AddChapter">Add Chapter</button>
+<br/>
+<button @onclick="SaveCourse">Save Course</button>
+
+@code {
+
+    private string CourseName { get; set; }
+
+    private List<ChapterDto> Chapters = new List<ChapterDto>();
+    
+    CourseDto CourseDto { get; set; }
+
+    public string NewChapterName { get; set; }
+
+    private void AddChapter()
+    {
+        Chapters.Add(new ChapterDto(){ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0]});
+    }
+
+    private async Task SaveCourse()
+    {
+        CourseDto = new CourseDto
+        {
+            CourseName = CourseName,
+            Chapters = Chapters.ToArray()
+        };
+
+        await _backendAccessService.PutCourse(CourseDto);
+    }
+
+}

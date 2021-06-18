@@ -4,6 +4,13 @@
         <name>SEIIApp.Server</name>
     </assembly>
     <members>
+        <member name="M:SEIIApp.Server.Controllers.ChapterController.GetChapter(System.Int32)">
+            <summary>
+            Get a chapter by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetChapterStatusById(System.Int32)">
             <summary>
             Get a ChapterStatus by chapterStatusId
@@ -19,23 +26,9 @@
             <param name="studentId"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.ContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.ContentDto)">
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetLastChapterStatusWorkedOn(System.Int32)">
             <summary>
-            Update or Add content
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SEIIApp.Server.Controllers.ContentController.GetContent(System.Int32)">
-            <summary>
-            Get content by id
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SEIIApp.Server.Controllers.ContentController.GetAllContent">
-            <summary>
-            Get all content
+            Get the ChapterStatus for the last chapter a student worked on 
             </summary>
             <returns></returns>
         </member>
@@ -59,12 +52,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourseByName(System.String)">
+            <summary>
+            Return a course by given course name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(SEIIApp.Shared.DomainDto.CourseStatusTransfer)">
             <summary>
             Adds or updates a course status (= enroll a student in a course or set new finishStatus or LastWorkedOn)
             </summary>
-            <param name="courseId"></param>
-            <param name="studentId"></param>
+            <param name="courseStatusTransfer"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetCourseStatusById(System.Int32)">
@@ -84,6 +83,26 @@
         <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetLastCourseStatusWorkedOn(System.Int32)">
             <summary>
             Get the CourseStatus for the last course a student worked on 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.PdfContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.PdfContentDto)">
+            <summary>
+            Update or Add content
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.PdfContentController.GetContent(System.Int32)">
+            <summary>
+            Get content by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.PdfContentController.GetAllContent">
+            <summary>
+            Get all content
             </summary>
             <returns></returns>
         </member>
@@ -108,7 +127,7 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.AddOrUpdateQuestionStatusForUser(System.Int32,System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.AddOrUpdateQuestionStatusForUser(SEIIApp.Shared.DomainDto.questionStatusTransfer)">
             <summary>
             By giving Question (not questionstatus) id, userid(must be of student) and questionstatus add
             a new or update an existing question status fot the given question for the given user.
@@ -121,6 +140,21 @@
         <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetAllQuestionStatusOfUser(System.Int32)">
             <summary>
             Get all QuestionStatus for a user by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetQuestionStatusQuestionAndUser(System.Int32,System.Int32)">
+            <summary>
+            Get Question Status by Question and User
+            </summary>
+            <param name="userId"></param>
+            <param name="questionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.QuizController.GetQuizById(System.Int32)">
+            <summary>
+            Get a Quiz by Id
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -162,6 +196,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.VideoContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.VideoContentDto)">
+            <summary>
+            Update or Add content
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.VideoContentController.GetContent(System.Int32)">
+            <summary>
+            Get content by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.VideoContentController.GetAllContent">
+            <summary>
+            Get all content
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Services.CourseService.GetQueryableForCourse">
             <summary>
             Database Query for Courses
@@ -199,6 +253,13 @@
             <summary>
             Returns Array of all Courses in the database
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.GetCourseByName(System.String)">
+            <summary>
+            Return Course by given name
+            </summary>
+            <param name="name"></param>
             <returns></returns>
         </member>
     </members>

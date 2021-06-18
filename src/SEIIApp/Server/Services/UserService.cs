@@ -85,7 +85,8 @@ namespace SEIIApp.Server.Services
         
         public Student[] GetAllStudents()
         {
-            return GetQueryableForUsers().OfType<Student>().ToArray();
+           // return GetQueryableForUsers().OfType<Student>().ToArray();
+            return GetQueryableForStudent().ToArray();
         }
 
         public Student GetStudentById(int id)

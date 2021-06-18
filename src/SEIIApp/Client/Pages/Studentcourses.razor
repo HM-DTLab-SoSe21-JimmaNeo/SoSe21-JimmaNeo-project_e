@@ -2,7 +2,9 @@
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Shared.DomainDto.StatusDto
 @inject Services.BackendAccessService BackendAccessService
-<h2>Hello @studentIdentity! </h2>
+@inject NavigationManager NavigationManager
+
+<h2>Hello @_studentIdentity! </h2>
 <h3>These are your enrolled courses:</h3>
 
 <br/>
@@ -15,10 +17,24 @@
             @foreach (var course in AllCourses)
             {
                 <li>@course.Course.CourseName</li>
+                <button class="btn btn-primary" @onclick="@(e => StartCourse(course))">Start Course</button>
+
+                <ol>
+                    @foreach (var chapter in course.Course.Chapters)
+                    {
+                        <li>
+                            @chapter.ChapterName
+                            <button class="btn btn-primary" @onclick="@(e => StartCourse(chapter))">Start Chapter</button>
+
+                        </li>
+                    }
+                </ol>
             }
         </ol>
     }
 }
+
+<p>@message</p>
 
 @code {
 
@@ -27,17 +43,37 @@
 
     private StudentDto StudentUser { get; set; }
 
-    private string studentIdentity = "student";
+    private string _studentIdentity = "student";
 
     private CourseStatusDto[] AllCourses { get; set; }
+
+    private string message = "Please choose a course.";
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
         StudentUser = await BackendAccessService.GetStudentById(UserId);
-        studentIdentity = StudentUser.UserName;
+        _studentIdentity = StudentUser.UserName;
 
         AllCourses = await BackendAccessService.GetAllEnrolledCourses(StudentUser.UserId);
+    }
+
+    private void StartCourse(CourseStatusDto courseStatusDto)
+    {
+        if (courseStatusDto.Course.Chapters is {Length: > 0 })
+        {
+            var chapterId = courseStatusDto.Course.Chapters[0].ChapterId;
+            NavigationManager.NavigateTo($"/learningpage/{UserId}/{chapterId}");
+        }
+        else
+        {
+            message = "Error with this course, please contact the course administrator";
+        }
+    }
+
+    private void StartCourse(ChapterDto chapterDto)
+    {
+        NavigationManager.NavigateTo($"/learningpage/{UserId}/{chapterDto.ChapterId}");
     }
 
 }

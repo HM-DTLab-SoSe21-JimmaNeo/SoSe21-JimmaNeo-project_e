@@ -17,9 +17,9 @@ namespace SEIIApp.Server.Controllers
         private CourseService CourseService { get; set; }
 
         private UserService UserService { get; set; }
-        
+
         private ChapterService ChapterService { get; set; }
-        
+
         private ChapterStatusService ChapterStatusService { get; set; }
 
         private IMapper Mapper { get; set; }
@@ -70,9 +70,29 @@ namespace SEIIApp.Server.Controllers
             var chapter = ChapterService.GetChapterById(chapterId);
             var student = UserService.GetStudentById(studentId);
 
+            if (chapter == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
+
             var result = ChapterStatusService.AddOrUpdateChapterStatus(chapter, student);
 
+            if (result == null) return StatusCode(StatusCodes.Status404NotFound);
+
+
             return Ok(result);
+        }
+        
+        /// <summary>
+        /// Get the ChapterStatus for the last chapter a student worked on 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getlast/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<ChapterStatusDto> GetLastChapterStatusWorkedOn([FromRoute] int id)
+        {
+            var student = UserService.GetStudentById(id);
+            var chapterStatus = ChapterStatusService.GetLastChapterStatusWorkedOn(student);
+            return Ok(Mapper.Map<ChapterStatusDto>(chapterStatus));
         }
     }
 }

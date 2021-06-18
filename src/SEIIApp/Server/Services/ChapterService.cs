@@ -24,7 +24,8 @@ namespace SEIIApp.Server.Services
                 .Chapters
                 //.Include(x => x.ChapterName)
                 .Include(x => x.ChapterQuiz)
-                .Include(x => x.ChapterContent)
+                .Include(x => x.ChapterContentPdf)
+                .Include(x => x.ChapterContentVideo)
                 //.ThenInclude(y => y.ContentName)
                 ;
         }

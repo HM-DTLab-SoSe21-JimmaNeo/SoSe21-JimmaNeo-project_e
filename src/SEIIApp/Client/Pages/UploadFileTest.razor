@@ -35,13 +35,13 @@
 
     public string dataurl { get; set; }
 
-    public ContentDto newContent = new ContentDto();
+    public PdfContentDto newContent = new PdfContentDto();
 
     private PdfLoadedDocument loadedDocument;
 
     private string downloadId;
 
-    private ContentDto[] allContent;
+    private PdfContentDto[] allContent;
 
     private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
     {
@@ -54,18 +54,18 @@
 
         dataurl = $"data:pdf;base64,{Convert.ToBase64String(buffer)}";
 
-        newContent.Path = dataurl;
+        newContent.baseString = dataurl;
         newContent.ContentName = file.Name;
 
         await BackendAccessService.UploadContentFile(newContent);
         allContent = await BackendAccessService.GetAllContent();
     }
 
-    private async void DownloadContent(ContentDto contentDto)
+    private async void DownloadContent(PdfContentDto contentDto)
     {
         var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
 
-        string[] base64String = getContent.Path.Split(',');
+        string[] base64String = getContent.baseString.Split(',');
 
         await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
     }

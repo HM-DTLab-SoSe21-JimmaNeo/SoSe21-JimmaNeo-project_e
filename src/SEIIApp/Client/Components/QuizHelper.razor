@@ -1,36 +1,38 @@
 ﻿@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Services
+@inject BackendAccessService _backendAccessService
 @if (Question != null)
 {
-
     <p style="font-size:14pt">@Question.QuestionText</p>
 
     foreach (var answer in Question.Answers)
     {
         <input type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind-value="answer.IsSelected">
         <label for="answerCheckbox">@answer.AnswerText</label>
-        <br />
+        <br/>
     }
 
-    <br />
+    <br/>
 
     @if (answeredRight == true)
     {
         <p style="color:green">Die Frage wurde richtig beantwortet!</p>
-        <br />
+        <br/>
         <button class="btn btn-primary" @onclick="@(() => next.InvokeAsync(true))">Weiter</button>
-        <br />
+        <br/>
     }
     @if (answeredWrong == true)
     {
         <p style="color:red">Die Frage wurde leider falsch beantwortet!</p>
         answeredWrong = false;
     }
-    <br />
+    <br/>
 
     <button class="btn btn-success" disabled="@isFinished" @onclick="() => Antworten()">Antworten</button>
 }
 
 @code {
+
     [Parameter]
     public QuestionDto Question { get; set; }
 
@@ -40,19 +42,31 @@
     [Parameter]
     public EventCallback<bool> next { get; set; }
 
+    [Parameter]
+    public int studentId { get; set; }
+
     public bool answeredWrong { get; set; }
     public bool answeredRight { get; set; }
 
-    public bool Antworten()
+    public async Task<bool> Antworten()
     {
+        var qStatus = await _backendAccessService.GetQuestionStatusByQuestionAndUser(studentId, Question.QuestionId);
+
+        questionStatusTransfer transfer = new questionStatusTransfer() {UserId = studentId, QuestionId = Question.QuestionId};
         foreach (var answer in Question.Answers)
         {
             if (answer.IsSelected != answer.IsCorrect)
             {
+                transfer.level = 0;
+                await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+
                 answeredWrong = true;
                 return false;
             }
         }
+        transfer.level = qStatus.QuestionLevel + 1;
+        await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+
         answeredRight = true;
         return true;
     }
@@ -64,4 +78,5 @@
         answeredWrong = false;
         answeredRight = false;
     }
+
 }
