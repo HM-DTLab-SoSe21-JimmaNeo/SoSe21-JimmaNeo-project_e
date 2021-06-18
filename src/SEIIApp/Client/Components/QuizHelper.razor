@@ -57,7 +57,7 @@
         {
             if (answer.IsSelected != answer.IsCorrect)
             {
-                transfer.level = 1;
+                transfer.level = 0;
                 await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
 
                 answeredWrong = true;

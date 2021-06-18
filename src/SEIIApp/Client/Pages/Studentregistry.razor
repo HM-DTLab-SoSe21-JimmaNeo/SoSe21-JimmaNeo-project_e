@@ -72,7 +72,7 @@
 
     private async Task Enroll(StudentDto studentDto)
     {
-        CourseDto courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
+        var courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
 
         await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseDto.CourseId, StudentId = studentDto.UserId});
 
