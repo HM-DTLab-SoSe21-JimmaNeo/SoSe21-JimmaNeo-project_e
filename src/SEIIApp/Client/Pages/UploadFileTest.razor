@@ -14,19 +14,21 @@
 <InputFile OnChange="OnInputFileChanged"></InputFile>
 
 
-
 <br/>
 <br/>
 
-@{ if (allContent?.Length > 0)
+@{
+    if (allContent?.Length > 0)
     {
         <ol>
             @foreach (var content in allContent)
             {
-                <li>@content.ContentName <button class="btn btn-primary" @onclick="() => DownloadContent(content)">Download</button></li>
+                <li>
+                    @content.ContentName <button class="btn btn-primary" @onclick="() => DownloadContent(content)">Download</button>
+                </li>
             }
         </ol>
-        }
+    }
 }
 
 @code {
@@ -61,9 +63,6 @@
 
     private async void DownloadContent(ContentDto contentDto)
     {
-    
-        
-    //int downloadIdAsInt = Convert.ToInt32(downloadId);
         var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
 
         string[] base64String = getContent.Path.Split(',');

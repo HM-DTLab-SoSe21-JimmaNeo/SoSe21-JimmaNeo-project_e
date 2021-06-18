@@ -101,8 +101,10 @@ namespace SEIIApp.Server
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService, Services.QuestionService questionService,
-            Services.ChapterService chapterService, ChapterStatusService chapterStatusService, QuestionStatusService questionStatusService,
+            Services.QuizService quizService, Services.UserService userService, Services.CourseService courseService,
+            Services.QuestionService questionService,
+            Services.ChapterService chapterService, ChapterStatusService chapterStatusService,
+            QuestionStatusService questionStatusService,
             CourseStatusService courseStatusService, QuizStatusService quizStatusService, ContentService contentService)
         {
             if (env.IsDevelopment())
@@ -143,9 +145,10 @@ namespace SEIIApp.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
-            
+
 #if DEBUG
-            TestData.CreateTestData(quizService, userService, courseService, questionService, questionStatusService, courseStatusService, contentService);
+            TestData.CreateTestData(quizService, userService, courseService, questionService, questionStatusService,
+                courseStatusService, contentService, chapterStatusService, quizStatusService);
 #endif
         }
     }

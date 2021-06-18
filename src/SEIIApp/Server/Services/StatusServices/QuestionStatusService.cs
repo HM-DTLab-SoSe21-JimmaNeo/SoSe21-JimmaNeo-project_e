@@ -28,7 +28,8 @@ namespace SEIIApp.Server.Services.StatusServices
         {
             return DatabaseContext
                 .QuestionStatus
-                .Include(x => x.Question);
+                .Include(x => x.Question)
+                .ThenInclude(x => x.Answers);
         }
 
         public QuestionStatus GetQuestionStatusById(int id)
@@ -46,7 +47,7 @@ namespace SEIIApp.Server.Services.StatusServices
         {
             var user = UserService.GetStudentById(userId);
             var questionStatusEnumerableI = user.QuestionStatusList.Where(x =>
-                x.QuestionLevel == 1 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(24));
+                x.QuestionLevel == 1 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(24)); //zum testen!!
             var questionStatusEnumerableII = user.QuestionStatusList.Where(x =>
                 x.QuestionLevel == 2 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(48));
             var questionStatusEnumerableIII = user.QuestionStatusList.Where(x =>
@@ -76,6 +77,30 @@ namespace SEIIApp.Server.Services.StatusServices
             }
 
             searchStatus.LastAnswered = DateTime.Now;
+
+
+            DatabaseContext.Users.Update(student);
+            DatabaseContext.QuestionStatus.Update(searchStatus);
+            DatabaseContext.SaveChanges();
+
+            return searchStatus;
+        }
+        
+        public QuestionStatus AddOrUpdateQuestionStatus(Question question, Student student, int questionStatus, DateTime time)
+        {
+            var searchStatus = student.QuestionStatusList.Find(x => x.Question.QuestionId == question.QuestionId);
+
+            if (searchStatus == null)
+            {
+                searchStatus = new QuestionStatus() {Question = question, QuestionLevel = questionStatus};
+                student.QuestionStatusList.Add(searchStatus);
+            }
+            else
+            {
+                searchStatus.QuestionLevel = questionStatus;
+            }
+
+            searchStatus.LastAnswered = time;
 
 
             DatabaseContext.Users.Update(student);

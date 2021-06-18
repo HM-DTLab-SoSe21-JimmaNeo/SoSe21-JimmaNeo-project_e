@@ -59,7 +59,7 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<StudentDto> GetUserByNameAndPw([FromQuery] string name, [FromQuery] string password)
+        public ActionResult<UserDto> GetUserByNameAndPw([FromQuery] string name, [FromQuery] string password)
         {
             var user = UserService.GetUserByNameAndPw(name, password);
             if (user == null) return StatusCode(StatusCodes.Status404NotFound);
@@ -87,7 +87,7 @@ namespace SEIIApp.Server.Controllers
         /// Returns all users who are students
         /// </summary>
         /// <returns></returns>
-        [HttpGet("~/allstudents")]
+        [HttpGet("allstudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<StudentDto[]> GetAllStudents()
         {

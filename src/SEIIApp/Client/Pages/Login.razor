@@ -12,7 +12,7 @@
     }
 </style>
 <body>
-    <p> </p>
+<p> </p>
 </body>
 
 <div data-role="fieldcontain">
@@ -21,11 +21,11 @@
             <label for="benutzername">Username:</label>
             <input type="text"
                    @bind-value="name"
-                   @bind-value:event="oninput" /><br><br>
+                   @bind-value:event="oninput"/><br><br>
             <label for="kennwort">Password:</label>
             <input type="password"
                    @bind-value="password"
-                   @bind-value:event="oninput" /><br><br>
+                   @bind-value:event="oninput"/><br><br>
         </fieldset>
     </div>
 </div>
@@ -34,24 +34,14 @@
     <div style="text-align: center">
         <fieldset>
             <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
-            <br /><br><br>
-            @if (message.Equals("Wrong Login-Information!"))
-            {
-                <p style="color:red">
-                    @message
-                </p>
-            }
-            else
-            {
-                <p>
-                    @message
-                </p>
-            }
+            <br/>
+            <label>
+                <p style="color:@messageColor">@message</p>
+            </label>
+
         </fieldset>
     </div>
 </div>
-
-
 
 
 @code {
@@ -61,17 +51,32 @@
 
     private int id;
 
-    StudentDto student;
+    UserDto user;
 
     private string message = "Please log in.";
+
+    private string messageColor = "black";
 
 
     private async Task RouteToHomepage()
     {
-        student = await BackendAccessService.GetStudentByNameAndPw(name, password);
-        if (student != null) NavigationManager.NavigateTo($"/homepage/{student.UserId}");
-        else message = "Wrong Login-Information!";
+        user = await BackendAccessService.GetUserByNameAndPw(name, password);
+        if (user != null)
+        {
+            if (!user.adminRights)
+            {
+                NavigationManager.NavigateTo($"/homepageuser/{user.UserId}");
+            }
+            else if (user.adminRights)
+            {
+                NavigationManager.NavigateTo("/CreatorHomepage");
+            }
+        }
+        else
+        {
+            message = "Wrong Login-Information!";
+            messageColor = "red";
+        }
     }
 
 }
-

@@ -1,7 +1,12 @@
-﻿@page "/learning"
+﻿@page "/learningpage"
+@using SEIIApp.Shared.DomainDto.StatusDto
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
 
 
-<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
 
 <style>
     p {
@@ -9,14 +14,11 @@
         padding-top: 100px;
     }
 </style>
-<body>
-    <p> </p>
-</body>
 
 
 <div style="text-align: center">
-    <a href="/learning" class="btn btn-primary" role="button" data-bs-toggle="button"> PDF</a><br><br>
-    <a href="/learning" class="btn btn-primary" role="button" data-bs-toggle="button"> Go to Quiz</a>
+    <button class="btn btn-primary" @onclick="() => DownloadContent(content[0])"style="margin-top:24px">Download PDF</button><br><br>
+    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
 
 </div>
 
@@ -26,14 +28,43 @@
         padding-top: 100px;
     }
 </style>
-<body>
-    <p> </p>
-</body>
+
 
 
 <div style="text-align: center">
 
     <iframe width="560" height="315" src="https://www.youtube.com/embed/rnLkl6Bl9P0" title="YouTube video player"
             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
+            allowfullscreen>
+    </iframe>
 </div>
+
+@code
+{
+    string currentChapter = "Emergency Situations";
+
+    string currentCourse = "Basics of Neonatology I";
+
+    ContentDto[] content = new ContentDto[0];
+
+
+    private async void DownloadContent(ContentDto contentDto)
+    {
+        var getContent = await BackendAccessService.GetContentById(contentDto.ContentId);
+
+        string[] base64String = getContent.Path.Split(',');
+
+        await JsRuntime.InvokeVoidAsync("downloadFile", "application/pdf", base64String[1], getContent.ContentName);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        content = await BackendAccessService.GetAllContent();
+    }
+
+    private void RouteToQuizpage()
+    {
+        NavigationManager.NavigateTo("/chapterquiz");
+    }
+}

@@ -25,6 +25,24 @@ namespace SEIIApp.Server.Controllers
             this.UserService = userService;
         }
         
+        /// <summary>
+        /// Get a Question  by Question Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Question> GetQuestionById([FromRoute] int id)
+        {
+            var status = QuestionService.GetQuestionById(id);
+            if(status == null) return StatusCode(StatusCodes.Status404NotFound);
+
+            var mapped = Mapper.Map<QuestionDto>(status);
+            return Ok(mapped);
+        }
+        
 
     }
     

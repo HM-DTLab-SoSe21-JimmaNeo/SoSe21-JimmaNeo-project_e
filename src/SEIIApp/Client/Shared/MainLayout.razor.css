@@ -1,15 +1,15 @@
 .page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    position: static;
+    display: inline;
+    flex-direction: row;
 }
 
 .main {
     flex: 1;
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+.row {
+    background-color: #0d6efd;
 }
 
 .top-row {

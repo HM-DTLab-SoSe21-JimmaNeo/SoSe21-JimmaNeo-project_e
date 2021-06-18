@@ -1,0 +1,72 @@
+﻿@page "/CreatorHomepage"
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+<h3>CreatorHomepage</h3>
+<br />
+<br />
+
+<center>
+    <h4>These are all courses:</h4>
+</center>
+
+    @{
+        /* <ol>
+             @foreach (var course in allCourses)
+             {
+                 <li>@course.CourseName</li>
+             }
+         </ol>*/
+
+    }
+
+    <br>
+    <br>
+    <div>
+        <center><a href="/newCourse" class="btn btn-primary"> new Course</a></center>
+    </div>
+    <br>
+    <br>
+    <div>
+        <center><a href="/courseOne" class="btn btn-primary"> Course 1</a></center>
+    </div>
+    <br>
+    <br>
+    <div>
+        <center><a href="/courseTwo" class="btn btn-primary"> Course 2</a></center>
+    </div>
+    <br>
+    <br>
+    <div>
+        <center><a href="/studentregistry" class="btn btn-primary"> Students</a></center>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <details>
+        Contact
+        E-mail: example@neolearn.com
+    </details>
+
+
+
+
+
+
+    @code {
+
+        CourseDto[] allCourses = new CourseDto[0];
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+            allCourses = await BackendAccessService.GetAllCourses();
+        }
+
+        private void RouteToStudentList()
+        {
+            NavigationManager.NavigateTo("/studentregistry");
+        }
+
+    }

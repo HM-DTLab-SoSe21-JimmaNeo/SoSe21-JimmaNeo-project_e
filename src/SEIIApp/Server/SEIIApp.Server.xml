@@ -87,6 +87,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.QuestionController.GetQuestionById(System.Int32)">
+            <summary>
+            Get a Question  by Question Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.QuestionStatusController.GetQuestionStatusById(System.Int32)">
             <summary>
             Get a Question Status by Question Status Id
