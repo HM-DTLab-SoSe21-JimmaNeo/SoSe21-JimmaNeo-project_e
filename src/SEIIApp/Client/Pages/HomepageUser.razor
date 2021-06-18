@@ -14,7 +14,7 @@
                 @if (StudentUser != null)
                 {
                     <div style="text-align: center">
-                        <p style="text-align: center">Willkommen @StudentUser.UserName ! </p>
+                        <p style="text-align: center">Welcome @StudentUser.UserName ! </p>
                     </div>
                 }
             </label>
@@ -33,13 +33,13 @@
 <div class="row">
     <div class="col-sm-4">
 
-        <div class="card" style="width: 18rem; background-color:#00ffff; min-height: 26rem">
-            <img src="Images/LMU.png" class="card-img-top" alt="...">
-            <div class="card-body">
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="Images/Repetition.png" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Explanation what the Repetitionpage is ...........................</p>
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br />
+                    <br /><br /><button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br />
                 </div>
             </div>
         </div>
@@ -49,10 +49,10 @@
 
         <div class="card" style="width: 18rem; min-height: 26rem">
             <img src="Images/Courses.jpg" class="card-img-top" alt="..."><br><br />
-            <div class="card-body">
-                <h5 class="card-title">Show all Courses</h5><br><br />
+            <div class="card-body" style="margin:auto">
+                <br />  <h5 class="card-title">Show all Courses</h5><br><br />
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br />
+                    <br /><br /> <br /><button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br />
                 </div>
             </div>
         </div>
@@ -61,10 +61,10 @@
     <div class="col-sm-4">
         <div class="card" style="width: 18rem; min-height: 26rem">
             <img src="Images/Start.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
+            <div class="card-body" style="margin:auto">
                 <h5 class="card-title">Start the Course</h5>
                 <div style="text-align:center">
-                    <a href="learningpage" class="btn btn-primary" role="button" data-bs-toggle="button"> Start/ Continue</a><br />
+                    <button class="btn btn-primary" @onclick="RouteToLearning">Start / Continue</button><br />
                 </div>
             </div>
         </div>
