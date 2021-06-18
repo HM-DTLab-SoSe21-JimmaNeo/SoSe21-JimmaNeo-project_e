@@ -1,0 +1,99 @@
+﻿@using SEIIApp.Shared.DomainDto
+@inject IJSRuntime JsRuntime
+<h3>Chapter</h3>
+<label >Chapter name: </label>
+<br/>
+<input type="text"
+       @bind-value="ChapterDto.ChapterName"
+       @bind-value:event="oninput"/>
+<br/>
+@foreach (var pdf in _pdfs)
+{
+    <li>@pdf.ContentName</li>
+}
+<br/>
+<label>New PDF Name:</label>
+<input type="text" @bind-value="NewPdfName" @bind-value:event="oninput"/>
+<br/>
+<label>Upload PDF:</label>
+<InputFile OnChange="OnInputFileChanged"></InputFile>
+
+<button @onclick="AddPdf">Add PDF</button>
+<br/>
+@foreach (var video in _videos)
+{
+    <li>@video.ContentName</li>
+}
+<br/>
+<label>New Video Name:</label>
+<input type="text" @bind-value="NewVideoName" @bind-value:event="oninput"/>
+<br/>
+<label>Link to new Video (please use the 'embed'-feature!)</label>
+
+<input type="text" @bind-value="NewVideoLink" @bind-value:event="oninput"/>
+<br/>
+
+<button @onclick="AddVideo">Add Video</button>
+
+<p>Quiz:</p>
+<br/>
+@if (newQuiz != null)
+{
+    <QuizEditComponent QuizDto="newQuiz"></QuizEditComponent>
+}
+<br/>
+<button @onclick="AddQuiz">Add Quiz</button>
+<br/>
+<button @onclick="SaveChapter">Save Chapter</button>
+
+@code {
+    [Parameter]
+    public ChapterDto ChapterDto { get; set; }
+
+    List<PdfContentDto> _pdfs = new List<PdfContentDto>();
+    List<VideoContentDto> _videos = new List<VideoContentDto>();
+
+    private string NewPdfName { get; set; }
+    private string NewVideoName { get; set; }
+    private string NewVideoLink { get; set; }
+    private string NewPdfFile { get; set; }
+
+    private QuizDto newQuiz { get; set; }
+
+    private void AddPdf()
+    {
+       _pdfs.Add(new PdfContentDto(){ContentName = NewPdfName, baseString = NewPdfFile});
+    }
+
+    private void AddVideo()
+    {
+        _videos.Add(new VideoContentDto(){ContentName = NewVideoName, Path = NewVideoLink});
+    }
+
+    private void AddQuiz()
+    {
+        newQuiz = new QuizDto();
+    }
+
+    private void SaveChapter()
+    {
+        ChapterDto.ChapterQuiz = newQuiz;
+        ChapterDto.ChapterContentPdf = _pdfs.ToArray();
+        ChapterDto.ChapterContentVideo = _videos.ToArray();
+    }
+    
+    private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
+    {
+        var file = inputFileChangeEventArgs.File;
+
+
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+
+
+        var dataurl = $"data:pdf;base64,{Convert.ToBase64String(buffer)}";
+
+        NewPdfFile = dataurl;
+    }
+    
+}

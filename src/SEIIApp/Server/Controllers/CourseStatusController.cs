@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Services;
 using SEIIApp.Server.Services.StatusServices;
+using SEIIApp.Shared.DomainDto;
 using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Controllers
@@ -29,20 +30,18 @@ namespace SEIIApp.Server.Controllers
             this.UserService = userService;
         }
 
-        /// <summary>
-        /// Adds or updates a course status (= enroll a student in a course or set new finishStatus or LastWorkedOn)
-        /// </summary>
-        /// <param name="courseId"></param>
-        /// <param name="studentId"></param>
-        /// <returns></returns>
+      /// <summary>
+      /// Adds or updates a course status (= enroll a student in a course or set new finishStatus or LastWorkedOn)
+      /// </summary>
+      /// <param name="courseStatusTransfer"></param>
+      /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<CourseStatusDto> AddOrUpdateCourseStatus([FromQuery] int courseId,
-            [FromQuery] int studentId)
+        public ActionResult<CourseStatusDto> AddOrUpdateCourseStatus([FromBody] CourseStatusTransfer courseStatusTransfer)
         {
-            var course = CourseService.GetCourseById(courseId);
-            var student = UserService.GetStudentById(studentId);
+            var course = CourseService.GetCourseById(courseStatusTransfer.CourseId);
+            var student = UserService.GetStudentById(courseStatusTransfer.StudentId);
 
             if (course == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -98,11 +97,11 @@ namespace SEIIApp.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<CourseStatus> GetLastCourseStatusWorkedOn([FromRoute] int id)
+        public ActionResult<CourseStatusDto> GetLastCourseStatusWorkedOn([FromRoute] int id)
         {
             var student = UserService.GetStudentById(id);
             var courseStatus = CourseStatusService.GetLastCourseStatusWorkedOn(student);
-            return courseStatus;
+            return Ok(Mapper.Map<CourseStatusDto>(courseStatus));
         }
     }
 }

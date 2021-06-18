@@ -79,5 +79,20 @@ namespace SEIIApp.Server.Controllers
 
             return Ok(result);
         }
+        
+        /// <summary>
+        /// Get the ChapterStatus for the last chapter a student worked on 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getlast/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<ChapterStatusDto> GetLastChapterStatusWorkedOn([FromRoute] int id)
+        {
+            var student = UserService.GetStudentById(id);
+            var chapterStatus = ChapterStatusService.GetLastChapterStatusWorkedOn(student);
+            return Ok(Mapper.Map<ChapterStatusDto>(chapterStatus));
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace SEIIApp.Server.Controllers
         public ActionResult<CourseDto> GetCourse([FromRoute] int id)
         {
             var course = CourseService.GetCourseById(id);
-            if(course == null) return StatusCode(StatusCodes.Status404NotFound);
+            if (course == null) return StatusCode(StatusCodes.Status404NotFound);
 
             var mappedCourse = Mapper.Map<CourseDto>(course);
 
@@ -80,9 +80,20 @@ namespace SEIIApp.Server.Controllers
             var mapped = Mapper.Map<CourseDto[]>(courses);
             return Ok(mapped);
         }
-        
-        
 
 
+        /// <summary>
+        /// Return a course by given course name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet ("byname")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<CourseDto> GetCourseByName([FromQuery] string name)
+        {
+            var result = CourseService.GetCourseByName(name);
+            var mapped = Mapper.Map<CourseDto>(result);
+            return Ok(mapped);
+        }
     }
 }

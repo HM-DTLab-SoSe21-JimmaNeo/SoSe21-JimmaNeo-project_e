@@ -92,7 +92,6 @@ namespace SEIIApp.Client.Services
         }
 
 
-
         public async Task<QuestionStatusDto[]> GetAllQuestionsForRepetition(int id)
         {
             var response = await HttpClient.GetAsync($"api/questionstatus?userId={id}");
@@ -130,17 +129,48 @@ namespace SEIIApp.Client.Services
         public async Task<QuizDto> GetQuizById(int id)
         {
             return await HttpClient.GetFromJsonAsync<QuizDto>($"api/quiz/{id}");
-
         }
 
         public async Task<CourseDto> GetCourseById(int id)
         {
             return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/{id}");
         }
-        
+
         public async Task<ChapterDto> GetChapterById(int id)
         {
             return await HttpClient.GetFromJsonAsync<ChapterDto>($"api/chapter/{id}");
-        } 
+        }
+
+        public async Task<CourseDto> PutCourse(CourseDto courseDto)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/course", courseDto);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<CourseDto>();
+            }
+            else return null;
+        }
+
+        public async Task<CourseStatusDto> AddOrUpdateCourseStatus(CourseStatusTransfer courseStatusTransfer)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/coursestatus", courseStatusTransfer);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<CourseStatusDto>();
+            }
+            else return null;
+            
+        }
+
+        public async Task<CourseDto> GetCourseByName(string name)
+        {
+            return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/byname?name={name}");
+ 
+        }
+
+        public async Task<ChapterStatusDto> GetLastChapterStatusWorkedOn(int id)
+        {
+            return await HttpClient.GetFromJsonAsync<ChapterStatusDto>($"api/chapterstatus/getlast/{id}");
+        }
     }
 }

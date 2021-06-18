@@ -1,14 +1,53 @@
 ﻿@page "/studentregistry"
 @using SEIIApp.Shared.DomainDto
+@using SEIIApp.Shared.DomainDto.StatusDto
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
 <h3>Studentregistry</h3>
+<br/>
+<br/>
+<h4>All Courses:</h4>
+@foreach (var course in _allCourses)
+{
+    <li>
+        Name: @course.CourseName
+    </li>
+}
+<br/>
+<br/>
+
+
+<h4>All Students:</h4>
+<br/>
+<br/>
+
+<label>Name of the Course to enroll students to:</label>
+<input type="text"
+       @bind-value="CourseToEnroll"
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
 
 @{
     <ol>
         @foreach (var student in _allStudents)
         {
-            <li>Name: @student.UserName</li>
+            <li>
+                Name: @student.UserName
+                <button class="btn btn-primary" @onclick="@(e => Enroll(student))">Enroll student</button>
+                <br/>
+                Courses:
+                <ol>
+                    @foreach (var course in student.EnrolledCourses)
+                    {
+                        <li>
+                            @course.Course.CourseName
+                        </li>
+                    }
+                </ol>
+
+
+            </li>
         }
     </ol>
 
@@ -16,12 +55,33 @@
 
 @code {
 
+    private string CourseToEnroll { get; set; }
+
     StudentDto[] _allStudents = new StudentDto[0];
+
+    StudentDto StudentToEnroll { get; set; }
+
+    CourseDto[] _allCourses = new CourseDto[0];
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
         _allStudents = await BackendAccessService.GetAllStudents();
+        _allCourses = await BackendAccessService.GetAllCourses();
+    }
+
+    private async Task Enroll(StudentDto studentDto)
+    {
+        CourseDto courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
+
+        await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseDto.CourseId, StudentId = studentDto.UserId});
+
+        await OnParametersSetAsync();
+    }
+
+    private async Task<CourseStatusDto[]> GetCoursesOfStudent(StudentDto studentDto)
+    {
+        return await BackendAccessService.GetAllEnrolledCourses(studentDto.UserId);
     }
 
 

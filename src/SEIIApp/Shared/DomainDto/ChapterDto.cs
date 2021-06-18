@@ -13,6 +13,8 @@ namespace SEIIApp.Shared.DomainDto
         public PdfContentDto[] ChapterContentPdf { get; set; }
         
         public VideoContentDto[] ChapterContentVideo { get; set; }
+        
+        public int ChapterId { get; set; } 
 
     }
 }

@@ -26,6 +26,12 @@
             <param name="studentId"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetLastChapterStatusWorkedOn(System.Int32)">
+            <summary>
+            Get the ChapterStatus for the last chapter a student worked on 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
             <summary>
             Get a course by id
@@ -46,12 +52,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(System.Int32,System.Int32)">
+        <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourseByName(System.String)">
+            <summary>
+            Return a course by given course name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(SEIIApp.Shared.DomainDto.CourseStatusTransfer)">
             <summary>
             Adds or updates a course status (= enroll a student in a course or set new finishStatus or LastWorkedOn)
             </summary>
-            <param name="courseId"></param>
-            <param name="studentId"></param>
+            <param name="courseStatusTransfer"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.CourseStatusController.GetCourseStatusById(System.Int32)">
@@ -241,6 +253,13 @@
             <summary>
             Returns Array of all Courses in the database
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Services.CourseService.GetCourseByName(System.String)">
+            <summary>
+            Return Course by given name
+            </summary>
+            <param name="name"></param>
             <returns></returns>
         </member>
     </members>

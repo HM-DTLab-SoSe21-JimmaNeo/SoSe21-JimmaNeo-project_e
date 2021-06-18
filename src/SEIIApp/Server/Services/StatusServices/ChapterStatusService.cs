@@ -61,6 +61,13 @@ namespace SEIIApp.Server.Services.StatusServices
 
             return result;
         }
+        
+        public ChapterStatus GetLastChapterStatusWorkedOn(Student student)
+        {
+            var search = student.ChapterStatuslist.Aggregate((i1, i2) => i1.LastWorkedOn > i2.LastWorkedOn ? i1 : i2);
+
+            return search;
+        }
 
 
     }
