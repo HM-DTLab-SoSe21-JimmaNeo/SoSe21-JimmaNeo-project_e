@@ -176,9 +176,42 @@ namespace SEIIApp.Client.Services
             return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/byname?name={name}");
         }
 
-        public async Task<ChapterStatusDto> GetLastChapterStatusWorkedOn(int id)
+        public async Task<ChapterStatusDto> GetLastChapterWorkedOn(int userId)
         {
-            return await HttpClient.GetFromJsonAsync<ChapterStatusDto>($"api/chapterstatus/getlast/{id}");
+            var response = await HttpClient.GetFromJsonAsync<ChapterStatusDto>($"api/chapterstatus/getlast/{userId}");
+            return response;
+        }
+
+        public async Task<ChapterDto[]> GetAllChapters()
+        {
+            var response = await HttpClient.GetFromJsonAsync<ChapterDto[]>($"api/chapter");
+            return response;
+        }
+
+        public async Task<CourseDto> GetCourseByChapterId(int chapterId)
+        {
+            return await HttpClient.GetFromJsonAsync<CourseDto>($"api/course/bychapterid?chapterId={chapterId}");
+        }
+
+        public async Task<CourseStatusDto> GetLastCourseStatusWorkedOn(int userId)
+        {
+            var response = await HttpClient.GetFromJsonAsync<CourseStatusDto>($"api/coursestatus/getlast/{userId}");
+            return response;
+        }
+
+        public async Task<QuizStatusDto> AddOrUpdateQuizStatus(QuizStatusTransfer quizStatusTransfer)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/quizstatus", quizStatusTransfer);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<QuizStatusDto>();
+            }
+            else return null;
+        }
+        
+        public async Task<ChapterDto> GetChapterByQuizId(int quizId)
+        {
+            return await HttpClient.GetFromJsonAsync<ChapterDto>($"api/chapter/byquiz/{quizId}");
         }
     }
 }

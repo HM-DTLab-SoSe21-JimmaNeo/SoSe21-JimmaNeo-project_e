@@ -5,6 +5,7 @@ using SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus;
 using SEIIApp.Server.Domain.UserDomain;
 using SEIIApp.Server.Services;
 using SEIIApp.Server.Services.StatusServices;
+using SEIIApp.Shared.DomainDto;
 using SEIIApp.Shared.DomainDto.StatusDto;
 
 namespace SEIIApp.Server.Controllers
@@ -40,16 +41,15 @@ namespace SEIIApp.Server.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<QuizStatusDto> AddOrUpdateQuizStatus([FromQuery] int quizId, [FromQuery] int studentId,
-            [FromQuery] bool finished)
+        public ActionResult<QuizStatusDto> AddOrUpdateQuizStatus([FromBody] QuizStatusTransfer quizStatusTransfer)
         {
-            var quiz = QuizService.GetQuizById(quizId);
-            var student = UserService.GetStudentById(studentId);
+            var quiz = QuizService.GetQuizById(quizStatusTransfer.quizId);
+            var student = UserService.GetStudentById(quizStatusTransfer.studentId);
 
             if (quiz == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
 
 
-            var result = QuizStatusService.AddOrUpdateQuizStatus(quiz, student, finished);
+            var result = QuizStatusService.AddOrUpdateQuizStatus(quiz, student, quizStatusTransfer.finished);
 
             if (result == null) return StatusCode(StatusCodes.Status404NotFound);
 

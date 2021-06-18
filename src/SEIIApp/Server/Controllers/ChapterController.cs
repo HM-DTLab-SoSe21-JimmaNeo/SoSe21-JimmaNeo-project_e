@@ -37,5 +37,31 @@ namespace SEIIApp.Server.Controllers
 
             return Ok(mappedChapter);
         }
+        
+        /// <summary>
+        /// Get all chapters
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<ChapterDto[]> GetAllChapters()
+        {
+            var chapters = ChapterService.GetAllChapters();
+            var mapped = Mapper.Map<ChapterDto[]>(chapters);
+            return Ok(mapped);
+        }
+        
+        /// <summary>
+        /// Get chapter by quiz id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("byquiz/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<ChapterDto> GetChapterByQuizId([FromRoute]int id)
+        {
+            var chapter = ChapterService.GetChapterByQuizId(id);
+            var mapped = Mapper.Map<ChapterDto>(chapter);
+            return Ok(mapped);
+        }
     }
 }

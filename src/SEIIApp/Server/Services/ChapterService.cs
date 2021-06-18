@@ -52,5 +52,16 @@ namespace SEIIApp.Server.Services
             return existingChapter;
 
         }
+        
+        public Chapter[] GetAllChapters()
+        {
+            return GetQueryableForChapter().ToArray();
+        }
+
+        public Chapter GetChapterByQuizId(int quizId)
+        {
+            var chapters = GetQueryableForChapter().ToList();
+            return (from chapter in chapters where chapter.ChapterQuiz.QuizId == quizId select chapter).FirstOrDefault();
+        }
     }
 }

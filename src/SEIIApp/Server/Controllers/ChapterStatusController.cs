@@ -64,10 +64,11 @@ namespace SEIIApp.Server.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<ChapterStatusDto> AddOrUpdateChapterStatus([FromBody] chapterStatusTransfer chapterStatusTransfer)
+        public ActionResult<ChapterStatusDto> AddOrUpdateChapterStatus(
+            [FromBody] chapterStatusTransfer chapterStatusTransfer)
         {
             var chapter = ChapterService.GetChapterById(chapterStatusTransfer.ChapterId);
-            var student = UserService.GetStudentById(chapterStatusTransfer.ChapterId);
+            var student = UserService.GetStudentById(chapterStatusTransfer.UserId);
 
             if (chapter == null || student == null) return StatusCode(StatusCodes.Status404NotFound);
 
@@ -75,12 +76,14 @@ namespace SEIIApp.Server.Controllers
 
             if (result == null) return StatusCode(StatusCodes.Status404NotFound);
 
+            var mapped = Mapper.Map<ChapterStatusDto>(result);
 
-            return Ok(result);
+
+            return Ok(mapped);
         }
-        
+
         /// <summary>
-        /// Get the ChapterStatus for the last chapter a student worked on 
+        /// Get the Chapter Status for the last chapter a student worked on 
         /// </summary>
         /// <returns></returns>
         [HttpGet("getlast/{id}")]
@@ -92,6 +95,26 @@ namespace SEIIApp.Server.Controllers
             var student = UserService.GetStudentById(id);
             var chapterStatus = ChapterStatusService.GetLastChapterStatusWorkedOn(student);
             return Ok(Mapper.Map<ChapterStatusDto>(chapterStatus));
+        }
+        
+        
+        /// <summary>
+        /// Get all ChapterStatus for a user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("all/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<ChapterStatusDto[]> GetAllChapterStatusOfUser([FromRoute] int id)
+        {
+            var student = UserService.GetStudentById(id);
+            var chapterStatuslist = ChapterStatusService.GetAllChapterStatusForUser(student);
+            if (chapterStatuslist == null) return StatusCode(StatusCodes.Status404NotFound);
+
+            var mapped = Mapper.Map<ChapterStatusDto[]>(chapterStatuslist);
+            return Ok(mapped);
         }
     }
 }

@@ -93,7 +93,7 @@ namespace SEIIApp.Server.Controllers
         /// Get the CourseStatus for the last course a student worked on 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("~/getlast/{id}")]
+        [HttpGet("getlast/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

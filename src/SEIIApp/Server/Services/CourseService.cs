@@ -100,5 +100,12 @@ namespace SEIIApp.Server.Services
         {
             return GetQueryableForCourse().FirstOrDefault(x => x.CourseName.Equals(name));
         }
+
+        public Course GetCourseByChapterId(int chapterId)
+        {
+            var courses = GetQueryableForCourse().ToList();
+
+            return (from course in courses from chapter in course.Chapters where chapter.ChapterId == chapterId select course).FirstOrDefault();
+        }
     }
 }

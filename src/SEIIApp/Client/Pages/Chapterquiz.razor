@@ -35,7 +35,7 @@
     public int questionNumber = 0;
     public bool quizFinished = false;
 
-    public void ClickHandler(bool next)
+    public async Task ClickHandler(bool next)
     {
         if (next && (questionNumber + 1) < Quiz.Questions.Length) {
             questionNumber++;
@@ -43,6 +43,9 @@
         } else
         {
             quizFinished = true;
+            var ChapterDto = await _backendAccessService.GetChapterByQuizId(QuizId);
+            await _backendAccessService.AddOrUpdateQuizStatus(new QuizStatusTransfer() {finished = true, quizId = QuizId, studentId = UserId});
+            await _backendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() {ChapterId = ChapterDto.ChapterId, UserId = UserId});
         }
     }
 

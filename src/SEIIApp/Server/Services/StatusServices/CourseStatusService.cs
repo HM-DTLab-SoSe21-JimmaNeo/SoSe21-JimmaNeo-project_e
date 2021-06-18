@@ -56,15 +56,18 @@ namespace SEIIApp.Server.Services.StatusServices
             }
             else
             {
-                List<Chapter> foundChapters = new List<Chapter>();
+               /* List<Chapter> foundChapters = new List<Chapter>();
                 foreach (var chapterStatus in student.ChapterStatuslist)
                 {
-                    var x = course.Chapters.Find(x =>
-                        x.ChapterId == chapterStatus.Chapter.ChapterId && chapterStatus.Finished == true);
-                    foundChapters.Add(x);
-                }
+                    var chapter = course.Chapters.Find(x =>
+                        (x.ChapterId == chapterStatus.Chapter.ChapterId )
+                    && chapterStatus.Finished);
+                    foundChapters.Add(chapter);
+                }*/
 
-                searchStatus.FinishStatus = foundChapters.Count / course.Chapters.Count;
+                var foundChapters = (from chapter in student.ChapterStatuslist where chapter.Finished select chapter).ToList();
+
+                searchStatus.FinishStatus = (float)foundChapters.Count / course.Chapters.Count;
             }
 
             searchStatus.LastWorkedOn = DateTime.Now;

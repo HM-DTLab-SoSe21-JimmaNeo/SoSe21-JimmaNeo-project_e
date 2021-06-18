@@ -76,7 +76,9 @@ namespace SEIIApp.Server.DataAccess
             var student2 = new Student()
             {
                 UserName = "Hannah", Password = "456", QuestionStatusList = new List<QuestionStatus>(),
-                adminRights = false
+                adminRights = false, ChapterStatuslist = new List<ChapterStatus>(),
+                EnrolledCourses = new List<CourseStatus>(),
+                QuizStatusList = new List<QuizStatus>()
             };
 
             var instructor1 = new Instructor() {UserName = "Meier", Password = "passwort", adminRights = true};
@@ -106,19 +108,22 @@ namespace SEIIApp.Server.DataAccess
             questionStatusService.AddOrUpdateQuestionStatus(question1, student1, 1,
                 DateTime.Now - TimeSpan.FromHours(30));
 
-            //var xyz = questionStatusService.GetAllQuestionStatusOfUser(2);
+            var xyz = questionStatusService.GetAllQuestionStatusOfUser(2);
 
-            //string stringResult;
+            string stringResult;
 
 
             courseStatusService.AddOrUpdateCourseStatus(course1, student1);
 
             chapterStatusService.AddOrUpdateChapterStatus(chapter1, student1);
-           // chapterStatusService.AddOrUpdateChapterStatus(chapter2, student1);
+            chapterStatusService.AddOrUpdateChapterStatus(chapter2, student1);
 
 
             quizStatusService.AddOrUpdateQuizStatus(quiz1, student1, true);
-            quizStatusService.AddOrUpdateQuizStatus(quiz2, student1, true);
+            quizStatusService.AddOrUpdateQuizStatus(quiz2, student1, false);
+            
+            chapterStatusService.AddOrUpdateChapterStatus(chapter1, student1);
+            chapterStatusService.AddOrUpdateChapterStatus(chapter2, student1);
 
 
             courseStatusService.AddOrUpdateCourseStatus(course1, student1);

@@ -6,7 +6,7 @@
 @inject NavigationManager NavigationManager
 
 
-<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourse"</h3>
+<h3 align="center" style="margin:32px">Learning Page for Chapter: "@currentChapter" of Course "@currentCourseName"</h3>
 
 <style>
     p {
@@ -54,7 +54,7 @@
 
     string currentChapter = "";
 
-    string currentCourse = $"'Ein sehr guter Kurs!'";
+    string currentCourseName = $"'Ein sehr guter Kurs!'";
 
     PdfContentDto[] pdfContent = new PdfContentDto[0];
 
@@ -81,6 +81,17 @@
         currentChapter = chapter.ChapterName;
 
         VideoSource = chapter.ChapterContentVideo.FirstOrDefault()?.Path;
+        
+        await BackendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() {ChapterId = chapter.ChapterId, UserId = UserId});
+
+        var course = await BackendAccessService.GetCourseByChapterId(ChapterId);
+        var courseId = course.CourseId;
+        await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseId, StudentId = UserId});
+
+        var currentCourse = await BackendAccessService.GetCourseByChapterId(ChapterId);
+        currentCourseName = currentCourse.CourseName;
+        
+        StateHasChanged();
     }
 
     private void RouteToQuizpage()

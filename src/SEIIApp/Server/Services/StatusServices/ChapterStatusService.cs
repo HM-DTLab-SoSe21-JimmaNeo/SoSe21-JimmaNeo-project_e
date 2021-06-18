@@ -49,10 +49,10 @@ namespace SEIIApp.Server.Services.StatusServices
             {
                 var chapterQuiz = chapter.ChapterQuiz;
                 var chapterQuizStatus = student.QuizStatusList.Find(x => x.Quiz.QuizId == chapterQuiz.QuizId);
-                
+
                 result.Finished = chapterQuizStatus != null && chapterQuizStatus.Finished;
             }
-            
+
             result.LastWorkedOn = DateTime.Now;
 
             DatabaseContext.Users.Update(student);
@@ -61,14 +61,28 @@ namespace SEIIApp.Server.Services.StatusServices
 
             return result;
         }
-        
+
         public ChapterStatus GetLastChapterStatusWorkedOn(Student student)
         {
-            var search = student.ChapterStatuslist.Aggregate((i1, i2) => i1.LastWorkedOn > i2.LastWorkedOn ? i1 : i2);
+            ChapterStatus search;
+            if (student.ChapterStatuslist.Count > 0)
+            {
+                search = student.ChapterStatuslist.Aggregate((i1, i2) => i1.LastWorkedOn > i2.LastWorkedOn ? i1 : i2);
+            }
+            else
+            {
+                search = null;
+            }
 
             return search;
         }
 
-
+        public ChapterStatus[] GetAllChapterStatusForUser(Student student)
+        {
+            return student.ChapterStatuslist.ToArray();
+        }
+        
+        
+        
     }
 }

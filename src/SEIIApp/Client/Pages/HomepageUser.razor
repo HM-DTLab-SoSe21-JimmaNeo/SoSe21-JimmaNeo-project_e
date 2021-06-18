@@ -1,6 +1,7 @@
 ﻿@page "/homepageuser/{UserId:int}"
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Services
+@using SEIIApp.Shared.DomainDto.StatusDto
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
 
@@ -32,7 +33,7 @@
 
 
 <div style="text-align: center">
-    
+
     <button class="btn btn-primary" @onclick="RouteToLearning">Start / Continue</button><br/>
     <button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br/>
     <button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br/>
@@ -40,18 +41,22 @@
 
 <p>
 </p>
+@if (LastCourseWorkedOn != null)
+{
+    <div style="text-align: center">
+        <label>You last worked on course @LastCourseWorkedOn.Course.CourseName. Your status:</label>
+    </div>
 
-<div style="text-align: end">
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped active" role="progressbar"
-             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            40%
+    <div style="text-align: end">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="@StatusNow" aria-valuemin="0" aria-valuemax="100" style="width:@StatusNow%">
+                @StatusNow%
+            </div>
         </div>
     </div>
-</div>
+}
 
-<p>
-</p>
 
 <div style="text-align: end">
     <span>&#9993;</span> <a href="mailto:someone@example.com">Send email</a>
@@ -64,10 +69,16 @@
 
     private StudentDto StudentUser { get; set; }
 
+    private CourseStatusDto LastCourseWorkedOn { get; set; }
+
+    public double StatusNow { get; set; }
+
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
         StudentUser = await BackendAccessService.GetStudentById(UserId);
+        LastCourseWorkedOn = await BackendAccessService.GetLastCourseStatusWorkedOn(UserId);
+        StatusNow = LastCourseWorkedOn.FinishStatus * 100;
     }
 
     private void RouteToCourses()
@@ -80,9 +91,21 @@
         NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
     }
 
-    private void RouteToLearning()
+    private async Task RouteToLearning()
     {
-        var ChapterId = 1;
+        int ChapterId;
+        var courses = await BackendAccessService.GetAllEnrolledCourses(StudentUser.UserId);
+        if (courses.Length <= 0)
+        {
+            var list = await BackendAccessService.GetAllChapters();
+            ChapterId = list[0].ChapterId;
+        }
+        else
+        {
+            var chapterStatus = await BackendAccessService.GetLastChapterWorkedOn(UserId);
+            ChapterId = chapterStatus.Chapter.ChapterId;
+        }
+
         NavigationManager.NavigateTo($"/learningpage/{UserId}/{ChapterId}");
     }
 

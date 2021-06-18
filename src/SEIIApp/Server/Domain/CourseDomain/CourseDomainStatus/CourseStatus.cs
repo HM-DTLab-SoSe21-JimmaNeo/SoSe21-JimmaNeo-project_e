@@ -9,7 +9,7 @@ namespace SEIIApp.Server.Domain.CourseDomain.CourseDomainStatus
         [Key] public int CourseStatusId { get; set; }
         public Course Course { get; set; }
 
-        public int FinishStatus { get; set; }
+        public double FinishStatus { get; set; }
         
         public DateTime LastWorkedOn { get; set; }
         

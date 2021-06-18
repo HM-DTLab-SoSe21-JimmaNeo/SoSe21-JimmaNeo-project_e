@@ -11,6 +11,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterController.GetAllChapters">
+            <summary>
+            Get all chapters
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterController.GetChapterByQuizId(System.Int32)">
+            <summary>
+            Get chapter by quiz id
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetChapterStatusById(System.Int32)">
             <summary>
             Get a ChapterStatus by chapterStatusId
@@ -27,8 +39,15 @@
         </member>
         <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetLastChapterStatusWorkedOn(System.Int32)">
             <summary>
-            Get the ChapterStatus for the last chapter a student worked on 
+            Get the Chapter Status for the last chapter a student worked on 
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.ChapterStatusController.GetAllChapterStatusOfUser(System.Int32)">
+            <summary>
+            Get all ChapterStatus for a user by id
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourse(System.Int32)">
@@ -56,6 +75,13 @@
             Return a course by given course name
             </summary>
             <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.CourseController.GetCourseByName(System.Int32)">
+            <summary>
+            Return a course by given course name
+            </summary>
+            <param name="chapterId"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.CourseStatusController.AddOrUpdateCourseStatus(SEIIApp.Shared.DomainDto.CourseStatusTransfer)">
@@ -158,7 +184,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:SEIIApp.Server.Controllers.QuizStatusController.AddOrUpdateQuizStatus(System.Int32,System.Int32,System.Boolean)">
+        <member name="M:SEIIApp.Server.Controllers.QuizStatusController.AddOrUpdateQuizStatus(SEIIApp.Shared.DomainDto.QuizStatusTransfer)">
             <summary>
             Add or update a quiz status for a quiz and a student. finished (true/false) required.
             </summary>

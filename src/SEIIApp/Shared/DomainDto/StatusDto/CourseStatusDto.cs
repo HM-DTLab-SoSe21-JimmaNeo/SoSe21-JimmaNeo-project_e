@@ -6,7 +6,7 @@ namespace SEIIApp.Shared.DomainDto.StatusDto
     {
         public CourseDto Course { get; set; }
 
-        public int FinishStatus { get; set; }
+        public double FinishStatus { get; set; }
         
         public DateTime LastWorkedOn { get; set; }
     }

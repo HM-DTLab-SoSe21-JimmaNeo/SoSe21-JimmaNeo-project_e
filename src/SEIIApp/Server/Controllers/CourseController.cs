@@ -95,5 +95,19 @@ namespace SEIIApp.Server.Controllers
             var mapped = Mapper.Map<CourseDto>(result);
             return Ok(mapped);
         }
+
+        /// <summary>
+        /// Return a course by given course name
+        /// </summary>
+        /// <param name="chapterId"></param>
+        /// <returns></returns>
+        [HttpGet ("bychapterid")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<CourseDto> GetCourseByName([FromQuery] int chapterId)
+        {
+            var result = CourseService.GetCourseByChapterId(chapterId);
+            var mapped = Mapper.Map<CourseDto>(result);
+            return Ok(mapped);
+        }
     }
 }
