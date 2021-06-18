@@ -77,8 +77,18 @@
     {
         await base.OnParametersSetAsync();
         StudentUser = await BackendAccessService.GetStudentById(UserId);
-        LastCourseWorkedOn = await BackendAccessService.GetLastCourseStatusWorkedOn(UserId);
-        StatusNow = LastCourseWorkedOn.FinishStatus * 100;
+        var studentCourses = await BackendAccessService.GetAllEnrolledCourses(UserId);
+
+        if (studentCourses.Length > 0)
+        {
+            LastCourseWorkedOn = await BackendAccessService.GetLastCourseStatusWorkedOn(UserId);
+ 
+        }
+
+        if (LastCourseWorkedOn != null)
+        {
+            StatusNow = LastCourseWorkedOn.FinishStatus * 100;
+        }
     }
 
     private void RouteToCourses()

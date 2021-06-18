@@ -208,10 +208,35 @@ namespace SEIIApp.Client.Services
             }
             else return null;
         }
-        
+
         public async Task<ChapterDto> GetChapterByQuizId(int quizId)
         {
             return await HttpClient.GetFromJsonAsync<ChapterDto>($"api/chapter/byquiz/{quizId}");
+        }
+
+        public async Task<StudentDto> AddStudent(StudentDto studentDto)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/users/student", studentDto);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<StudentDto>();
+            }
+            else return null;
+        }
+
+        public async Task<InstructorDto> AddInstrcutor(InstructorDto instructorDto)
+        {
+            var response = await HttpClient.PutAsJsonAsync("api/users/instructor", instructorDto);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return await response.DeserializeResponseContent<InstructorDto>();
+            }
+            else return null;
+        }
+
+        public async Task<UserDto[]> GetAllUsers()
+        {
+            return await HttpClient.GetFromJsonAsync<UserDto[]>($"api/users/allusers");
         }
     }
 }

@@ -56,18 +56,12 @@ namespace SEIIApp.Server.Services.StatusServices
             }
             else
             {
-               /* List<Chapter> foundChapters = new List<Chapter>();
-                foreach (var chapterStatus in student.ChapterStatuslist)
-                {
-                    var chapter = course.Chapters.Find(x =>
-                        (x.ChapterId == chapterStatus.Chapter.ChapterId )
-                    && chapterStatus.Finished);
-                    foundChapters.Add(chapter);
-                }*/
+                var foundChapters = (from chapter in student.ChapterStatuslist
+                    where chapter.Finished
+                    where course.Chapters.Contains(chapter.Chapter)
+                    select chapter).ToList();
 
-                var foundChapters = (from chapter in student.ChapterStatuslist where chapter.Finished select chapter).ToList();
-
-                searchStatus.FinishStatus = (float)foundChapters.Count / course.Chapters.Count;
+                searchStatus.FinishStatus = (float) foundChapters.Count / course.Chapters.Count;
             }
 
             searchStatus.LastWorkedOn = DateTime.Now;
@@ -81,9 +75,15 @@ namespace SEIIApp.Server.Services.StatusServices
 
         public CourseStatus GetLastCourseStatusWorkedOn(Student student)
         {
-            var search = student.EnrolledCourses.Aggregate((i1, i2) => i1.LastWorkedOn > i2.LastWorkedOn ? i1 : i2);
-
-            return search;
+            if (student.EnrolledCourses is {Count: > 0})
+            {
+                var search = student.EnrolledCourses.Aggregate((i1, i2) => i1.LastWorkedOn > i2.LastWorkedOn ? i1 : i2);
+                return search;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

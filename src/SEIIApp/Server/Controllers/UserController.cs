@@ -37,18 +37,14 @@ namespace SEIIApp.Server.Controllers
             {
                 var mappedStudent = Mapper.Map<StudentDto>(user);
                 return Ok(mappedStudent);
-
             }
             else
             {
                 var mappedStudent = Mapper.Map<InstructorDto>(user);
                 return Ok(mappedStudent);
-
             }
-
-            
         }
-        
+
         /// <summary>
         /// Return Student by given Name and Password
         /// </summary>
@@ -69,18 +65,12 @@ namespace SEIIApp.Server.Controllers
             {
                 var mappedStudent = Mapper.Map<StudentDto>(user);
                 return Ok(mappedStudent);
-
             }
             else
             {
                 var mappedStudent = Mapper.Map<InstructorDto>(user);
                 return Ok(mappedStudent);
-
             }
-            
-
-            
-            
         }
 
         /// <summary>
@@ -95,5 +85,33 @@ namespace SEIIApp.Server.Controllers
             var mapped = Mapper.Map<StudentDto[]>(students);
             return Ok(mapped);
         }
+
+        [HttpPut("student")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<StudentDto> AddStudent([FromBody] StudentDto studentDto)
+        {
+            var result = UserService.AddUser(Mapper.Map<Student>(studentDto));
+            return Ok(Mapper.Map<StudentDto>(result));
+        }
+        
+        [HttpPut("instructor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<StudentDto> AddInstructor([FromBody] InstructorDto instructorDto)
+        {
+            var result = UserService.AddUser(Mapper.Map<Instructor>(instructorDto));
+            return Ok(Mapper.Map<InstructorDto>(result));
+        }
+        
+        [HttpGet("allusers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<UserDto[]> GetAllUsers()
+        {
+            var users = UserService.GetAllUsers();
+            var mapped = Mapper.Map<UserDto[]>(users);
+            return Ok(mapped);
+        }
+        
     }
 }

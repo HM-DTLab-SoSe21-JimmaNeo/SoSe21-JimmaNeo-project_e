@@ -1,0 +1,71 @@
+﻿@page "/Registration"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Shared.DomainDto.StatusDto
+@inject NavigationManager NavigationManager
+@inject Services.BackendAccessService BackendAccessService
+
+<h3>Registration</h3>
+
+<label>Your new Username:</label>
+<input type="text"
+       @bind-value="username"
+       @bind-value:event="oninput"/><br>
+<label >Your new Password:</label>
+<input type="text"
+       @bind-value="password"
+       @bind-value:event="oninput"/><br>
+<label >Instructor Account?</label>
+<input type="checkbox" @bind-value="adminRights" @bind-value:event="oninput"/>
+<br/>
+<button class="btn btn-primary" @onclick="Register">Register</button>
+<p>@message</p>
+
+<div style="text-align: center;">
+    <a href="/login">Back to Login</a>
+</div>
+
+@code {
+    private string username { get; set; }
+
+    private string password { get; set; }
+
+    private bool adminRights { get; set; }
+
+    private string message = "";
+
+    private async Task Register()
+    {
+        var userlist = await BackendAccessService.GetAllUsers();
+
+        if (password != null && username != null)
+        {
+            if ((from userDto in userlist where userDto.UserName == username select userDto).ToList().Count > 0)
+            {
+                message = "This username is already taken, please choose a different name!";
+            }
+            else
+            {
+                if (!adminRights)
+                {
+                    await BackendAccessService.AddStudent(new StudentDto()
+                    {
+                        adminRights = false, ChapterStatuslist = new ChapterStatusDto[0],
+                        EnrolledCourses = new CourseStatusDto[0], Password = password, QuestionStatusList = new QuestionStatusDto[0],
+                        QuizStatusList = new QuizStatusDto[0], UserName = username
+                    });
+                    message = "Congrats! You're now an user of NeoLearn!";
+                }
+                else
+                {
+                    await BackendAccessService.AddInstrcutor(new InstructorDto() {adminRights = true, Password = password, UserName = username});
+                    message = "Congrats! You're now an instructor on NeoLearn!";
+                }
+            }
+        }
+        else
+        {
+            message = "Please enter username and password!";
+        }
+    }
+
+}

@@ -93,8 +93,8 @@ namespace SEIIApp.Server.Services
         {
             return GetQueryableForStudent().FirstOrDefault(x => x.UserId == id);
         }
-        
-        
+
+
 
 
     }
