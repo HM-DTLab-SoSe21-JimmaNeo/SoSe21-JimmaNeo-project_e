@@ -1,6 +1,7 @@
 ﻿@page "/studentregistry"
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Shared.DomainDto.StatusDto
+@using System.Runtime.Intrinsics.X86
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
 <h3>Studentregistry</h3>
@@ -11,6 +12,7 @@
 {
     <li>
         Name: @course.CourseName
+        <input type="checkbox" @onchange="@(() => bindSelected(@course.CourseName))">
     </li>
 }
 <br/>
@@ -55,13 +57,15 @@
 
 @code {
 
-    private string CourseToEnroll { get; set; }
+    private string CourseToEnroll = "";
 
-    StudentDto[] _allStudents = new StudentDto[0];
+    private
+        StudentDto[] _allStudents = new StudentDto[0];
 
     StudentDto StudentToEnroll { get; set; }
 
     CourseDto[] _allCourses = new CourseDto[0];
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -72,16 +76,24 @@
 
     private async Task Enroll(StudentDto studentDto)
     {
-        var courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
+        if (CourseToEnroll != "")
+        {
+            var courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
 
-        await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseDto.CourseId, StudentId = studentDto.UserId});
+            await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseDto.CourseId, StudentId = studentDto.UserId});
 
-        await OnParametersSetAsync();
+            await OnParametersSetAsync();
+        }
     }
 
     private async Task<CourseStatusDto[]> GetCoursesOfStudent(StudentDto studentDto)
     {
         return await BackendAccessService.GetAllEnrolledCourses(studentDto.UserId);
+    }
+
+    private void bindSelected(string selectedCourse)
+    {
+        CourseToEnroll = selectedCourse;
     }
 
 
