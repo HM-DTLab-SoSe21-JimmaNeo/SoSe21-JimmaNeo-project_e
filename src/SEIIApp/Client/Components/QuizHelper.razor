@@ -64,7 +64,14 @@
                 return false;
             }
         }
-        transfer.level = qStatus.QuestionLevel + 1;
+        if (qStatus == null)
+        {
+            transfer.level = 1;
+        }
+        else
+        {
+            transfer.level = qStatus.QuestionLevel + 1;
+        }
         await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
 
         answeredRight = true;
