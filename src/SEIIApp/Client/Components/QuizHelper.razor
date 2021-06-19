@@ -7,7 +7,7 @@
 
     foreach (var answer in Question.Answers)
     {
-        <input type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind-value="answer.IsSelected">
+        <input type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind="answer.IsSelected">
         <label for="answerCheckbox">@answer.AnswerText</label>
         <br/>
     }

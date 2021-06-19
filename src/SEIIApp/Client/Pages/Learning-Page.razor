@@ -40,7 +40,9 @@
         </iframe>
     </div>
 }
-
+<br/>
+<br/>
+<a href="/homepageuser/@UserId">Back to your User Homepage</a>
 
 @code
 {
@@ -81,7 +83,7 @@
         currentChapter = chapter.ChapterName;
 
         VideoSource = chapter.ChapterContentVideo.FirstOrDefault()?.Path;
-        
+
         await BackendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() {ChapterId = chapter.ChapterId, UserId = UserId});
 
         var course = await BackendAccessService.GetCourseByChapterId(ChapterId);
@@ -90,7 +92,7 @@
 
         var currentCourse = await BackendAccessService.GetCourseByChapterId(ChapterId);
         currentCourseName = currentCourse.CourseName;
-        
+
         StateHasChanged();
     }
 
