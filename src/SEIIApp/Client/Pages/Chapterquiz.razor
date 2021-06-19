@@ -54,8 +54,10 @@
                    {
                        quizFinished = true;
                        var ChapterDto = await _backendAccessService.GetChapterByQuizId(QuizId);
+                       var CourseDto = await _backendAccessService.GetCourseByChapterId(ChapterDto.ChapterId);
                        await _backendAccessService.AddOrUpdateQuizStatus(new QuizStatusTransfer() {finished = true, quizId = QuizId, studentId = UserId});
                        await _backendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() {ChapterId = ChapterDto.ChapterId, UserId = UserId});
+                       await _backendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = CourseDto.CourseId, StudentId = UserId});
                    }
                }
 
