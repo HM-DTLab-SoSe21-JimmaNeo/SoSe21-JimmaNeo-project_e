@@ -15,19 +15,50 @@
     }
 </style>
 
+<div class="row">
+    <div class="col-sm-4">
 
-<div style="text-align: center">
-    <button class="btn btn-primary" @onclick="() => DownloadContent(pdfContent[0])"style="margin-top:24px">Download PDF</button><br><br>
-    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Go to Quiz</button>
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="Images/PDF.png" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
+                <h5 class="card-title" style="margin:auto">Download PDF-File</h5>
+                <div style="text-align:center">
+                    <button class="btn btn-primary" @onclick="() => DownloadContent(pdfContent[0])" style="margin-top:24px">PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="Images/Quiz.jpg" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
+                <h5 class="card-title" >Go to Quiz</h5><br /><br /><br />
+                <div style="text-align:center">
+                    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="Images/Homepage.jpg" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
+                <br /><br /><br /><h5 class="card-title">Back to Homepage</h5><br /><br /><br /><br />
+                <div style="text-align:center">
+                    <button class="btn btn-primary" @onclick="RouteToHomepageUser">Homepage</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<style>
-    p {
-        width: 30em;
-        padding-top: 100px;
-    }
-</style>
+
+
+<br />
 
 
 @if (VideoSource != null)
@@ -77,7 +108,7 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-    //content = await BackendAccessService.GetAllContent();
+        //content = await BackendAccessService.GetAllContent();
         chapter = await BackendAccessService.GetChapterById(ChapterId);
         pdfContent = chapter.ChapterContentPdf;
         currentChapter = chapter.ChapterName;
@@ -100,5 +131,10 @@
     {
         QuizId = chapter.ChapterQuiz.QuizId;
         NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
+    }
+
+    private void RouteToHomepageUser()
+    {
+        NavigationManager.NavigateTo($"/homepageuser/{UserId}");
     }
 }
