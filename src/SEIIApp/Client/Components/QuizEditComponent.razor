@@ -14,9 +14,18 @@
     </li>
 }
 <br/>
-<button @onclick="AddQuestion">Add Question</button>
+<button @onclick="AddQuestion" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+    <span aria-hidden="true">
+        ❔
+        </span>
+    Add Question
+</button>
 <br/>
-<button @onclick="SaveQuiz"style="background-color:@buttonColor">Save Quiz</button>
+<button @onclick="SaveQuiz" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Quiz
+</button>
 
 @code {
 

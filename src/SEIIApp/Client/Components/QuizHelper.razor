@@ -18,7 +18,7 @@
     {
         <p style="color:green">Die Frage wurde richtig beantwortet!</p>
         <br/>
-        <button class="btn btn-primary" @onclick="@(() => next.InvokeAsync(true))">Weiter</button>
+        <button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="@(() => next.InvokeAsync(true))">Weiter</button>
         <br/>
     }
     @if (answeredWrong == true)

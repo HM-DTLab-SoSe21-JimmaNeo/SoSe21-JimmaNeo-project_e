@@ -18,7 +18,11 @@
 <label>Upload PDF:</label>
 <InputFile OnChange="OnInputFileChanged"></InputFile>
 
-<button @onclick="AddPdf">Add PDF</button>
+<button  type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddPdf"> 
+    <span aria-hidden="true">
+        📥
+    </span>Add PDF
+</button>
 <br/>
 @foreach (var video in _videos)
 {
@@ -33,7 +37,11 @@
 <input type="text" @bind-value="NewVideoLink" @bind-value:event="oninput"/>
 <br/>
 
-<button @onclick="AddVideo">Add Video</button>
+<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddVideo">
+    <span aria-hidden="true">
+        🎬
+    </span>
+    Add Video</button>
 
 <p>Quiz:</p>
 <br/>
@@ -42,9 +50,16 @@
     <QuizEditComponent QuizDto="newQuiz"></QuizEditComponent>
 }
 <br/>
-<button @onclick="AddQuiz">Add Quiz</button>
+<button  type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddQuiz">
+    <span aria-hidden="true">
+        ❔
+    </span>Add Quiz
+</button>
 <br/>
-<button @onclick="SaveChapter" style="background-color:@buttonColor">Save Chapter</button>
+<button  @onclick="SaveChapter" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Chapter</button>
 
 @code {
 

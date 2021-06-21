@@ -13,15 +13,23 @@
         <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput"/>
     </li>
 }
-<button @onclick="AddAnswer">Add Answer</button>
+<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddAnswer">
+    <span aria-hidden="true">
+        ❕
+    </span>Add Answer
+</button>
 <br/>
-<button @onclick="SaveQuestion"style="background-color:@buttonColor">Save Question</button>
+<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="SaveQuestion">
+    <span aria-hidden="true">
+    🔒
+</span>Save Question
+</button>
 
 
 
 @code {
 
-    public string buttonColor = "#EFEFEF";
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public QuestionDto QuestionDto { get; set; }

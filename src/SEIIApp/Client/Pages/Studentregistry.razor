@@ -23,7 +23,7 @@
 <br/>
 <br/>
 
-<label>Name of the Course to enroll students to:</label>
+<label style="font-family: Dubai">Name of the Course to enroll students to:</label>
 <input type="text"
        @bind-value="CourseToEnroll"
        @bind-value:event="oninput"/>
@@ -38,9 +38,13 @@
         {
             <li>
                 Name: @student.UserName
-                <button class="btn btn-primary" @onclick="@(e => Enroll(student))">Enroll student</button>
+                <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(e => Enroll(student))">
+                    <span aria-hidden="true">
+                        👥
+                    </span>Enroll student
+                </button>
                 <br/>
-                Courses:
+                <p style="font-family:Calibri">Courses:</p>
                 <ol>
                     @foreach (var course in student.EnrolledCourses)
                     {
@@ -58,9 +62,16 @@
 }
 <br/>
 <br/>
-<a href= "/CreatorHomepage">Back to the Creator Homepage</a>
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToHomepage">
+
+
+    <span aria-hidden="true">
+        🏠
+    </span> Home
+</button>
 
 @code {
+    public string buttonColor = "#5470f0";
 
     private string CourseToEnroll = "";
 
@@ -101,5 +112,9 @@
         CourseToEnroll = selectedCourse;
     }
 
+    private void RouteToHomepage()
+    {
+        NavigationManager.NavigateTo("/CreatorHomepage");
+    }
 
 }

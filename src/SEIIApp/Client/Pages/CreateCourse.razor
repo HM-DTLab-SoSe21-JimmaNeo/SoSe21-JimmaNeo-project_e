@@ -2,33 +2,49 @@
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Components
 @inject Services.BackendAccessService _backendAccessService
+@inject NavigationManager NavigationManager
 <h3>Create a new Course</h3>
-<br/>
-<br/>
-<label >Course name: </label>
+<br />
+<br />
+<label style="font-family:Dubai"><em>Course name:</em> </label>
 <input type="text"
        @bind-value="CourseName"
-       @bind-value:event="oninput"/>
-<br/>
-<br/>
+       @bind-value:event="oninput" />
+<br />
+<br />
 <h4>Chapters: </h4>
-<br/>
+<br />
 @foreach (var chapter in Chapters)
 {
     <li>
         <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
     </li>
 }
-<br/>
-<button @onclick="AddChapter">Add Chapter</button>
-<br/>
-<button @onclick="SaveCourse" style="background-color:@buttonColor">Save Course</button>
-<br/>
-<br/>
-<a href= "/CreatorHomepage">Back to the Creator Homepage</a>
+<br />
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="AddChapter">
+    <span aria-hidden="true">
+        ➕
+    </span>Add Chapter
+</button>
+<br />
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="SaveCourse">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Course
+</button>
+<br />
+<br />
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToHomepage">
+
+
+    <span aria-hidden="true">
+        🏠
+    </span> Home
+</button>
+
 @code {
 
-    public string buttonColor = "#EFEFEF";
+    public string buttonColor = "#5470f0";
 
     private string CourseName { get; set; }
 
@@ -40,8 +56,8 @@
 
     private void AddChapter()
     {
-        Chapters.Add(new ChapterDto(){ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0]});
-        buttonColor = "#EFEFEF";
+        Chapters.Add(new ChapterDto() { ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0] });
+        buttonColor = "#5470f0";
     }
 
     private async Task SaveCourse()
@@ -53,7 +69,12 @@
         };
 
         await _backendAccessService.PutCourse(CourseDto);
-        buttonColor = "#99ff66";
+        buttonColor = "#ADD8E6";
+    }
+
+    private void RouteToHomepage()
+    {
+        NavigationManager.NavigateTo("/CreatorHomepage");
     }
 
 }
