@@ -4,68 +4,80 @@
 @inject NavigationManager NavigationManager
 @inject Services.BackendAccessService BackendAccessService
 
-<h3>Registration</h3>
 
-<label>Your new Username:</label>
-<input type="text"
-       @bind-value="username"
-       @bind-value:event="oninput"/><br>
-<label >Your new Password:</label>
-<input type="text"
-       @bind-value="password"
-       @bind-value:event="oninput"/><br>
-<label >Instructor Account?</label>
-<input type="checkbox" @bind-value="adminRights" @bind-value:event="oninput"/>
-<br/>
-<button class="btn btn-primary" @onclick="Register">Register</button>
-<p>@message</p>
+    <h1 style="color:DodgerBlue" align="center">Registration</h1>
+    <br />
+    <br />
+    <br />
 
-<div style="text-align: center;">
-    <a href="/login">Back to Login</a>
-</div>
+    <div style="text-align: center">
+        <label>Your new Username:</label>
+        <input type="text"
+               @bind-value="username"
+               @bind-value:event="oninput" /><br>    <br />
+        <label>Your new Password:</label>
+        <input type="text"
+               @bind-value="password"
+               @bind-value:event="oninput" /><br>    <br />
+        <label>Instructor Account?</label>
+        <input type="checkbox" @bind-value="adminRights" @bind-value:event="oninput" />
+        <br />    <br />
+        <button class="btn btn-primary" @onclick="Register">Register</button>
+        <p>@message</p>
+    </div>
+    <br />
+    <br />
 
-@code {
-    private string username { get; set; }
+    <div style="text-align: center;">
+        <a href="/login">Back to Login</a>
+    </div>
 
-    private string password { get; set; }
+    @code {
+        private string username { get; set; }
 
-    private bool adminRights { get; set; }
+        private string password { get; set; }
 
-    private string message = "";
+        private bool adminRights { get; set; }
 
-    private async Task Register()
-    {
-        var userlist = await BackendAccessService.GetAllUsers();
+        private string message = "";
 
-        if (password != null && username != null)
+        private async Task Register()
         {
-            if ((from userDto in userlist where userDto.UserName == username select userDto).ToList().Count > 0)
+            var userlist = await BackendAccessService.GetAllUsers();
+
+            if (password != null && username != null)
             {
-                message = "This username is already taken, please choose a different name!";
-            }
-            else
-            {
-                if (!adminRights)
+                if ((from userDto in userlist where userDto.UserName == username select userDto).ToList().Count > 0)
                 {
-                    await BackendAccessService.AddStudent(new StudentDto()
-                    {
-                        adminRights = false, ChapterStatuslist = new ChapterStatusDto[0],
-                        EnrolledCourses = new CourseStatusDto[0], Password = password, QuestionStatusList = new QuestionStatusDto[0],
-                        QuizStatusList = new QuizStatusDto[0], UserName = username
-                    });
-                    message = "Congrats! You're now an user of NeoLearn!";
+                    message = "This username is already taken, please choose a different name!";
                 }
                 else
                 {
-                    await BackendAccessService.AddInstrcutor(new InstructorDto() {adminRights = true, Password = password, UserName = username});
-                    message = "Congrats! You're now an instructor on NeoLearn!";
+                    if (!adminRights)
+                    {
+                        await BackendAccessService.AddStudent(new StudentDto()
+                        {
+                            adminRights = false,
+                            ChapterStatuslist = new ChapterStatusDto[0],
+                            EnrolledCourses = new CourseStatusDto[0],
+                            Password = password,
+                            QuestionStatusList = new QuestionStatusDto[0],
+                            QuizStatusList = new QuizStatusDto[0],
+                            UserName = username
+                        });
+                        message = "Congrats! You're now an user of NeoLearn!";
+                    }
+                    else
+                    {
+                        await BackendAccessService.AddInstrcutor(new InstructorDto() { adminRights = true, Password = password, UserName = username });
+                        message = "Congrats! You're now an instructor on NeoLearn!";
+                    }
                 }
             }
+            else
+            {
+                message = "Please enter username and password!";
+            }
         }
-        else
-        {
-            message = "Please enter username and password!";
-        }
-    }
 
-}
+    }

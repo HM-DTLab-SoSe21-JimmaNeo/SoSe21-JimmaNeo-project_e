@@ -2,42 +2,61 @@
 @using SEIIApp.Shared.DomainDto
 @inject Services.BackendAccessService BackendAccessService
 @inject NavigationManager NavigationManager
-<h3>CreatorHomepage</h3>
-<br/>
-<br/>
+
 
 <div style="text-align: center;">
-    <h4>Welcome! These are your options:</h4>
+    <h1 style="color:DodgerBlue" align="center">Welcome! These are your options:</h1>
 </div>
-
-<h5>Overview of existing courses:</h5>
+<br />
+<div style="text-align: center;">
+    <h4>Overview of existing courses:</h4>
+</div>
+<br />
+<br />
 @{
-     <ol>
-             @foreach (var course in allCourses)
-             {
-                 <li>@course.CourseName</li>
-             }
-         </ol>
+    <ol>
+        @foreach (var course in allCourses)
+        {
+            <li>@course.CourseName</li>
+        }
+    </ol>
 
 }
+<br>
+<br>
+
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="/Images/NewCourse.jpg" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
+                <br />   <h5 class="card-title">Create New Course</h5>
+                <div style="text-align:center">
+                    <br /><br /><button class="btn btn-primary" @onclick="RouteToNewCourse">New Course</button><br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+
+        <div class="card" style="width: 18rem; min-height: 26rem">
+            <img src="/Images/Students.png" class="card-img-top" alt="...">
+            <div class="card-body" style="margin:auto">
+                <br />  <h5 class="card-title">Show all Students</h5>
+                <div style="text-align:center">
+                    <br /><button class="btn btn-primary" @onclick="RouteToStudentList">Students</button><br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <br>
 <br>
-<div>
-    <center>
-        <a href="/CreateCourse" class="btn btn-primary"> new Course</a>
-    </center>
-</div>
-<br>
-<br>
-<div>
-    <center>
-        <a href="/studentregistry" class="btn btn-primary"> Students</a>
-    </center>
-</div>
-<br/>
-<br/>
-<br/>
+
 
 <details>
     Contact
@@ -60,4 +79,12 @@
         NavigationManager.NavigateTo("/studentregistry");
     }
 
+    private void RouteToNewCourse()
+    {
+        NavigationManager.NavigateTo("/CreateCourse");
+    }
+
+
 }
+
+
