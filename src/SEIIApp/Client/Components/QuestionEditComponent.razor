@@ -15,11 +15,13 @@
 }
 <button @onclick="AddAnswer">Add Answer</button>
 <br/>
-<button @onclick="SaveQuestion">Save Question</button>
+<button @onclick="SaveQuestion"style="background-color:@buttonColor">Save Question</button>
 
 
 
 @code {
+
+    public string buttonColor = "#EFEFEF";
 
     [Parameter]
     public QuestionDto QuestionDto { get; set; }
@@ -34,6 +36,7 @@
     private void SaveQuestion()
     {
         QuestionDto.Answers = _answers.ToArray();
+        buttonColor = "#99ff66";
     }
 
 

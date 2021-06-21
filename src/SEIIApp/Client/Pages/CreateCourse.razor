@@ -22,16 +22,18 @@
 <br/>
 <button @onclick="AddChapter">Add Chapter</button>
 <br/>
-<button @onclick="SaveCourse">Save Course</button>
+<button @onclick="SaveCourse" style="background-color:@buttonColor">Save Course</button>
 <br/>
 <br/>
 <a href= "/CreatorHomepage">Back to the Creator Homepage</a>
 @code {
 
+    public string buttonColor = "#EFEFEF";
+
     private string CourseName { get; set; }
 
     private List<ChapterDto> Chapters = new List<ChapterDto>();
-    
+
     CourseDto CourseDto { get; set; }
 
     public string NewChapterName { get; set; }
@@ -39,6 +41,7 @@
     private void AddChapter()
     {
         Chapters.Add(new ChapterDto(){ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0]});
+        buttonColor = "#EFEFEF";
     }
 
     private async Task SaveCourse()
@@ -50,6 +53,7 @@
         };
 
         await _backendAccessService.PutCourse(CourseDto);
+        buttonColor = "#99ff66";
     }
 
 }

@@ -44,9 +44,12 @@
 <br/>
 <button @onclick="AddQuiz">Add Quiz</button>
 <br/>
-<button @onclick="SaveChapter">Save Chapter</button>
+<button @onclick="SaveChapter" style="background-color:@buttonColor">Save Chapter</button>
 
 @code {
+
+    public string buttonColor = "#EFEFEF";
+
     [Parameter]
     public ChapterDto ChapterDto { get; set; }
 
@@ -62,7 +65,7 @@
 
     private void AddPdf()
     {
-       _pdfs.Add(new PdfContentDto(){ContentName = NewPdfName, baseString = NewPdfFile});
+        _pdfs.Add(new PdfContentDto(){ContentName = NewPdfName, baseString = NewPdfFile});
     }
 
     private void AddVideo()
@@ -77,11 +80,13 @@
 
     private void SaveChapter()
     {
+
         ChapterDto.ChapterQuiz = newQuiz;
         ChapterDto.ChapterContentPdf = _pdfs.ToArray();
         ChapterDto.ChapterContentVideo = _videos.ToArray();
+        buttonColor = "#99ff66";
     }
-    
+
     private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
     {
         var file = inputFileChangeEventArgs.File;
@@ -95,5 +100,5 @@
 
         NewPdfFile = dataurl;
     }
-    
+
 }

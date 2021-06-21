@@ -13,44 +13,50 @@
 </div>
 <br />
 <br />
-@{
-    <ol>
-        @foreach (var course in allCourses)
-        {
-            <li>@course.CourseName</li>
-        }
-    </ol>
 
-}
+<center>
+    @{
+        <ol>
+            @foreach (var course in allCourses)
+            {
+                <li style="width:225px !important; text-align:left">@course.CourseName</li>
+            }
+        </ol>
+
+    }
+</center>
+
 <br>
 <br>
 
 
 <div class="row">
     <div class="col-sm-6">
-
-        <div class="card" style="width: 18rem; min-height: 26rem">
-            <img src="/Images/NewCourse.jpg" class="card-img-top" alt="...">
-            <div class="card-body" style="margin:auto">
-                <br />   <h5 class="card-title">Create New Course</h5>
-                <div style="text-align:center">
-                    <br /><br /><button class="btn btn-primary" @onclick="RouteToNewCourse">New Course</button><br />
+        <center >
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="/Images/NewCourse.jpg" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <br />   <h5 class="card-title">Create New Course</h5>
+                    <div style="text-align:center">
+                        <br /><br /><button class="btn btn-primary" @onclick="RouteToNewCourse">New Course</button><br />
+                    </div>
                 </div>
             </div>
-        </div>
+        </center>
     </div>
 
     <div class="col-sm-6">
-
-        <div class="card" style="width: 18rem; min-height: 26rem">
-            <img src="/Images/Students.png" class="card-img-top" alt="...">
-            <div class="card-body" style="margin:auto">
-                <br />  <h5 class="card-title">Show all Students</h5>
-                <div style="text-align:center">
-                    <br /><button class="btn btn-primary" @onclick="RouteToStudentList">Students</button><br />
+        <center>
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="/Images/Students.png" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <br />  <h5 class="card-title">Show all Students</h5>
+                    <div style="text-align:center">
+                        <br /><button class="btn btn-primary" @onclick="RouteToStudentList">Students</button><br />
+                    </div>
                 </div>
             </div>
-        </div>
+        </center>
     </div>
 </div>
 
