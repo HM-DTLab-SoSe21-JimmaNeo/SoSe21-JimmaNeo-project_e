@@ -4,11 +4,11 @@
 @inject NavigationManager NavigationManager
 
 
-<div style="text-align: center;">
+<div style="text-align: center; font-family: Consolas">
     <h1 style="color:DodgerBlue" align="center">Welcome! These are your options:</h1>
 </div>
 <br />
-<div style="text-align: center;">
+<div style="text-align: center; font-family: Consolas">
     <h4>Overview of existing courses:</h4>
 </div>
 <br />
@@ -27,7 +27,7 @@
 </center>
 
 <br>
-<br>
+<br />
 
 
 <div class="row">
@@ -36,9 +36,13 @@
             <div class="card" style="width: 18rem; min-height: 26rem">
                 <img src="/Images/NewCourse.jpg" class="card-img-top" alt="...">
                 <div class="card-body" style="margin:auto">
-                    <br />   <h5 class="card-title">Create New Course</h5>
-                    <div style="text-align:center">
-                        <br /><br /><button class="btn btn-primary" @onclick="RouteToNewCourse">New Course</button><br />
+                    <br />   <h5 class="card-title">Create  a new course</h5>
+                    <div style="text-align: center; font-family: Consolas">
+                        <br /><br /><button @onclick="RouteToNewCourse" type="button" class="text-white" style="border: thin solid white; font-family: Consolas;background-color: @buttonColor">
+                                        <span aria-hidden="true">
+                                            ➕
+                                        </span>New Course
+                              </button><br />
                     </div>
                 </div>
             </div>
@@ -51,8 +55,12 @@
                 <img src="/Images/Students.png" class="card-img-top" alt="...">
                 <div class="card-body" style="margin:auto">
                     <br />  <h5 class="card-title">Show all Students</h5>
-                    <div style="text-align:center">
-                        <br /><button class="btn btn-primary" @onclick="RouteToStudentList">Students</button><br />
+                    <div style="text-align: center; font-family: Consolas">
+                        <br /><button @onclick="RouteToStudentList" type="button" class="text-white" style="border: thin solid white; font-family: Consolas;background-color: @buttonColor">
+                                  <span aria-hidden="true">
+                                      👥
+                                  </span>
+                        Students</button><br />
                     </div>
                 </div>
             </div>
@@ -64,13 +72,16 @@
 <br>
 
 
-<details>
-    Contact
-    E-mail: example@neolearn.com
+<details style="font-family: Consolas">
+    <em>
+        Contact
+        E-mail: example@neolearn.com
+    </em>
 </details>
 
 
 @code {
+    public string buttonColor = "#5470f0";
 
     CourseDto[] allCourses = new CourseDto[0];
 

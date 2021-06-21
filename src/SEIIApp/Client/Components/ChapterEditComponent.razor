@@ -1,65 +1,64 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @inject IJSRuntime JsRuntime
 <h3>Chapter</h3>
-<label >Chapter name: </label>
-<br/>
-<input type="text"
+
+<label style="font-family: Consolas">Chapter name: </label> <input type="text" style="font-family: Consolas" placeholder="Chapter name"
        @bind-value="ChapterDto.ChapterName"
-       @bind-value:event="oninput"/>
-<br/>
+       @bind-value:event="oninput" />
+<br />
+
 @foreach (var pdf in _pdfs)
 {
     <li>@pdf.ContentName</li>
 }
-<br/>
-<label>New PDF Name:</label>
-<input type="text" @bind-value="NewPdfName" @bind-value:event="oninput"/>
-<br/>
-<label>Upload PDF:</label>
-<InputFile OnChange="OnInputFileChanged"></InputFile>
+<br />
 
-<button  type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddPdf"> 
-    <span aria-hidden="true">
+<label style="font-family: Consolas">New PDF Name: </label><input type="text" style="font-family: Consolas" placeholder="PDF" @bind-value="NewPdfName" @bind-value:event="oninput" />
+<br />
+<br />
+<label style="font-family: Consolas">Upload PDF: </label>
+<InputFile OnChange="OnInputFileChanged"></InputFile><button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0" @onclick="AddPdf"> 
+<span aria-hidden="true">
         📥
     </span>Add PDF
 </button>
-<br/>
+
+<br />
 @foreach (var video in _videos)
 {
     <li>@video.ContentName</li>
 }
-<br/>
-<label>New Video Name:</label>
-<input type="text" @bind-value="NewVideoName" @bind-value:event="oninput"/>
-<br/>
-<label>Link to new Video (please use the 'embed'-feature!)</label>
-
-<input type="text" @bind-value="NewVideoLink" @bind-value:event="oninput"/>
-<br/>
-
-<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddVideo">
+<br />
+<label style="font-family: Consolas">New Video Name: </label><input type="text" style="font-family: Consolas" placeholder="Video name" @bind-value="NewVideoName" @bind-value:event="oninput" />
+<br />
+<label style="font-family: Consolas">Link to new Video (please use the 'embed'-feature!) </label>
+<br />
+<input type="text" style="font-family: Consolas" placeholder="https//..." @bind-value="NewVideoLink" @bind-value:event="oninput" /> <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color: #5470f0" @onclick="AddVideo">
     <span aria-hidden="true">
         🎬
     </span>
-    Add Video</button>
-
-<p>Quiz:</p>
-<br/>
+    Add Video
+</button>
+<br />
+<br />
+<p style="font-family: Consolas">Quiz:</p>
+<br />
 @if (newQuiz != null)
 {
     <QuizEditComponent QuizDto="newQuiz"></QuizEditComponent>
 }
-<br/>
-<button  type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddQuiz">
+<button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0" @onclick="AddQuiz">
     <span aria-hidden="true">
         ❔
     </span>Add Quiz
 </button>
-<br/>
-<button  @onclick="SaveChapter" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+<br />
+<button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0">
     <span aria-hidden="true">
         🔒
-    </span>Save Chapter</button>
+    </span>Save Chapter
+</button>
+<br />
 
 @code {
 
@@ -80,12 +79,12 @@
 
     private void AddPdf()
     {
-        _pdfs.Add(new PdfContentDto(){ContentName = NewPdfName, baseString = NewPdfFile});
+        _pdfs.Add(new PdfContentDto() { ContentName = NewPdfName, baseString = NewPdfFile });
     }
 
     private void AddVideo()
     {
-        _videos.Add(new VideoContentDto(){ContentName = NewVideoName, Path = NewVideoLink});
+        _videos.Add(new VideoContentDto() { ContentName = NewVideoName, Path = NewVideoLink });
     }
 
     private void AddQuiz()

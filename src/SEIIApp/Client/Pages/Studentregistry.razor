@@ -7,10 +7,10 @@
 <h3>Studentregistry</h3>
 <br/>
 <br/>
-<h4>All Courses:</h4>
+<h4 style="font-family: Consolas">All Courses:</h4>
 @foreach (var course in _allCourses)
 {
-    <li>
+    <li style="font-family: Consolas">
         Name: @course.CourseName
         <input type="checkbox" @onchange="@(() => bindSelected(@course.CourseName))">
     </li>
@@ -19,12 +19,12 @@
 <br/>
 
 
-<h4>All Students:</h4>
+<h4 style="font-family: Consolas">All Students:</h4>
 <br/>
 <br/>
 
-<label style="font-family: Dubai">Name of the Course to enroll students to:</label>
-<input type="text"
+<label style="font-family: Consolas">Name of the Course to enroll students to:</label>
+<input type="text" placeholder="Course name"
        @bind-value="CourseToEnroll"
        @bind-value:event="oninput"/>
 <br/>

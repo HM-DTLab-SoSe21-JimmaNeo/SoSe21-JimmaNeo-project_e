@@ -3,78 +3,84 @@
 @using SEIIApp.Client.Components
 @inject Services.BackendAccessService _backendAccessService
 @inject NavigationManager NavigationManager
-<h3>Create a new Course</h3>
-<br />
-<br />
-<label style="font-family:Dubai"><em>Course name:</em> </label>
-<input type="text"
-       @bind-value="CourseName"
-       @bind-value:event="oninput" />
-<br />
-<br />
-<h4>Chapters: </h4>
-<br />
-@foreach (var chapter in Chapters)
-{
-    <li>
-        <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
-    </li>
-}
-<br />
-<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="AddChapter">
-    <span aria-hidden="true">
-        ➕
-    </span>Add Chapter
-</button>
-<br />
-<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="SaveCourse">
-    <span aria-hidden="true">
-        🔒
-    </span>Save Course
-</button>
-<br />
-<br />
-<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToHomepage">
 
+    
+        <h3 style="font-family:Consolas">Create a new Course</h3>
 
-    <span aria-hidden="true">
-        🏠
-    </span> Home
-</button>
-
-@code {
-
-    public string buttonColor = "#5470f0";
-
-    private string CourseName { get; set; }
-
-    private List<ChapterDto> Chapters = new List<ChapterDto>();
-
-    CourseDto CourseDto { get; set; }
-
-    public string NewChapterName { get; set; }
-
-    private void AddChapter()
-    {
-        Chapters.Add(new ChapterDto() { ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0] });
-        buttonColor = "#5470f0";
-    }
-
-    private async Task SaveCourse()
-    {
-        CourseDto = new CourseDto
+        <br />
+        <br />
+        <label style="font-family:Consolas"><em>Course name:</em> </label>
+        <input type="text" placeholder="Course name"
+               @bind-value="CourseName"
+               @bind-value:event="oninput" />
+        <br />
+        <br />
+        <h4 style="font-family:Consolas">Chapters: </h4>
+        <br />
+        @foreach (var chapter in Chapters)
         {
-            CourseName = CourseName,
-            Chapters = Chapters.ToArray()
-        };
+            <li>
+                <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
+            </li>
+        }
+        <br />
+        <button type="button" class="text-white" style=" font-family:Consolas;border:thin solid white;background-color:@buttonColor" @onclick="AddChapter">
+            <span aria-hidden="true">
+                ➕
+            </span>Add Chapter
+        </button>
+        <br />
+        <br />
+        <button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse">
+            <span aria-hidden="true">
+                🔒
+            </span>Save Course
+        </button>
+        <br />
+        <br />
+        <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color: @buttonColor" @onclick="RouteToHomepage">
 
-        await _backendAccessService.PutCourse(CourseDto);
-        buttonColor = "#ADD8E6";
+            <span aria-hidden="true">
+                🏠
+            </span> Home
+        </button>
+   
+
+
+
+    @code {
+
+        public string buttonColor = "#5470f0";
+
+        private string CourseName { get; set; }
+
+        private List<ChapterDto> Chapters = new List<ChapterDto>();
+
+        CourseDto CourseDto { get; set; }
+
+        public string NewChapterName { get; set; }
+
+        private void AddChapter()
+        {
+            Chapters.Add(new ChapterDto() { ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0] });
+            buttonColor = "#5470f0";
+        }
+
+        private async Task SaveCourse()
+        {
+            CourseDto = new CourseDto
+            {
+                CourseName = CourseName,
+                Chapters = Chapters.ToArray()
+            };
+
+            await _backendAccessService.PutCourse(CourseDto);
+            buttonColor = "#ADD8E6";
+        }
+
+        private void RouteToHomepage()
+        {
+            NavigationManager.NavigateTo("/CreatorHomepage");
+        }
+
     }
-
-    private void RouteToHomepage()
-    {
-        NavigationManager.NavigateTo("/CreatorHomepage");
-    }
-
-}
