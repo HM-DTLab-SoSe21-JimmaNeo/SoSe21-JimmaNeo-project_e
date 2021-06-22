@@ -28,7 +28,11 @@
                     {
                         <li>
                             @chapter.ChapterName
-                            <button class="btn btn-primary" @onclick="@(e => StartCourse(chapter))">Start Chapter</button>
+                            <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(e => StartCourse(chapter))">
+                                <span aria-hidden="true">
+                                    ▶
+                                </span>Start Chapter
+                            </button>
 
                         </li>
                     }
@@ -41,11 +45,18 @@
 <p>@message</p>
 <br/>
 <br/>
-<a href="/homepageuser/@UserId">Back to your User Homepage</a>
+ <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepage">
+
+            <span aria-hidden="true">
+                🏠
+            </span> Home
+        </button>
 @code {
 
     [Parameter]
     public int UserId { get; set; }
+
+    public string buttonColor = "#5470f0";
 
     private StudentDto StudentUser { get; set; }
 
@@ -80,6 +91,11 @@
     private void StartCourse(ChapterDto chapterDto)
     {
         NavigationManager.NavigateTo($"/learningpage/{UserId}/{chapterDto.ChapterId}");
+    }
+
+    private void RouteToHomepageUser()
+    {
+        NavigationManager.NavigateTo($"/homepageuser/{UserId}");
     }
 
 }

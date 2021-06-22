@@ -39,7 +39,11 @@
             <div class="card-body" style="text-align:center">
                 <br /> <br /><h5 class="card-title">Retry Questions you did'nt answer correctly</h5>
                 <div style="text-align:center">
-                    <br /><br /><button class="btn btn-primary" @onclick="RouteToRepetition">Repetitionpage</button><br />
+                    <br /><br /><button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToRepetition">
+                                    <span aria-hidden="true">
+                                        🔁
+                                    </span>Repetitionpage
+                          </button><br />
                 </div>
             </div>
         </div>
@@ -52,7 +56,11 @@
             <div class="card-body" style="margin:auto">
                 <br />  <h5 class="card-title">Show all Courses</h5><br><br />
                 <div style="text-align:center">
-                    <br /><br /> <br /><button class="btn btn-primary" @onclick="RouteToCourses">All Courses</button><br />
+                    <br /><br /> <br /><button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToCourses">
+                                           <span aria-hidden="true">
+                                               📋
+                                           </span>All Courses
+                            </button><br />
                 </div>
             </div>
         </div>
@@ -64,7 +72,11 @@
             <div class="card-body" style="margin:auto">
                 <h5 class="card-title">Start the Course</h5>
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="RouteToLearning">Start / Continue</button><br />
+                    <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToLearning">
+                        <span aria-hidden="true">
+                            ▶
+                        </span>Start / Continue
+                        </button><br />
                 </div>
             </div>
         </div>
@@ -92,6 +104,7 @@
 
 
 @code {
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public int UserId { get; set; }

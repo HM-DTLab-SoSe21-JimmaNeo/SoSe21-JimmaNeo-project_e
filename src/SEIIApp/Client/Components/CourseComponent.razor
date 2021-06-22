@@ -10,7 +10,12 @@
         {
             <li>
                 @chapter.ChapterName
-                <button class="btn btn-primary" @onclick="@(e => StartCourse(chapter))">Start Chapter</button>
+                <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(e => StartCourse(chapter))">
+                    <span aria-hidden="true">
+                        ▶
+                    </span>
+                    Start Chapter
+                </button>
 
             </li>
         }
@@ -22,6 +27,7 @@ else
 }
 
 @code {
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public int CourseId { get; set; }

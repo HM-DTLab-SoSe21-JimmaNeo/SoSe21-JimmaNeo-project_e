@@ -17,7 +17,11 @@
                 }
             </div>
             <br />
-            <button class="btn btn-success" disabled="@isFinished" @onclick="() => Antworten()">Answer</button>
+            <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" disabled="@isFinished" @onclick="() => Antworten()">
+                <span aria-hidden="true">
+                    💡
+                </span>Answer
+            </button>
 
 
             @if (answeredRight == true)
@@ -25,7 +29,11 @@
                 <br />
                 <br />
                 <p style="color:green">Your answer was right!</p>
-                <button class="btn btn-primary" @onclick="@(() => next.InvokeAsync(true))">Next</button>
+                <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(() => next.InvokeAsync(true))">
+                    <span aria-hidden="true">
+                        ⏩
+                    </span>Next
+                </button>
             }
             @if (answeredWrong == true)
             {
@@ -38,6 +46,7 @@
         </div>
 
         @code {
+            public string buttonColor = "#5470f0";
 
             [Parameter]
             public QuestionDto Question { get; set; }
@@ -51,45 +60,45 @@
             [Parameter]
             public int studentId { get; set; }
 
-        public bool answeredWrong { get; set; }
-        public bool answeredRight { get; set; }
+            public bool answeredWrong { get; set; }
+            public bool answeredRight { get; set; }
 
-        public async Task<bool> Antworten()
-        {
-            var qStatus = await _backendAccessService.GetQuestionStatusByQuestionAndUser(studentId, Question.QuestionId);
-
-            questionStatusTransfer transfer = new questionStatusTransfer() { UserId = studentId, QuestionId = Question.QuestionId };
-            foreach (var answer in Question.Answers)
+            public async Task<bool> Antworten()
             {
-                if (answer.IsSelected != answer.IsCorrect)
+                var qStatus = await _backendAccessService.GetQuestionStatusByQuestionAndUser(studentId, Question.QuestionId);
+
+                questionStatusTransfer transfer = new questionStatusTransfer() { UserId = studentId, QuestionId = Question.QuestionId };
+                foreach (var answer in Question.Answers)
                 {
-                    transfer.level = 0;
-                    await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+                    if (answer.IsSelected != answer.IsCorrect)
+                    {
+                        transfer.level = 0;
+                        await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
 
-                    answeredWrong = true;
-                    return false;
+                        answeredWrong = true;
+                        return false;
+                    }
                 }
+                if (qStatus == null)
+                {
+                    transfer.level = 1;
+                }
+                else
+                {
+                    transfer.level = qStatus.QuestionLevel + 1;
+                }
+                await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+
+                answeredRight = true;
+                return true;
             }
-            if (qStatus == null)
+
+            protected override void OnParametersSet()
             {
-                transfer.level = 1;
+                base.OnParametersSet();
+
+                answeredWrong = false;
+                answeredRight = false;
             }
-            else
-            {
-                transfer.level = qStatus.QuestionLevel + 1;
-            }
-            await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
-
-            answeredRight = true;
-            return true;
-        }
-
-        protected override void OnParametersSet()
-        {
-            base.OnParametersSet();
-
-            answeredWrong = false;
-            answeredRight = false;
-        }
 
         }

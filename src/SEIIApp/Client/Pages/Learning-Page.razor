@@ -25,7 +25,10 @@
             <div class="card-body" style="margin:auto">
                 <h5 class="card-title" style="margin:auto">Download PDF-File</h5>
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="() => DownloadContent(pdfContent[0])" style="margin-top:24px">PDF</button>
+                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="() => DownloadContent(pdfContent[0])">
+                        <span aria-hidden="true">
+                            📥
+                        </span>PDF</button>
                 </div>
             </div>
         </div>
@@ -38,7 +41,11 @@
             <div class="card-body" style="margin:auto">
                 <h5 class="card-title" >Go to Quiz</h5><br /><br /><br />
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="RouteToQuizpage" style="margin-bottom:24px">Quiz</button>
+                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToQuizpage">
+                    <span aria-hidden="true">
+    ❔
+</span>Quiz
+                    </button>
                 </div>
             </div>
         </div>
@@ -50,7 +57,10 @@
             <div class="card-body" style="margin:auto">
                 <br /><br /><br /><h5 class="card-title">Back to Homepage</h5><br /><br /><br /><br />
                 <div style="text-align:center">
-                    <button class="btn btn-primary" @onclick="RouteToHomepageUser">Homepage</button>
+                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToHomepageUser">
+                        <span aria-hidden="true">
+                            🏠
+                        </span>Homepage</button>
                 </div>
             </div>
         </div>
@@ -77,6 +87,7 @@
 
 @code
 {
+    public string buttonColor = "#5470f0";
     [Parameter]
     public int UserId { get; set; }
 
