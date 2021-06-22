@@ -6,7 +6,9 @@
 <Navigationmenu></Navigationmenu>
 <h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
 
-<br /><br /><br />
+<br />
+<br />
+<br />
 <div data-role="fieldcontain">
     <div style="text-align: center">
         <fieldset>
@@ -40,6 +42,24 @@
     <a href="/registration">Click here</a>
 </div>
 
+    <center>
+        <br />
+        <p></p>
+                <div class="card" style="width: 9rem; max-height: 12rem">
+                    <img src="Images/FAQ2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" style="text-align:center">
+                        <div style="text-align:center">
+                            <button class="btn btn-outline-primary" @onclick="RouteToFAQ">FAQ</button>
+                        </div>
+                    </div>
+                </div>
+        <div style="text-align: end">
+            <span>&#9993;</span> <a href="mailto:someone@example.com">Send email</a>
+        </div>
+    </center>
+
+
+
 
 @code {
     private string name;
@@ -53,6 +73,11 @@
     private string message = "Please log in.";
 
     private string messageColor = "black";
+
+    private void RouteToFAQ()
+    {
+        NavigationManager.NavigateTo($"/faqpage/");
+    }
 
     private async Task RouteToHomepage()
     {
