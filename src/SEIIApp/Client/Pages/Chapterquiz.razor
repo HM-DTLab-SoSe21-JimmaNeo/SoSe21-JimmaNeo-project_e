@@ -2,17 +2,20 @@
 @using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Services
 @inject BackendAccessService _backendAccessService
+@inject NavigationManager NavigationManager
 
 @if (Quiz != null)
 {
-    <h2>
-        <b>
-            <u>@Quiz.QuizName</u>
-        </b>
-    </h2>
-    <br/>
-    <h4>Frage @(questionNumber + 1):</h4>
-    <br/>
+    <div align="center">
+        <h2>
+            <b>
+                <u>@Quiz.QuizName</u>
+            </b>
+        </h2>
+        <br />
+        <h4>Frage @(questionNumber + 1):</h4>
+        <br />
+    </div>
 }
 
 
@@ -23,119 +26,128 @@
     </div>
     @if (quizFinished)
     {
-        <br/>
-        <p style="font-size:16pt;color:green">
-            <b>Gückwunsch! @Quiz.QuizName wurde erfolgreich bearbeitet.</b>
-        </p>
-        <a href="/homepageuser/@UserId">Back to your User Homepage</a>
-           }
-           }
-
-           @code {
-
-               [Parameter]
-               public int UserId { get; set; }
-
-               [Parameter]
-               public int QuizId { get; set; }
+        <div align="center">
+            <br />
+            <p style="font-size:16pt;color:green">
+                <b>Congratulations! @Quiz.QuizName is finished.</b>
+            </p>
+            <button class="btn btn-primary" @onclick="RouteToHomepageUser">Back to Homepage</button>
+            <br />
+        </div>
+    }
+}
 
 
-               public int questionNumber = 0;
-               public bool quizFinished = false;
+@code {
 
-               public async Task ClickHandler(bool next)
-               {
-                   if (next && (questionNumber + 1) < Quiz.Questions.Length)
-                   {
-                       questionNumber++;
-                       StateHasChanged();
-                   }
-                   else
-                   {
-                       quizFinished = true;
-                       var ChapterDto = await _backendAccessService.GetChapterByQuizId(QuizId);
-                       var CourseDto = await _backendAccessService.GetCourseByChapterId(ChapterDto.ChapterId);
-                       await _backendAccessService.AddOrUpdateQuizStatus(new QuizStatusTransfer() {finished = true, quizId = QuizId, studentId = UserId});
-                       await _backendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() {ChapterId = ChapterDto.ChapterId, UserId = UserId});
-                       await _backendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = CourseDto.CourseId, StudentId = UserId});
-                   }
-               }
+    [Parameter]
+    public int UserId { get; set; }
 
-               public QuizDto Quiz { get; set; }
-               public QuestionDto Question1 { get; set; }
-               public AnswerDto Answer11 { get; set; }
-               public AnswerDto Answer12 { get; set; }
-               public AnswerDto Answer13 { get; set; }
-               public AnswerDto Answer14 { get; set; }
-               public AnswerDto Answer15 { get; set; }
-               public QuestionDto Question2 { get; set; }
-               public AnswerDto Answer21 { get; set; }
-               public AnswerDto Answer22 { get; set; }
-               public AnswerDto Answer23 { get; set; }
-               public AnswerDto Answer24 { get; set; }
-               public AnswerDto Answer25 { get; set; }
-               public QuestionDto Question3 { get; set; }
-               public AnswerDto Answer31 { get; set; }
-               public AnswerDto Answer32 { get; set; }
-               public AnswerDto Answer33 { get; set; }
-               public AnswerDto Answer34 { get; set; }
-               public AnswerDto Answer35 { get; set; }
+    [Parameter]
+    public int QuizId { get; set; }
 
 
-               protected override void OnInitialized()
-               {
-                   base.OnInitialized();
+    public int questionNumber = 0;
+    public bool quizFinished = false;
 
-                   Answer11 = new AnswerDto() {AnswerText = "Der Großteil aller Neugeborenen bedarf nach der Geburt keiner besonderen medizinischen Unterstützung.", IsCorrect = false};
-                   Answer12 = new AnswerDto() {AnswerText = "Der Wärmeerhalt (36,5 -37,5 °C) nach Geburt ist für alle gesunden Neugeborenen von großer Wichtigkeit.", IsCorrect = true};
-                   Answer13 = new AnswerDto() {AnswerText = "Nur ca. 30% aller Neugeborenen müssen nach Geburt beatmet werden.", IsCorrect = false};
-                   Answer14 = new AnswerDto() {AnswerText = "ca. 10% aller Neugeborenen müssen nach Geburt intubiert werden.", IsCorrect = false};
-                   Answer15 = new AnswerDto() {AnswerText = "Die medikamentöse Therapie spielt eine größere Rolle als die Herz-Druck-Massage.", IsCorrect = false};
-
-                   Answer21 = new AnswerDto() {AnswerText = "Beatmung : Kompression = 2:30", IsCorrect = true};
-                   Answer22 = new AnswerDto() {AnswerText = "Beatmung : Kompression = 1:3", IsCorrect = false};
-                   Answer23 = new AnswerDto() {AnswerText = "Beatmung : Kompression = 2:3", IsCorrect = false};
-                   Answer24 = new AnswerDto() {AnswerText = "Beatmung : Kompression = 2:15", IsCorrect = false};
-                   Answer25 = new AnswerDto() {AnswerText = "Beatmung : Kompression = 1:15", IsCorrect = false};
-
-                   Answer31 = new AnswerDto() {AnswerText = "Eine Flexion des Kopfes ist zu vermeiden.", IsCorrect = false};
-                   Answer32 = new AnswerDto() {AnswerText = "Die Dichtigkeit der Beatmungsmaske kann durch eine 2-Helfer Methode verbessert werden.", IsCorrect = false};
-                   Answer33 = new AnswerDto() {AnswerText = "Die invasive Ventilation über einen Endotrachealtubus zeigt einen deutlichen Überlebensvorteil gegenüber der Beutel-Maske-Beatmung.", IsCorrect = true};
-                   Answer34 = new AnswerDto() {AnswerText = "Eine Reklination des Kopfes ist zu vermeiden.", IsCorrect = false};
-                   Answer35 = new AnswerDto() {AnswerText = "Nur nach gründlichem Absaugen können Beatmungsmaßnahmen effektiv durchgeführt werden.", IsCorrect = false};
-
-                   Question1 = new QuestionDto()
-                   {
-                       QuestionText = "Welche Aussagen zur Erstversorgung Neugeborener treffen zu?",
-                       Answers = new AnswerDto[5] {Answer11, Answer12, Answer13, Answer14, Answer15},
-                       QuestionId = 0
-                   };
-
-                   Question2 = new QuestionDto()
-                   {
-                       QuestionText = "Bei der Reanimation von Neugeborenen unmittelbar nach Geburt ist das Verhältnis von Beatmungshüben zu Thoraxkompressionen:",
-                       Answers = new AnswerDto[5] {Answer21, Answer22, Answer23, Answer24, Answer25},
-                       QuestionId = 1
-                   };
-
-                   Question3 = new QuestionDto()
-                   {
-                       QuestionText = "Für den Erfolg der Beatmungsmaßnahmen gilt bei Neugeborenen:",
-                       Answers = new AnswerDto[5] {Answer31, Answer32, Answer33, Answer34, Answer35},
-                       QuestionId = 2
-                   };
-
-               /*Quiz = new QuizDto()
+    public async Task ClickHandler(bool next)
+    {
+        if (next && (questionNumber + 1) < Quiz.Questions.Length)
         {
-            QuizName = "Quiz Chapter 1",
-            Questions = new QuestionDto[3] { Question1, Question2, Question3 }
-        };*/
-               }
+            questionNumber++;
+            StateHasChanged();
+        }
+        else
+        {
+            quizFinished = true;
+            var ChapterDto = await _backendAccessService.GetChapterByQuizId(QuizId);
+            var CourseDto = await _backendAccessService.GetCourseByChapterId(ChapterDto.ChapterId);
+            await _backendAccessService.AddOrUpdateQuizStatus(new QuizStatusTransfer() { finished = true, quizId = QuizId, studentId = UserId });
+            await _backendAccessService.AddOrUpdateChapterStatus(new chapterStatusTransfer() { ChapterId = ChapterDto.ChapterId, UserId = UserId });
+            await _backendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() { CourseId = CourseDto.CourseId, StudentId = UserId });
+        }
+    }
 
-               protected override async Task OnParametersSetAsync()
-               {
-                   await base.OnParametersSetAsync();
-                   Quiz = await _backendAccessService.GetQuizById(QuizId);
-               }
+    public QuizDto Quiz { get; set; }
+    public QuestionDto Question1 { get; set; }
+    public AnswerDto Answer11 { get; set; }
+    public AnswerDto Answer12 { get; set; }
+    public AnswerDto Answer13 { get; set; }
+    public AnswerDto Answer14 { get; set; }
+    public AnswerDto Answer15 { get; set; }
+    public QuestionDto Question2 { get; set; }
+    public AnswerDto Answer21 { get; set; }
+    public AnswerDto Answer22 { get; set; }
+    public AnswerDto Answer23 { get; set; }
+    public AnswerDto Answer24 { get; set; }
+    public AnswerDto Answer25 { get; set; }
+    public QuestionDto Question3 { get; set; }
+    public AnswerDto Answer31 { get; set; }
+    public AnswerDto Answer32 { get; set; }
+    public AnswerDto Answer33 { get; set; }
+    public AnswerDto Answer34 { get; set; }
+    public AnswerDto Answer35 { get; set; }
 
-           }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Answer11 = new AnswerDto() { AnswerText = "Der Großteil aller Neugeborenen bedarf nach der Geburt keiner besonderen medizinischen Unterstützung.", IsCorrect = false };
+        Answer12 = new AnswerDto() { AnswerText = "Der Wärmeerhalt (36,5 -37,5 °C) nach Geburt ist für alle gesunden Neugeborenen von großer Wichtigkeit.", IsCorrect = true };
+        Answer13 = new AnswerDto() { AnswerText = "Nur ca. 30% aller Neugeborenen müssen nach Geburt beatmet werden.", IsCorrect = false };
+        Answer14 = new AnswerDto() { AnswerText = "ca. 10% aller Neugeborenen müssen nach Geburt intubiert werden.", IsCorrect = false };
+        Answer15 = new AnswerDto() { AnswerText = "Die medikamentöse Therapie spielt eine größere Rolle als die Herz-Druck-Massage.", IsCorrect = false };
+
+        Answer21 = new AnswerDto() { AnswerText = "Beatmung : Kompression = 2:30", IsCorrect = true };
+        Answer22 = new AnswerDto() { AnswerText = "Beatmung : Kompression = 1:3", IsCorrect = false };
+        Answer23 = new AnswerDto() { AnswerText = "Beatmung : Kompression = 2:3", IsCorrect = false };
+        Answer24 = new AnswerDto() { AnswerText = "Beatmung : Kompression = 2:15", IsCorrect = false };
+        Answer25 = new AnswerDto() { AnswerText = "Beatmung : Kompression = 1:15", IsCorrect = false };
+
+        Answer31 = new AnswerDto() { AnswerText = "Eine Flexion des Kopfes ist zu vermeiden.", IsCorrect = false };
+        Answer32 = new AnswerDto() { AnswerText = "Die Dichtigkeit der Beatmungsmaske kann durch eine 2-Helfer Methode verbessert werden.", IsCorrect = false };
+        Answer33 = new AnswerDto() { AnswerText = "Die invasive Ventilation über einen Endotrachealtubus zeigt einen deutlichen Überlebensvorteil gegenüber der Beutel-Maske-Beatmung.", IsCorrect = true };
+        Answer34 = new AnswerDto() { AnswerText = "Eine Reklination des Kopfes ist zu vermeiden.", IsCorrect = false };
+        Answer35 = new AnswerDto() { AnswerText = "Nur nach gründlichem Absaugen können Beatmungsmaßnahmen effektiv durchgeführt werden.", IsCorrect = false };
+
+        Question1 = new QuestionDto()
+        {
+            QuestionText = "Welche Aussagen zur Erstversorgung Neugeborener treffen zu?",
+            Answers = new AnswerDto[5] { Answer11, Answer12, Answer13, Answer14, Answer15 },
+            QuestionId = 0
+        };
+
+        Question2 = new QuestionDto()
+        {
+            QuestionText = "Bei der Reanimation von Neugeborenen unmittelbar nach Geburt ist das Verhältnis von Beatmungshüben zu Thoraxkompressionen:",
+            Answers = new AnswerDto[5] { Answer21, Answer22, Answer23, Answer24, Answer25 },
+            QuestionId = 1
+        };
+
+        Question3 = new QuestionDto()
+        {
+            QuestionText = "Für den Erfolg der Beatmungsmaßnahmen gilt bei Neugeborenen:",
+            Answers = new AnswerDto[5] { Answer31, Answer32, Answer33, Answer34, Answer35 },
+            QuestionId = 2
+        };
+
+        /*Quiz = new QuizDto()
+ {
+     QuizName = "Quiz Chapter 1",
+     Questions = new QuestionDto[3] { Question1, Question2, Question3 }
+ };*/
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Quiz = await _backendAccessService.GetQuizById(QuizId);
+    }
+
+    private void RouteToHomepageUser()
+    {
+        NavigationManager.NavigateTo($"/homepageuser/{UserId}");
+    }
+
+}
