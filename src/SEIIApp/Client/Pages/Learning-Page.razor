@@ -17,56 +17,61 @@
     }
 </style>
 
-<div class="row">
-    <div class="col-sm-4">
 
-        <div class="card" style="width: 18rem; min-height: 26rem">
-            <img src="Images/PDF.png" class="card-img-top" alt="...">
-            <div class="card-body" style="margin:auto">
-                <h5 class="card-title" style="margin:auto">Download PDF-File</h5>
-                <div style="text-align:center">
-                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="() => DownloadContent(pdfContent[0])">
-                        <span aria-hidden="true">
-                            📥
-                        </span>PDF</button>
+<center>
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/PDF.png" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <h5 class="card-title" style="margin:auto">Download PDF-File</h5>
+                    <div style="text-align:center">
+                        <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="() => DownloadContent(pdfContent[0])">
+                            <span aria-hidden="true">
+                                📥
+                            </span>PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/Quiz.jpg" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <h5 class="card-title">Go to Quiz</h5><br /><br /><br />
+                    <div style="text-align:center">
+                        <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToQuizpage">
+                            <span aria-hidden="true">
+                                ❔
+                            </span>Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/Homepage.jpg" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <br /><br /><br /><h5 class="card-title">Back to Homepage</h5><br /><br /><br /><br />
+                    <div style="text-align:center">
+                        <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToHomepageUser">
+                            <span aria-hidden="true">
+                                🏠
+                            </span>Homepage
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</center>
 
-
-    <div class="col-sm-4">
-        <div class="card" style="width: 18rem; min-height: 26rem">
-            <img src="Images/Quiz.jpg" class="card-img-top" alt="...">
-            <div class="card-body" style="margin:auto">
-                <h5 class="card-title" >Go to Quiz</h5><br /><br /><br />
-                <div style="text-align:center">
-                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToQuizpage">
-                    <span aria-hidden="true">
-    ❔
-</span>Quiz
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="card" style="width: 18rem; min-height: 26rem">
-            <img src="Images/Homepage.jpg" class="card-img-top" alt="...">
-            <div class="card-body" style="margin:auto">
-                <br /><br /><br /><h5 class="card-title">Back to Homepage</h5><br /><br /><br /><br />
-                <div style="text-align:center">
-                    <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToHomepageUser">
-                        <span aria-hidden="true">
-                            🏠
-                        </span>Homepage</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 
 
