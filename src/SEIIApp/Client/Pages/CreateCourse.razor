@@ -5,40 +5,43 @@
 @inject NavigationManager NavigationManager
 
     
-        <h3 style="font-family:Consolas">Create a new Course</h3>
+        <h3 style="font-family:Berlin sans FB Demi">Create a new Course</h3>
 
         <br />
         <br />
-        <label style="font-family:Consolas"><em>Course name:</em> </label>
+        <label style="font-family:Berlin sans FB "><em>Course name:</em> </label>
         <input type="text" placeholder="Course name"
                @bind-value="CourseName"
                @bind-value:event="oninput" />
         <br />
         <br />
-        <h4 style="font-family:Consolas">Chapters: </h4>
+        <h4 style="font-family:Berlin sans FB ">Chapters: </h4>
         <br />
-        @foreach (var chapter in Chapters)
-        {
-            <li>
-                <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
-            </li>
-        }
+        <ol>
+            @foreach (var chapter in Chapters)
+            {
+                <li >
+                    <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
+                </li>
+                }
+            </ol>
+
         <br />
-        <button type="button" class="text-white" style=" font-family:Consolas;border:thin solid white;background-color:#5470f0" @onclick="AddChapter">
+        <button type="button" class="text-white" style=" font-family:Berlin sans FB;border:thin solid white;background-color:#5470f0" @onclick="AddChapter">
             <span aria-hidden="true">
                 ➕
             </span>Add Chapter
         </button>
         <br />
         <br />
-        <button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse">
+        <button type="button" class="text-white" style="font-family: Berlin sans FB;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse">
             <span aria-hidden="true">
                 🔒
             </span>Save Course
         </button>
         <br />
         <br />
-        <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepage">
+        <button type="button" class="text-white" style="font-family: Berlin sans FB ; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepage">
 
             <span aria-hidden="true">
                 🏠

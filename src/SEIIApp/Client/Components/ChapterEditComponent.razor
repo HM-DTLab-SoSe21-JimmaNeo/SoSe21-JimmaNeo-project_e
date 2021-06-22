@@ -1,39 +1,44 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @inject IJSRuntime JsRuntime
-<h3>Chapter</h3>
 
-<label style="font-family: Consolas">Chapter name: </label> <input type="text" style="font-family: Consolas" placeholder="Chapter name"
+<label style="font-family: Berlin sans FB">Chapter name: </label> <input type="text" style="font-family: Berlin sans FB" placeholder="Chapter name"
        @bind-value="ChapterDto.ChapterName"
        @bind-value:event="oninput" />
 <br />
+<ol>
+    @foreach (var pdf in _pdfs)
+    {
+        <li>@pdf.ContentName</li>
+    }
+</ol>
 
-@foreach (var pdf in _pdfs)
-{
-    <li>@pdf.ContentName</li>
-}
 <br />
 
-<label style="font-family: Consolas">New PDF Name: </label><input type="text" style="font-family: Consolas" placeholder="PDF" @bind-value="NewPdfName" @bind-value:event="oninput" />
+<label style="font-family: Berlin sans FB">New PDF Name: </label><input type="text" style="font-family: Berlin sans FB " placeholder="PDF" @bind-value="NewPdfName" @bind-value:event="oninput" />
 <br />
 <br />
-<label style="font-family: Consolas">Upload PDF: </label>
-<InputFile OnChange="OnInputFileChanged"></InputFile><button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0" @onclick="AddPdf"> 
+<label style="font-family: Berlin sans FB">Upload PDF: </label>
+<InputFile OnChange="OnInputFileChanged"></InputFile><button type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: #5470f0" @onclick="AddPdf"> 
 <span aria-hidden="true">
         📥
     </span>Add PDF
 </button>
 
 <br />
-@foreach (var video in _videos)
-{
-    <li>@video.ContentName</li>
-}
+
+<ol>
+    @foreach (var video in _videos)
+    {
+        <li>@video.ContentName</li>
+    }
+</ol>
+
 <br />
-<label style="font-family: Consolas">New Video Name: </label><input type="text" style="font-family: Consolas" placeholder="Video name" @bind-value="NewVideoName" @bind-value:event="oninput" />
+<label style="font-family: Berlin sans FB">New Video Name: </label><input type="text" style="font-family: Berlin sans FB" placeholder="Video name" @bind-value="NewVideoName" @bind-value:event="oninput" />
 <br />
-<label style="font-family: Consolas">Link to new Video (please use the 'embed'-feature!) </label>
+<label style="font-family: Berlin sans FB ">Link to new Video (please use the 'embed'-feature!) </label>
 <br />
-<input type="text" style="font-family: Consolas" placeholder="https//..." @bind-value="NewVideoLink" @bind-value:event="oninput" /> <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color: #5470f0" @onclick="AddVideo">
+<input type="text" style="font-family: Berlin sans FB" placeholder="https//..." @bind-value="NewVideoLink" @bind-value:event="oninput" /> <button type="button" class="text-white" style="font-family: Berlin sans FB; border: thin solid white; background-color: #5470f0" @onclick="AddVideo">
     <span aria-hidden="true">
         🎬
     </span>
@@ -41,19 +46,19 @@
 </button>
 <br />
 <br />
-<p style="font-family: Consolas">Quiz:</p>
+<p style="font-family: Berlin sans FB ">Quiz:</p>
 <br />
 @if (newQuiz != null)
 {
     <QuizEditComponent QuizDto="newQuiz"></QuizEditComponent>
 }
-<button type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0" @onclick="AddQuiz">
+<button type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: #5470f0" @onclick="AddQuiz">
     <span aria-hidden="true">
         ❔
     </span>Add Quiz
 </button>
 <br />
-<button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: @buttonColor">
+<button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: @buttonColor">
     <span aria-hidden="true">
         🔒
     </span>Save Chapter

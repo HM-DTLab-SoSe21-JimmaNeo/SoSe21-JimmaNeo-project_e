@@ -1,19 +1,21 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Components
-<h3>Quiz:</h3>
 <br />
-<label style="font-family: chalkboard; font-size:larger" >Quiz name: </label>
+<label style="font-family: Berlin sans FB ; font-size:larger" >Quiz name: </label>
 <input type="text" placeholder="Quiz-Name"
        @bind-value="QuizDto.QuizName"
        @bind-value:event="oninput" />
 <br />
 <br />
-@foreach (var question in _questions)
-{
-    <li>
-        <QuestionEditComponent QuestionDto="question"></QuestionEditComponent>
-    </li>
-}
+<ol>
+    @foreach (var question in _questions)
+    {
+        <li>
+            <QuestionEditComponent QuestionDto="question"></QuestionEditComponent>
+        </li>
+    }
+</ol>
+
 <br />
 <button @onclick="AddQuestion" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
     <span aria-hidden="true">

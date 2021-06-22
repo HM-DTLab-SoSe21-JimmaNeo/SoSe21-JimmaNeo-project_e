@@ -1,26 +1,27 @@
 ﻿@using SEIIApp.Shared.DomainDto
 
-<h4>Question </h4>
-<label style="font-family: chalkboard; font-size:larger">Question Text:</label>
+<label style="font-family: Berlin sans FB ; font-size:larger">Question Text:</label>
 <input type="text" maxlength="10000" size="40"   placeholder="Question"
        @bind-value="QuestionDto.QuestionText"
        @bind-value:event="oninput" />
 <br />
 <br />
-@foreach (var answer in _answers)
-{
-    
-<li>
-    <label style="font-family: chalkboard; font-size:larger"> Answer Text:</label>
-    <br />
-    <textarea cols="35" rows="2">  <input placeholder="Question" type="text"maxlength="10000" size="50" @bind-value="answer.AnswerText" @bind-value:event="oninput" />
- 
+<ol>
+    @foreach (var answer in _answers)
+    {
+
+        <li>
+            <label style="font-family: Berlin sans FB ; font-size:larger"> Answer Text:</label>
+            <br />
+            <textarea cols="35" rows="2" @bind-value="answer.AnswerText" @bind-value:event="oninput">  
           </textarea>
-    
-    <label style="font-family: chalkboard; font-size:larger">Correct?</label>
-    <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput" />
-</li>
-}
+
+            <label style="font-family: Berlin sans FB ; font-size:larger">Correct?</label>
+            <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput" />
+        </li>
+    }
+</ol>
+
 <button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddAnswer">
     <span aria-hidden="true">
         ❕

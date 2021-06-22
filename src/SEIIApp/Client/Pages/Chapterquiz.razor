@@ -26,14 +26,19 @@
     </div>
     @if (quizFinished)
     {
-        <div align="center">
-            <br />
-            <p style="font-size:16pt;color:green">
-                <b>Congratulations! @Quiz.QuizName is finished.</b>
-            </p>
-            <button class="btn btn-primary" @onclick="RouteToHomepageUser">Back to Homepage</button>
-            <br />
-        </div>
+<div align="center">
+    <br />
+    <p style="font-size:16pt;color:green">
+        <b>Congratulations! @Quiz.QuizName is finished.</b>
+    </p>
+    <button type="button" class="text-white" style="font-family: Consolas; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepageUser">
+
+        <span aria-hidden="true">
+            🏠
+        </span> Home
+    </button>
+    <br />
+</div>
     }
 }
 
