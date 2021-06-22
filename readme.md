@@ -21,23 +21,23 @@ Die Mission der LMU-Ärzte ist es, mit ihren Lerninhalten gemeinsam mit dem medi
  Erfahren Sie mehr über das Jimma-Neo-Projekt unter https://www.lmu-klinikum.de/aktuelles/projekte/jimmaneooder testen Sie eine Demonstration der NeoLearn-Website unter www.neolearn.et/demo
 
 
-*Der Press Release verwendet spekulative Nutzerzitate, um den geplanten Nutzermehrwert zu verdeutlichen.  
+*Das Press Release verwendet spekulative Nutzerzitate, um den geplanten Nutzermehrwert zu verdeutlichen.  
 Die Verlinkungen dienen nur zu Demonstrationszwecken um die formalen Eigenschaften eines Press Release zu erfüllen.*
 
 
 ## Anwendungsbeschreibung
-Bei Aufruf der Website, wird man zunächst auf die Homepage mit Login-Button geleitet.
-<br/><img src="/Dokumentation/Screenshots/FirstPage.png"><br/>Auf der Loginseite hat man die Möglichkeit sich mit einem bestehenden Nutzeraccount anzumelden, sich als neuen Nutzer zu registrieren <br/><img src="/Dokumentation/Screenshots/Registration.png"><br/> oder sich die Frequently Asked Questions anzusehen. <br/><img src="/Dokumentation/Screenshots/FAQ.png"><br/>Zudem hat man die Möglichkeit direkt eine E-Mail an das NeoLearn-Team zu senden. <br/><img src="/Dokumentation/Screenshots/Login.png"><br/>Basierend auf den eingegebenen Nutzerdaten, wird man entsprechend auf die Student- bzw. auf die Instructor-Homepage geleitet.  
-Auf der Student-Homepage hat der Lernende folgende Möglichkeite zur Auswahl:<br/><img src="/Dokumentation/Screenshots/User-Homepage.png"><br/>
-1. Mit dem "Start/Continue"-Button kommt der Studierende zu dem Kapitel, an dem er zuletzt gearbeitet hat.  <br/><img src="/Dokumentation/Screenshots/Learning_Page2.png"><br/>
-2. Auf der Repetitionpage kann der Lernende seine bereits im Kapitelquiz richtig beantworteten Fragen wiederholen. Die Fragen werden ihm nach einem Karteikastensystem angezeigt. Das bedeutet, wenn eine Frage richtig beantwortet wird, steigt sie eine Stufe auf und er bekommt sie nach einer festgelegten Zeit wieder auf der Repetitionpage angezeigt. Ab Stufe 6 werden die Fragen als "abgeschlossen" markiert.  <br/><img src="/Dokumentation/Screenshots/Repetition-Page.png"><br/>
-3. Auf der Kursübersicht, kann der Studierende sich seine eingetragenen Kurse anzeigen lassen und auf deren Kapitel zugreifen.  <br/><img src="/Dokumentation/Screenshots/All_Courses.png"><br/>
+Bei Aufruf der Website, wird man zunächst auf die Homepage mit Login-Button geleitet. 
+<br/><kbd><img border="1" height="500px" src="/Dokumentation/Screenshots/FirstPage.png"></kbd><br/><br/>Auf der Loginseite hat man die Möglichkeit sich mit einem bestehenden Nutzeraccount anzumelden, sich als neuen Nutzer zu registrieren <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Registration.png"></kbd><br/><br/>oder sich die Frequently Asked Questions anzusehen. <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/FAQ.png"></kbd><br/><br/>Zudem hat man die Möglichkeit direkt eine E-Mail an das NeoLearn-Team zu senden. <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Login.png"></kbd><br/><br/>Basierend auf den eingegebenen Nutzerdaten, wird man entsprechend auf die Student- bzw. auf die Instructor-Homepage geleitet.  
+Auf der Student-Homepage hat der Lernende folgende Möglichkeiten zur Auswahl:<br/><kbd><img height="500px" src="/Dokumentation/Screenshots/User-Homepage.png"></kbd><br/><br/>
+1. Mit dem "Start/Continue"-Button kommt der Studierende zu dem Kapitel, an dem er zuletzt gearbeitet hat.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Learning_Page2.png"></kbd><br/><br/>
+2. Auf der Repetitionpage kann der Lernende seine bereits im Kapitelquiz richtig beantworteten Fragen wiederholen. Die Fragen werden ihm nach einem Karteikastensystem angezeigt. Das bedeutet, wenn eine Frage richtig beantwortet wird, steigt sie eine Stufe auf und er bekommt sie nach einer festgelegten Zeit wieder auf der Repetitionpage angezeigt. Ab Stufe 6 werden die Fragen als "abgeschlossen" markiert.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Repetition-Page.png"></kbd><br/><br/>
+3. Auf der Kursübersicht, kann der Studierende sich seine eingetragenen Kurse anzeigen lassen und auf deren Kapitel zugreifen.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/All_Courses.png"></kbd><br/><br/>
 
-Hat der Lernende über Start / Continue oder die Kursübersicht ein Kapitel ausgewählt, wird er auf die Learning-Page für dieses Kapitel weitergeleitet. Hier kann er das PDF-File des Kapitels herunterladen, das Kapitel-Video ansehen oder das Kapitel-Abschluss-Quiz auswählen. <br/><img src="/Dokumentation/Screenshots/Learning_Page.png"><br/>Auf der Quizseite werden ihm nacheinander alle Fragen des Kapitelquizzes gestellt, wobei er jede einmal richtig beantworten muss, um das Quiz abzuschließen.  <br/><img src="/Dokumentation/Screenshots/Quiz.png"><br/>
+Hat der Lernende über Start / Continue oder die Kursübersicht ein Kapitel ausgewählt, wird er auf die Learning-Page für dieses Kapitel weitergeleitet. Hier kann er das PDF-File des Kapitels herunterladen, das Kapitel-Video ansehen oder das Kapitel-Abschluss-Quiz auswählen. <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Learning_Page.png"></kbd><br/><br/>Auf der Quizseite werden ihm nacheinander alle Fragen des Kapitelquizzes gestellt, wobei er jede einmal richtig beantworten muss, um das Quiz abzuschließen.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Quiz.png"></kbd><br/><br/>
 
-Auf der Instructor-Homepage kann ein Dozent alle bestehenden Kurse einsehen, neue Kurse anlegen und auf eine Studentenübersicht zugreifen.  <br/><img src="/Dokumentation/Screenshots/Creator-Homepage.png"><br/>
-1. Auf der Kurserstellungsseite, kann der Trainer einen neuen Kurs erstellen. Dabei legt er eine beliebige Anzahl an Kapitel mit zugehörigen Inhalten und Quiz an.  <br/><img src="/Dokumentation/Screenshots/New-Course.png"><br/>
-2. Im Studentenregister kann er Lernende in bestehende Kurse eintragen.  <br/><img src="/Dokumentation/Screenshots/All_Courses.png"><br/>
+Auf der Instructor-Homepage kann ein Dozent alle bestehenden Kurse einsehen, neue Kurse anlegen und auf eine Studentenübersicht zugreifen.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/Creator-Homepage.png"></kbd><br/><br/>
+1. Auf der Kurserstellungsseite, kann der Trainer einen neuen Kurs erstellen. Dabei legt er eine beliebige Anzahl an Kapitel mit zugehörigen Inhalten und Quiz an.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/New-Course.png"></kbd><br/><br/>
+2. Im Studentenregister kann er Lernende in bestehende Kurse eintragen.  <br/><kbd><img height="500px" src="/Dokumentation/Screenshots/All-Students.png"></kbd><br/><br/>
 ## Softwarearchitektur
 Als Blazor Web-Assembly-Projekt ist die Applikation NeoLearn grundlegend zweigeteilt: Der erste Teil ist die WebApp, primär bestehend aus Pages, Komponenten und einem Service zum Zugriff auf den Server. Dies stellt den Frontend der Anwendung dar. Der zweite Teil ist der Server, bestehend aus Domänen-Datenobjekten, Controllern, Services und Datenbankzugriff. Beide Bestandteile besitzen außerdem Zugriff auf die Data-Transfer-Objects, der "Shared"-Komponente. Dies sind gemappte "Versionen" der Domänenobjekte, die zwischen Frontend und Backend ausgetauscht werden.  
 Kern des Frontend sind die Pages, die jeweils eine Seite der WebApp darstellen, so gibt es Pages für alle Seiten und Funktionalitäten der Applikation, wie Login, Learning-page oder Kursübersicht. Die Pages werden ergänzt durch Komponenten, dies sind wiederverwendbare Bestandteile, die auf Seiten eingesetzt werden können und Bestandteile und Funktionen einer Seite zur Verfügung stellen. So gibt es etwa eine QuizHelper-Komponente, die das Bearbeiten von Fragen ermöglicht und die sowohl bei den Chapterquizzes als auch im Fragenwiederholungsmodus (Repetitionpage) verwendet wird.  
@@ -49,7 +49,7 @@ Die Services beinhalten die Anwendungslogik und den Datenbankzugriff. Sie geben 
 Wir haben die Aufgaben der einzelnen Teammitglieder zuerst in Front End und Back End aufgeteilt. Für das Back End war Maximilian Preis zuständig.
 Um das Front End haben sich Merve Altunkaynak, Isil Sahin, Ivan Othmann, Bastian Andraschko und Sebastian Alex gekümmert. Zudem hat sich Maximilian Preis um die Verknüpfung des Front End mit dem Back End sowie um die Logik einzelner Seiten gekümmert.  
 
-Ansprechpartner: maltunka@hm.edu
+Ansprechpartner: Merve Altunkaynak maltunka@hm.edu
 ## Anlagen
 
 [Wireframes](/Dokumentation/TEAM_E_Wireframes.pdf)  
