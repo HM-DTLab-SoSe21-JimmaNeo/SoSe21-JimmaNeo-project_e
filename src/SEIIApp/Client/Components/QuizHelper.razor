@@ -1,89 +1,95 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Services
 @inject BackendAccessService _backendAccessService
-@if (Question != null)
-{
-    <p style="font-size:14pt">@Question.QuestionText</p>
 
-    foreach (var answer in Question.Answers)
+<div align="center">
+    @if (Question != null)
     {
-        <input type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind="answer.IsSelected">
-        <label for="answerCheckbox">@answer.AnswerText</label>
-        <br/>
-    }
+        <div style="background-color:#ffedc4;border-style:solid;width: 800px" align="left">
+            <p align="center" style="font-size:16pt">@Question.QuestionText</p>
+            <br />
 
-    <br/>
+                @foreach (var answer in Question.Answers)
+                {
+                    <input style="margin-left: .5rem" type="checkbox" id="answerCheckbox" disabled="@(answeredRight == true | isFinished == true)" @bind="answer.IsSelected">
+                    <label for="answerCheckbox">@answer.AnswerText</label>
+                    <br />
+                }
+            </div>
+            <br />
+            <button class="btn btn-success" disabled="@isFinished" @onclick="() => Antworten()">Answer</button>
 
-    @if (answeredRight == true)
-    {
-        <p style="color:green">Die Frage wurde richtig beantwortet!</p>
-        <br/>
-        <button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="@(() => next.InvokeAsync(true))">Weiter</button>
-        <br/>
-    }
-    @if (answeredWrong == true)
-    {
-        <p style="color:red">Die Frage wurde leider falsch beantwortet!</p>
-        answeredWrong = false;
-    }
-    <br/>
 
-    <button class="btn btn-success" disabled="@isFinished" @onclick="() => Antworten()">Antworten</button>
-}
-
-@code {
-
-    [Parameter]
-    public QuestionDto Question { get; set; }
-
-    [Parameter]
-    public bool isFinished { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> next { get; set; }
-
-    [Parameter]
-    public int studentId { get; set; }
-
-    public bool answeredWrong { get; set; }
-    public bool answeredRight { get; set; }
-
-    public async Task<bool> Antworten()
-    {
-        var qStatus = await _backendAccessService.GetQuestionStatusByQuestionAndUser(studentId, Question.QuestionId);
-
-        questionStatusTransfer transfer = new questionStatusTransfer() {UserId = studentId, QuestionId = Question.QuestionId};
-        foreach (var answer in Question.Answers)
-        {
-            if (answer.IsSelected != answer.IsCorrect)
+            @if (answeredRight == true)
             {
-                transfer.level = 0;
-                await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
-
-                answeredWrong = true;
-                return false;
+                <br />
+                <br />
+                <p style="color:green">Your answer was right!</p>
+                <button class="btn btn-primary" @onclick="@(() => next.InvokeAsync(true))">Next</button>
             }
-        }
-        if (qStatus == null)
+            @if (answeredWrong == true)
+            {
+                <br />
+                <br />
+                <p style="color:red">Your answer was wrong!</p>
+                answeredWrong = false;
+            }
+            }
+        </div>
+
+        @code {
+
+            [Parameter]
+            public QuestionDto Question { get; set; }
+
+            [Parameter]
+            public bool isFinished { get; set; }
+
+            [Parameter]
+            public EventCallback<bool> next { get; set; }
+
+            [Parameter]
+            public int studentId { get; set; }
+
+        public bool answeredWrong { get; set; }
+        public bool answeredRight { get; set; }
+
+        public async Task<bool> Antworten()
         {
-            transfer.level = 1;
+            var qStatus = await _backendAccessService.GetQuestionStatusByQuestionAndUser(studentId, Question.QuestionId);
+
+            questionStatusTransfer transfer = new questionStatusTransfer() { UserId = studentId, QuestionId = Question.QuestionId };
+            foreach (var answer in Question.Answers)
+            {
+                if (answer.IsSelected != answer.IsCorrect)
+                {
+                    transfer.level = 0;
+                    await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+
+                    answeredWrong = true;
+                    return false;
+                }
+            }
+            if (qStatus == null)
+            {
+                transfer.level = 1;
+            }
+            else
+            {
+                transfer.level = qStatus.QuestionLevel + 1;
+            }
+            await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
+
+            answeredRight = true;
+            return true;
         }
-        else
+
+        protected override void OnParametersSet()
         {
-            transfer.level = qStatus.QuestionLevel + 1;
+            base.OnParametersSet();
+
+            answeredWrong = false;
+            answeredRight = false;
         }
-        await _backendAccessService.AddOrUpdateQuestionStatus(transfer);
 
-        answeredRight = true;
-        return true;
-    }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        answeredWrong = false;
-        answeredRight = false;
-    }
-
-}
+        }
