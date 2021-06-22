@@ -238,5 +238,10 @@ namespace SEIIApp.Client.Services
         {
             return await HttpClient.GetFromJsonAsync<UserDto[]>($"api/users/allusers");
         }
+        
+        public async Task<ChapterStatusDto[]> GetAllChapterStatusByUserId(int userid)
+        {
+            return await HttpClient.GetFromJsonAsync<ChapterStatusDto[]>($"api/chapterstatus/all/{userid}");
+        }
     }
 }

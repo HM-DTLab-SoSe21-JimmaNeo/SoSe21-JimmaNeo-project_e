@@ -57,7 +57,5 @@ namespace SEIIApp.Server.Services.StatusServices
 
             return searchStatus;
         }
-
-        
     }
 }

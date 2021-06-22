@@ -22,7 +22,7 @@ namespace SEIIApp.Server.Controllers
         }
         
         /// <summary>
-        /// Update or Add content
+        /// Update or Add video content
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace SEIIApp.Server.Controllers
         }
         
         /// <summary>
-        /// Get content by id
+        /// Get video content by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -71,7 +71,7 @@ namespace SEIIApp.Server.Controllers
         }
         
         /// <summary>
-        /// Get all content
+        /// Get all video content
         /// </summary>
         /// <returns></returns>
         [HttpGet]

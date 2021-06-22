@@ -27,7 +27,7 @@
                 <div class="card-body" style="margin:auto">
                     <h5 class="card-title" style="margin:auto">Download PDF-File</h5>
                     <div style="text-align:center">
-                        <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="() => DownloadContent(pdfContent[0])">
+                        <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="() => DownloadContent(pdfContentArray[0])">
                             <span aria-hidden="true">
                                 📥
                             </span>PDF
@@ -42,7 +42,7 @@
             <div class="card" style="width: 18rem; min-height: 26rem">
                 <img src="Images/Quiz.jpg" class="card-img-top" alt="...">
                 <div class="card-body" style="margin:auto">
-                    <h5 class="card-title">Go to Quiz</h5><br /><br /><br />
+                    <h5 class="card-title">Go to Quiz</h5><br/><br/><br/>
                     <div style="text-align:center">
                         <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToQuizpage">
                             <span aria-hidden="true">
@@ -58,7 +58,7 @@
             <div class="card" style="width: 18rem; min-height: 26rem">
                 <img src="Images/Homepage.jpg" class="card-img-top" alt="...">
                 <div class="card-body" style="margin:auto">
-                    <br /><br /><br /><h5 class="card-title">Back to Homepage</h5><br /><br /><br /><br />
+                    <br/><br/><br/><h5 class="card-title">Back to Homepage</h5><br/><br/><br/><br/>
                     <div style="text-align:center">
                         <button type="button" class="text-white" style="margin-top: 24px;border:thin solid white; background-color: @buttonColor" @onclick="RouteToHomepageUser">
                             <span aria-hidden="true">
@@ -73,10 +73,11 @@
 </center>
 
 
-
-
-<br />
-
+<br/>
+<div style="text-align: center">
+    <p style="color: red"></p>@ErrorMessage
+</div>
+<br/>
 
 @if (VideoSource != null)
 {
@@ -93,6 +94,7 @@
 @code
 {
     public string buttonColor = "#5470f0";
+
     [Parameter]
     public int UserId { get; set; }
 
@@ -103,13 +105,15 @@
 
     string currentChapter = "";
 
-    string currentCourseName = $"'Ein sehr guter Kurs!'";
+    string currentCourseName = "...";
 
-    PdfContentDto[] pdfContent = new PdfContentDto[0];
+    PdfContentDto[] pdfContentArray = new PdfContentDto[0];
 
     ChapterDto chapter;
 
     string VideoSource;
+
+    string ErrorMessage = "";
 
 
     private async void DownloadContent(PdfContentDto contentDto)
@@ -124,9 +128,8 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        //content = await BackendAccessService.GetAllContent();
         chapter = await BackendAccessService.GetChapterById(ChapterId);
-        pdfContent = chapter.ChapterContentPdf;
+        pdfContentArray = chapter.ChapterContentPdf;
         currentChapter = chapter.ChapterName;
 
         VideoSource = chapter.ChapterContentVideo.FirstOrDefault()?.Path;
@@ -145,8 +148,15 @@
 
     private void RouteToQuizpage()
     {
-        QuizId = chapter.ChapterQuiz.QuizId;
-        NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
+        if (chapter.ChapterQuiz != null)
+        {
+            QuizId = chapter.ChapterQuiz.QuizId;
+            NavigationManager.NavigateTo($"/chapterquiz/{UserId}/{QuizId}");
+        }
+        else
+        {
+            ErrorMessage = "Sorry, this chapter has no quiz.";
+        }
     }
 
     private void RouteToHomepageUser()

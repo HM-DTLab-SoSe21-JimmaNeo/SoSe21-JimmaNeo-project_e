@@ -81,8 +81,5 @@ namespace SEIIApp.Server.Services.StatusServices
         {
             return student.ChapterStatuslist.ToArray();
         }
-        
-        
-        
     }
 }

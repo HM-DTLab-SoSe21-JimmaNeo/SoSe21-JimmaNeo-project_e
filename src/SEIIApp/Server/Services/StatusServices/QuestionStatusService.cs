@@ -47,7 +47,7 @@ namespace SEIIApp.Server.Services.StatusServices
         public QuestionStatus[] GetAllPendingQuestionStatusOfUser(int userId)
         {
             var user = UserService.GetStudentById(userId);
-            
+
             var result = user.QuestionStatusList.Where(x =>
                 (x.QuestionLevel == 1 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(24))
                 || (x.QuestionLevel == 2 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(48))
@@ -92,7 +92,6 @@ namespace SEIIApp.Server.Services.StatusServices
         {
             var searchStatus = student.QuestionStatusList.Find(x => x.Question.QuestionId == question.QuestionId);
             return searchStatus;
-
         }
     }
 }

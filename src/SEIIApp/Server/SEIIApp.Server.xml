@@ -113,21 +113,21 @@
         </member>
         <member name="M:SEIIApp.Server.Controllers.PdfContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.PdfContentDto)">
             <summary>
-            Update or Add content
+            Update or Add pdf content
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.PdfContentController.GetContent(System.Int32)">
             <summary>
-            Get content by id
+            Get pdf content by id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.PdfContentController.GetAllContent">
             <summary>
-            Get all content
+            Get all pdf content
             </summary>
             <returns></returns>
         </member>
@@ -221,23 +221,43 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.AddStudent(SEIIApp.Shared.DomainDto.StudentDto)">
+            <summary>
+            Add a student 
+            </summary>
+            <param name="studentDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.AddInstructor(SEIIApp.Shared.DomainDto.InstructorDto)">
+            <summary>
+            Add an instructor
+            </summary>
+            <param name="instructorDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SEIIApp.Server.Controllers.UserController.GetAllUsers">
+            <summary>
+            Get all Users
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:SEIIApp.Server.Controllers.VideoContentController.AddOrUpdateContent(SEIIApp.Shared.DomainDto.VideoContentDto)">
             <summary>
-            Update or Add content
+            Update or Add video content
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.VideoContentController.GetContent(System.Int32)">
             <summary>
-            Get content by id
+            Get video content by id
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:SEIIApp.Server.Controllers.VideoContentController.GetAllContent">
             <summary>
-            Get all content
+            Get all video content
             </summary>
             <returns></returns>
         </member>

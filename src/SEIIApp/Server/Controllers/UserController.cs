@@ -86,6 +86,11 @@ namespace SEIIApp.Server.Controllers
             return Ok(mapped);
         }
 
+        /// <summary>
+        /// Add a student 
+        /// </summary>
+        /// <param name="studentDto"></param>
+        /// <returns></returns>
         [HttpPut("student")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -95,6 +100,11 @@ namespace SEIIApp.Server.Controllers
             return Ok(Mapper.Map<StudentDto>(result));
         }
         
+        /// <summary>
+        /// Add an instructor
+        /// </summary>
+        /// <param name="instructorDto"></param>
+        /// <returns></returns>
         [HttpPut("instructor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -104,6 +114,10 @@ namespace SEIIApp.Server.Controllers
             return Ok(Mapper.Map<InstructorDto>(result));
         }
         
+        /// <summary>
+        /// Get all Users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("allusers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<UserDto[]> GetAllUsers()

@@ -8,6 +8,6 @@ namespace SEIIApp.Shared.DomainDto.StatusDto
 
         public double FinishStatus { get; set; }
         
-        public DateTime LastWorkedOn { get; set; }
+        
     }
 }

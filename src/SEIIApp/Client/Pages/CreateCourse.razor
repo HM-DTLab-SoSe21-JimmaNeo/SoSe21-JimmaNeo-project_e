@@ -34,7 +34,7 @@
         </button>
         <br />
         <br />
-        <button type="button" class="text-white" style="font-family: Berlin sans FB;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse">
+        <button type="button" class="text-white" style="font-family: Berlin sans FB;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse" disabled="@SavePressed">
             <span aria-hidden="true">
                 🔒
             </span>Save Course
@@ -60,8 +60,8 @@
         private List<ChapterDto> Chapters = new List<ChapterDto>();
 
         CourseDto CourseDto { get; set; }
-
-        public string NewChapterName { get; set; }
+        
+        private bool SavePressed = false;
 
         private void AddChapter()
         {
@@ -79,6 +79,7 @@
 
             await _backendAccessService.PutCourse(CourseDto);
             buttonColor = "#ADD8E6";
+            SavePressed = true;
         }
 
         private void RouteToHomepage()

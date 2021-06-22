@@ -15,7 +15,6 @@ namespace SEIIApp.Server.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
         }
 
         public DbSet<Quiz> Quiz { get; set; }
@@ -41,11 +40,9 @@ namespace SEIIApp.Server.DataAccess
         public DbSet<QuestionStatus> QuestionStatus { get; set; }
 
         public DbSet<QuizStatus> QuizStatus { get; set; }
-        
+
         public DbSet<Student> Students { get; set; }
-        
+
         public DbSet<Instructor> Instructors { get; set; }
-        
-        
     }
 }

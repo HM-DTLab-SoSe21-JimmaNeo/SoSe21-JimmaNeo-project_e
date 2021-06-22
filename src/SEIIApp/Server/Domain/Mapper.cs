@@ -34,30 +34,28 @@ namespace SEIIApp.Server.Domain
             CreateMap<Answer, AnswerDto>();
             CreateMap<AnswerDto, Answer>();
 
-            //TODO auskommentiertes Entfernen, hängt von StudentDto ab
+
             CreateMap<Student, StudentDto>()
-                   .ForMember(studentDto => studentDto.EnrolledCourses,
-                       opts => opts.MapFrom(obj => obj.EnrolledCourses.ToArray()))
-                   .ForMember(x => x.QuestionStatusList,
-                       y => y.MapFrom(z => z.QuestionStatusList.ToArray()))
-                   .ForMember(x => x.ChapterStatuslist,
-                       y => y.MapFrom(z => z.ChapterStatuslist.ToArray()))
-                   .ForMember(x => x.QuizStatusList,
-                       y => y.MapFrom(z => z.QuizStatusList.ToArray()))
+                .ForMember(studentDto => studentDto.EnrolledCourses,
+                    opts => opts.MapFrom(obj => obj.EnrolledCourses.ToArray()))
+                .ForMember(x => x.QuestionStatusList,
+                    y => y.MapFrom(z => z.QuestionStatusList.ToArray()))
+                .ForMember(x => x.ChapterStatuslist,
+                    y => y.MapFrom(z => z.ChapterStatuslist.ToArray()))
+                .ForMember(x => x.QuizStatusList,
+                    y => y.MapFrom(z => z.QuizStatusList.ToArray()))
                 ;
             CreateMap<StudentDto, Student>()
-                 .ForMember(studentDto => studentDto.EnrolledCourses,
-                     opts => opts.MapFrom(obj => obj.EnrolledCourses.ToList()))
-                 .ForMember(x => x.QuestionStatusList,
-                     y => y.MapFrom(z => z.QuestionStatusList.ToList()))
-                 .ForMember(x => x.ChapterStatuslist,
-                     y => y.MapFrom(z => z.ChapterStatuslist.ToList()))
-                 .ForMember(x => x.QuizStatusList,
-                     y => y.MapFrom(z => z.QuizStatusList.ToList()))
+                .ForMember(studentDto => studentDto.EnrolledCourses,
+                    opts => opts.MapFrom(obj => obj.EnrolledCourses.ToList()))
+                .ForMember(x => x.QuestionStatusList,
+                    y => y.MapFrom(z => z.QuestionStatusList.ToList()))
+                .ForMember(x => x.ChapterStatuslist,
+                    y => y.MapFrom(z => z.ChapterStatuslist.ToList()))
+                .ForMember(x => x.QuizStatusList,
+                    y => y.MapFrom(z => z.QuizStatusList.ToList()))
                 ;
 
-            /*CreateMap<Content, ContentDto>();
-            CreateMap<ContentDto, Content>();*/
 
             CreateMap<Chapter, ChapterDto>()
                 .ForMember(x => x.ChapterContentPdf,
@@ -80,12 +78,8 @@ namespace SEIIApp.Server.Domain
             CreateMap<QuestionStatus, QuestionStatusDto>();
             CreateMap<QuestionStatusDto, QuestionStatus>();
 
-            CreateMap<CourseStatus, CourseStatusDto>()
-                /*.ForMember(x => x.ChapterStatusList,
-                    y => y.MapFrom(z => z.ChapterStatusList.ToArray()))*/;
-            CreateMap<CourseStatusDto, CourseStatus>()
-                /*.ForMember(x => x.ChapterStatusList,
-                    y => y.MapFrom(z => z.ChapterStatusList.ToList()))*/;
+            CreateMap<CourseStatus, CourseStatusDto>();
+            CreateMap<CourseStatusDto, CourseStatus>();
 
             CreateMap<QuizStatus, QuizStatusDto>();
             CreateMap<QuizStatusDto, QuizStatus>();

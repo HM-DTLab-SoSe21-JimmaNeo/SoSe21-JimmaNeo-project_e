@@ -1,10 +1,11 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @inject IJSRuntime JsRuntime
 
-<label style="font-family: Berlin sans FB">Chapter name: </label> <input type="text" style="font-family: Berlin sans FB" placeholder="Chapter name"
+<label style="font-family: Berlin sans FB">Chapter name: </label>
+<input type="text" style="font-family: Berlin sans FB" placeholder="Chapter name"
        @bind-value="ChapterDto.ChapterName"
-       @bind-value:event="oninput" />
-<br />
+       @bind-value:event="oninput"/>
+<br/>
 <ol>
     @foreach (var pdf in _pdfs)
     {
@@ -12,19 +13,20 @@
     }
 </ol>
 
-<br />
+<br/>
 
-<label style="font-family: Berlin sans FB">New PDF Name: </label><input type="text" style="font-family: Berlin sans FB " placeholder="PDF" @bind-value="NewPdfName" @bind-value:event="oninput" />
-<br />
-<br />
+<label style="font-family: Berlin sans FB">New PDF Name: </label><input type="text" style="font-family: Berlin sans FB " placeholder="PDF" @bind-value="NewPdfName" @bind-value:event="oninput"/>
+<br/>
+<br/>
 <label style="font-family: Berlin sans FB">Upload PDF: </label>
-<InputFile OnChange="OnInputFileChanged"></InputFile><button type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: #5470f0" @onclick="AddPdf"> 
-<span aria-hidden="true">
+<InputFile OnChange="OnInputFileChanged"></InputFile>
+<button type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: #5470f0" @onclick="AddPdf" disabled="@PdfAdded">
+    <span aria-hidden="true">
         📥
     </span>Add PDF
 </button>
 
-<br />
+<br/>
 
 <ol>
     @foreach (var video in _videos)
@@ -33,21 +35,22 @@
     }
 </ol>
 
-<br />
-<label style="font-family: Berlin sans FB">New Video Name: </label><input type="text" style="font-family: Berlin sans FB" placeholder="Video name" @bind-value="NewVideoName" @bind-value:event="oninput" />
-<br />
+<br/>
+<label style="font-family: Berlin sans FB">New Video Name: </label><input type="text" style="font-family: Berlin sans FB" placeholder="Video name" @bind-value="NewVideoName" @bind-value:event="oninput"/>
+<br/>
 <label style="font-family: Berlin sans FB ">Link to new Video (please use the 'embed'-feature!) </label>
-<br />
-<input type="text" style="font-family: Berlin sans FB" placeholder="https//..." @bind-value="NewVideoLink" @bind-value:event="oninput" /> <button type="button" class="text-white" style="font-family: Berlin sans FB; border: thin solid white; background-color: #5470f0" @onclick="AddVideo">
+<br/>
+<input type="text" style="font-family: Berlin sans FB" placeholder="https//..." @bind-value="NewVideoLink" @bind-value:event="oninput"/>
+<button type="button" class="text-white" style="font-family: Berlin sans FB; border: thin solid white; background-color: #5470f0" @onclick="AddVideo" disabled="@VideoAdded">
     <span aria-hidden="true">
         🎬
     </span>
     Add Video
 </button>
-<br />
-<br />
+<br/>
+<br/>
 <p style="font-family: Berlin sans FB ">Quiz:</p>
-<br />
+<br/>
 @if (newQuiz != null)
 {
     <QuizEditComponent QuizDto="newQuiz"></QuizEditComponent>
@@ -57,13 +60,14 @@
         ❔
     </span>Add Quiz
 </button>
-<br />
+<br/>
+<p style="color: red">@ErrorMessage</p>
 <button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Berlin sans FB ;border: thin solid white; background-color: @buttonColor">
     <span aria-hidden="true">
         🔒
     </span>Save Chapter
 </button>
-<br />
+<br/>
 
 @code {
 
@@ -82,14 +86,24 @@
 
     private QuizDto newQuiz { get; set; }
 
+    private bool PdfAdded = false;
+    private bool VideoAdded = false;
+
+    private string ErrorMessage = "";
+
     private void AddPdf()
     {
-        _pdfs.Add(new PdfContentDto() { ContentName = NewPdfName, baseString = NewPdfFile });
+        if (NewPdfFile != null)
+        {
+            _pdfs.Add(new PdfContentDto() {ContentName = NewPdfName, baseString = NewPdfFile});
+            PdfAdded = true;
+        }
     }
 
     private void AddVideo()
     {
-        _videos.Add(new VideoContentDto() { ContentName = NewVideoName, Path = NewVideoLink });
+        _videos.Add(new VideoContentDto() {ContentName = NewVideoName, Path = NewVideoLink});
+        VideoAdded = true;
     }
 
     private void AddQuiz()
@@ -99,11 +113,18 @@
 
     private void SaveChapter()
     {
-
-        ChapterDto.ChapterQuiz = newQuiz;
-        ChapterDto.ChapterContentPdf = _pdfs.ToArray();
-        ChapterDto.ChapterContentVideo = _videos.ToArray();
-        buttonColor = "#ADD8E6";
+        if (_pdfs.Count == 0)
+        {
+            ErrorMessage = "Your chapter needs a PDF!";
+        }
+        else
+        {
+            ChapterDto.ChapterQuiz = newQuiz;
+            ChapterDto.ChapterContentPdf = _pdfs.ToArray();
+            ChapterDto.ChapterContentVideo = _videos.ToArray();
+            buttonColor = "#ADD8E6";
+            ErrorMessage = "";
+        }
     }
 
     private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)

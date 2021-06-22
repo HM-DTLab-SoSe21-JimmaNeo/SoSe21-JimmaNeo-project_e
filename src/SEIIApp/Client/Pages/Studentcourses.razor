@@ -33,6 +33,9 @@
                                     ▶
                                 </span>Start Chapter
                             </button>
+                            @(((from chapterStatus in AllChapters
+                                                            where chapterStatus.Chapter.ChapterId == chapter.ChapterId
+                                                            select chapterStatus.Finished).FirstOrDefault()) ? "Chapter finished ✅" : "Chapter not finished ❌")
 
                         </li>
                     }
@@ -63,6 +66,8 @@
     private string _studentIdentity = "student";
 
     private CourseStatusDto[] AllCourses { get; set; }
+    
+    private ChapterStatusDto[] AllChapters { get; set; }
 
     private string message = "Please choose a course.";
 
@@ -73,6 +78,7 @@
         _studentIdentity = StudentUser.UserName;
 
         AllCourses = await BackendAccessService.GetAllEnrolledCourses(StudentUser.UserId);
+        AllChapters = await BackendAccessService.GetAllChapterStatusByUserId(StudentUser.UserId);
     }
 
     private void StartCourse(CourseStatusDto courseStatusDto)
