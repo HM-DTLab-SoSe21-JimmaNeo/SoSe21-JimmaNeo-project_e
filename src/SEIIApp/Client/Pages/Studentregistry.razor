@@ -1,0 +1,120 @@
+﻿@page "/studentregistry"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Shared.DomainDto.StatusDto
+@using System.Runtime.Intrinsics.X86
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+<h3>Studentregistry</h3>
+<br/>
+<br/>
+<h4 style="font-family: Consolas">All Courses:</h4>
+@foreach (var course in _allCourses)
+{
+    <li style="font-family: Consolas">
+        Name: @course.CourseName
+        <input type="checkbox" @onchange="@(() => bindSelected(@course.CourseName))">
+    </li>
+}
+<br/>
+<br/>
+
+
+<h4 style="font-family: Consolas">All Students:</h4>
+<br/>
+<br/>
+
+<label style="font-family: Consolas">Name of the Course to enroll students to:</label>
+<input type="text" placeholder="Course name"
+       @bind-value="CourseToEnroll"
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
+
+
+
+@{
+    <ol style="max-width:250px">
+        @foreach (var student in _allStudents)
+        {
+            <li>
+                Name: @student.UserName
+                <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(e => Enroll(student))">
+                    <span aria-hidden="true">
+                        👥
+                    </span>Enroll student
+                </button>
+                <br/>
+                <p style="font-family:Calibri">Courses:</p>
+                <ol>
+                    @foreach (var course in student.EnrolledCourses)
+                    {
+                        <li>
+                            @course.Course.CourseName
+                        </li>
+                    }
+                </ol>
+
+
+            </li>
+        }
+    </ol>
+
+}
+<br/>
+<br/>
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToHomepage">
+
+
+    <span aria-hidden="true">
+        🏠
+    </span> Home
+</button>
+
+@code {
+    public string buttonColor = "#5470f0";
+
+    private string CourseToEnroll = "";
+
+    private
+        StudentDto[] _allStudents = new StudentDto[0];
+
+    StudentDto StudentToEnroll { get; set; }
+
+    CourseDto[] _allCourses = new CourseDto[0];
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        _allStudents = await BackendAccessService.GetAllStudents();
+        _allCourses = await BackendAccessService.GetAllCourses();
+    }
+
+    private async Task Enroll(StudentDto studentDto)
+    {
+        if (CourseToEnroll != "")
+        {
+            var courseDto = await BackendAccessService.GetCourseByName(CourseToEnroll);
+
+            await BackendAccessService.AddOrUpdateCourseStatus(new CourseStatusTransfer() {CourseId = courseDto.CourseId, StudentId = studentDto.UserId});
+
+            await OnParametersSetAsync();
+        }
+    }
+
+    private async Task<CourseStatusDto[]> GetCoursesOfStudent(StudentDto studentDto)
+    {
+        return await BackendAccessService.GetAllEnrolledCourses(studentDto.UserId);
+    }
+
+    private void bindSelected(string selectedCourse)
+    {
+        CourseToEnroll = selectedCourse;
+    }
+
+    private void RouteToHomepage()
+    {
+        NavigationManager.NavigateTo("/CreatorHomepage");
+    }
+
+}

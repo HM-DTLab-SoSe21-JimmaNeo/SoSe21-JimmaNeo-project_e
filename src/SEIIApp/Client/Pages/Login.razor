@@ -1,0 +1,103 @@
+﻿@page "/login"
+@using SEIIApp.Shared.DomainDto
+@inject NavigationManager NavigationManager
+@inject Services.BackendAccessService BackendAccessService
+
+<Navigationmenu></Navigationmenu>
+<h1 style="color:DodgerBlue" align="center">NeoLearn</h1>
+
+<br />
+<br />
+<br />
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <label for="benutzername">Username:</label>
+            <input type="text"
+                   @bind-value="name"
+                   @bind-value:event="oninput" /><br><br>
+            <label for="kennwort">Password:</label>
+            <input type="password"
+                   @bind-value="password"
+                   @bind-value:event="oninput" /><br><br>
+        </fieldset>
+    </div>
+</div>
+
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <button class="btn btn-primary" @onclick="RouteToHomepage">Login</button>
+            <br /> <br />
+            <label>
+                <p style="color:@messageColor">@message</p>
+            </label>
+
+        </fieldset>
+    </div>
+</div>
+<br />
+<div style="text-align: center;">
+    Want to register for NeoLearn?
+    <a href="/registration">Click here</a>
+</div>
+
+    <center>
+        <br />
+        <p></p>
+                <div class="card" style="width: 9rem; max-height: 12rem">
+                    <img src="Images/FAQ2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" style="text-align:center">
+                        <div style="text-align:center">
+                            <button class="btn btn-outline-primary" @onclick="RouteToFAQ">FAQ</button>
+                        </div>
+                    </div>
+                </div>
+        <div style="text-align: end">
+            <span>&#9993;</span> <a href="mailto:someone@example.com">Send email</a>
+        </div>
+    </center>
+
+
+
+
+@code {
+    private string name;
+
+    private string password;
+
+    private int id;
+
+    UserDto user;
+
+    private string message = "Please log in.";
+
+    private string messageColor = "black";
+
+    private void RouteToFAQ()
+    {
+        NavigationManager.NavigateTo($"/faqpage/");
+    }
+
+    private async Task RouteToHomepage()
+    {
+        user = await BackendAccessService.GetUserByNameAndPw(name, password);
+        if (user != null)
+        {
+            if (!user.adminRights)
+            {
+                NavigationManager.NavigateTo($"/homepageuser/{user.UserId}");
+            }
+            else if (user.adminRights)
+            {
+                NavigationManager.NavigateTo("/CreatorHomepage");
+            }
+        }
+        else
+        {
+            message = "Wrong Login-Information!";
+            messageColor = "red";
+        }
+    }
+
+}

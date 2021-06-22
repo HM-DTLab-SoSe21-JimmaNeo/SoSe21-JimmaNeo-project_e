@@ -1,7 +1,21 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
-<h1>Hello, world!</h1>
+    <div style="text-align: center">
+        <fieldset>
+            <br />
+            <h1>Welcome to <b><font color="orange">NeoLearn!</font></b></h1>
+            <br />
+            <h4>Your repetitive E-Learning Website</h4>
+            <br /> <br />
+            <button class="btn btn-primary" @onclick="RouteToLogin">Login</button>
+        </fieldset>
+    </div>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    @code {
+        private void RouteToLogin()
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }

@@ -1,0 +1,107 @@
+﻿@page "/CreatorHomepage"
+@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+
+
+<div style="text-align: center; font-family: Consolas">
+    <h1 style="color:DodgerBlue" align="center">Welcome! These are your options:</h1>
+</div>
+<br />
+<div style="text-align: center; font-family: Consolas">
+    <h4>Overview of existing courses:</h4>
+</div>
+<br />
+<br />
+
+<center>
+    @{
+        <ol>
+            @foreach (var course in allCourses)
+            {
+                <li style="width:225px !important; text-align:left">@course.CourseName</li>
+            }
+        </ol>
+
+    }
+</center>
+
+<br>
+<br />
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <center >
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="/Images/NewCourse.jpg" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <br />   <h5 class="card-title">Create  a new course</h5>
+                    <div style="text-align: center; font-family: Consolas">
+                        <br /><br /><button @onclick="RouteToNewCourse" type="button" class="text-white" style="border: thin solid white; font-family: Consolas;background-color: @buttonColor">
+                                        <span aria-hidden="true">
+                                            ➕
+                                        </span>New Course
+                              </button><br />
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+
+    <div class="col-sm-6">
+        <center>
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="/Images/Students.png" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <br />  <h5 class="card-title">Show all Students</h5>
+                    <div style="text-align: center; font-family: Consolas">
+                        <br /><button @onclick="RouteToStudentList" type="button" class="text-white" style="border: thin solid white; font-family: Consolas;background-color: @buttonColor">
+                                  <span aria-hidden="true">
+                                      👥
+                                  </span>
+                        Students</button><br />
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+</div>
+
+<br>
+<br>
+
+
+<details style="font-family: Consolas">
+    <em>
+        Contact
+        E-mail: example@neolearn.com
+    </em>
+</details>
+
+
+@code {
+    public string buttonColor = "#5470f0";
+
+    CourseDto[] allCourses = new CourseDto[0];
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        allCourses = await BackendAccessService.GetAllCourses();
+    }
+
+    private void RouteToStudentList()
+    {
+        NavigationManager.NavigateTo("/studentregistry");
+    }
+
+    private void RouteToNewCourse()
+    {
+        NavigationManager.NavigateTo("/CreateCourse");
+    }
+
+
+}
+
+

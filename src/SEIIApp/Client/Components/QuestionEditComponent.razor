@@ -1,0 +1,62 @@
+﻿@using SEIIApp.Shared.DomainDto
+
+<label style="font-family: Berlin sans FB ; font-size:larger">Question Text:</label>
+<input type="text" maxlength="10000" size="40"   placeholder="Question"
+       @bind-value="QuestionDto.QuestionText"
+       @bind-value:event="oninput" />
+<br />
+<br />
+<ol>
+    @foreach (var answer in _answers)
+    {
+
+        <li>
+            <label style="font-family: Berlin sans FB ; font-size:larger"> Answer Text:</label>
+            <br />
+            <textarea cols="35" rows="2" @bind-value="answer.AnswerText" @bind-value:event="oninput">  
+          </textarea>
+
+            <label style="font-family: Berlin sans FB ; font-size:larger">Correct?</label>
+            <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput" />
+        </li>
+    }
+</ol>
+
+<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="AddAnswer">
+    <span aria-hidden="true">
+        ❕
+    </span>Add Answer
+</button>
+<br />
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="SaveQuestion">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Question
+</button>
+
+
+
+
+@code {
+
+    public string buttonColor = "#5470f0";
+
+    [Parameter]
+    public QuestionDto QuestionDto { get; set; }
+
+    List<AnswerDto> _answers = new List<AnswerDto>();
+
+    private void AddAnswer()
+    {
+        _answers.Add(new AnswerDto());
+    }
+
+    private void SaveQuestion()
+    {
+        QuestionDto.Answers = _answers.ToArray();
+        buttonColor = "#ADD8E6";
+    }
+
+
+
+}

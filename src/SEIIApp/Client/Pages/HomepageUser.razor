@@ -1,0 +1,159 @@
+﻿@page "/homepageuser/{UserId:int}"
+@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Services
+@using SEIIApp.Shared.DomainDto.StatusDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+
+
+<h1 style="color:dodgerblue" align="center" xmlns="http://www.w3.org/1999/html">NeoLearn</h1><br />
+
+<div data-role="fieldcontain">
+    <div style="text-align: center">
+        <fieldset>
+            <label>
+                @if (StudentUser != null)
+                {
+                    <h4 style="text-align:center" >Welcome @StudentUser.UserName !</h4><br />
+                }
+            </label>
+        </fieldset>
+    </div>
+</div>
+
+
+<center>
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/RepetitionPage2.png" class="card-img-top" alt="...">
+                <div class="card-body" style="text-align:center">
+                    <br /> <br /><h5 class="card-title">Retry Questions you did'nt answer correctly</h5>
+                    <div style="text-align:center">
+                        <br /><br /><button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToRepetition">
+                            <span aria-hidden="true">
+                                🔁
+                            </span>Repetitionpage
+                        </button><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/Courses.jpg" class="card-img-top" alt="..."><br><br />
+                <div class="card-body" style="margin:auto">
+                    <br /><br /><br /><br />  <h5 class="card-title">Show all Courses</h5><br><br />
+                    <div style="text-align:center">
+                        <br /><br /><button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToCourses">
+                            <span aria-hidden="true">
+                                📋
+                            </span>All Courses
+                        </button><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem; min-height: 26rem">
+                <img src="Images/Start.jpg" class="card-img-top" alt="...">
+                <div class="card-body" style="margin:auto">
+                    <h5 class="card-title">Start the Course</h5>
+                    <div style="text-align:center">
+                        <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="RouteToLearning">
+                            <span aria-hidden="true">
+                                ▶
+                            </span>Start / Continue
+                        </button><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+
+
+<p>
+</p>
+@if (LastCourseWorkedOn != null)
+{
+    <div style="text-align: center">
+        <label>You last worked on course @LastCourseWorkedOn.Course.CourseName. Your status:</label>
+    </div>
+
+    <div style="text-align: end">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                 aria-valuenow="@StatusNow" aria-valuemin="0" aria-valuemax="100" style="width:@StatusNow%">
+                @StatusNow%
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    public string buttonColor = "#5470f0";
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    private StudentDto StudentUser { get; set; }
+
+    private CourseStatusDto LastCourseWorkedOn { get; set; }
+
+    public double StatusNow { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        StudentUser = await BackendAccessService.GetStudentById(UserId);
+        var studentCourses = await BackendAccessService.GetAllEnrolledCourses(UserId);
+
+        if (studentCourses.Length > 0)
+        {
+            LastCourseWorkedOn = await BackendAccessService.GetLastCourseStatusWorkedOn(UserId);
+
+        }
+
+        if (LastCourseWorkedOn != null)
+        {
+            StatusNow = LastCourseWorkedOn.FinishStatus * 100;
+        }
+    }
+
+    private void RouteToCourses()
+    {
+        NavigationManager.NavigateTo($"/studentcourses/{UserId}");
+    }
+
+    private void RouteToRepetition()
+    {
+        NavigationManager.NavigateTo($"/repetitionpage/{UserId}");
+    }
+
+
+    private async Task RouteToLearning()
+    {
+        int ChapterId;
+        var courses = await BackendAccessService.GetAllEnrolledCourses(StudentUser.UserId);
+        if (courses.Length <= 0)
+        {
+            var list = await BackendAccessService.GetAllChapters();
+            ChapterId = list[0].ChapterId;
+        }
+        else
+        {
+            var chapterStatus = await BackendAccessService.GetLastChapterWorkedOn(UserId);
+            ChapterId = chapterStatus.Chapter.ChapterId;
+        }
+
+        NavigationManager.NavigateTo($"/learningpage/{UserId}/{ChapterId}");
+    }
+
+}

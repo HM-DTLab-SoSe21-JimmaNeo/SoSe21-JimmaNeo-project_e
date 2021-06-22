@@ -1,0 +1,51 @@
+﻿@using SEIIApp.Shared.DomainDto
+@inject Services.BackendAccessService BackendAccessService
+@inject NavigationManager NavigationManager
+
+@if (CourseDto != null)
+{
+    <label>These are all chapters of the course:</label>
+    <ol>
+        @foreach (var chapter in CourseDto.Chapters)
+        {
+            <li>
+                @chapter.ChapterName
+                <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="@(e => StartCourse(chapter))">
+                    <span aria-hidden="true">
+                        ▶
+                    </span>
+                    Start Chapter
+                </button>
+
+            </li>
+        }
+    </ol>
+}
+else
+{
+    <p>loading...</p>
+}
+
+@code {
+    public string buttonColor = "#5470f0";
+
+    [Parameter]
+    public int CourseId { get; set; }
+
+    [Parameter]
+    public int UserId { get; set; }
+
+    public CourseDto CourseDto { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        CourseDto = await BackendAccessService.GetCourseById(CourseId);
+    }
+
+    private void StartCourse(ChapterDto chapterDto)
+    {
+        NavigationManager.NavigateTo($"/learningpage/{UserId}/{chapterDto.ChapterId}");
+    }
+
+}

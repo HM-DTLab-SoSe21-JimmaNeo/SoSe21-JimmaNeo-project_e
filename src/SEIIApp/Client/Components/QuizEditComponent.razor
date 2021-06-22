@@ -1,0 +1,52 @@
+﻿@using SEIIApp.Shared.DomainDto
+@using SEIIApp.Client.Components
+<br />
+<label style="font-family: Berlin sans FB ; font-size:larger" >Quiz name: </label>
+<input type="text" placeholder="Quiz-Name"
+       @bind-value="QuizDto.QuizName"
+       @bind-value:event="oninput" />
+<br />
+<br />
+<ol>
+    @foreach (var question in _questions)
+    {
+        <li>
+            <QuestionEditComponent QuestionDto="question"></QuestionEditComponent>
+        </li>
+    }
+</ol>
+
+<br />
+<button @onclick="AddQuestion" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+    <span aria-hidden="true">
+        ❔
+    </span>
+    Add Question
+</button>
+<br />
+<button @onclick="SaveQuiz" type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Quiz
+</button>
+@code {
+
+    public string buttonColor = "#5470f0";
+
+    [Parameter]
+    public QuizDto QuizDto { get; set; }
+
+    List<QuestionDto> _questions = new List<QuestionDto>();
+
+    private void AddQuestion()
+    {
+        _questions.Add(new QuestionDto());
+    }
+
+    private void SaveQuiz()
+    {
+        QuizDto.Questions = _questions.ToArray();
+        buttonColor = "#ADD8E6";
+    }
+
+}
