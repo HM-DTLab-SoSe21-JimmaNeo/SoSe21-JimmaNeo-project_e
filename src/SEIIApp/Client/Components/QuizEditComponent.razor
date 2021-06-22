@@ -22,14 +22,14 @@
     Add Question
 </button>
 <br />
-<button @onclick="SaveQuiz" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
+<button @onclick="SaveQuiz" type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor">
     <span aria-hidden="true">
         🔒
     </span>Save Quiz
 </button>
 @code {
 
-    public string buttonColor = "#EFEFEF";
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public QuizDto QuizDto { get; set; }
@@ -44,7 +44,7 @@
     private void SaveQuiz()
     {
         QuizDto.Questions = _questions.ToArray();
-        buttonColor = "#99ff66";
+        buttonColor = "#ADD8E6";
     }
 
 }

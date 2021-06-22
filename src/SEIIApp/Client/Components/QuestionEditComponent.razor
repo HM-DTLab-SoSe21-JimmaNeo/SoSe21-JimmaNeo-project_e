@@ -27,7 +27,7 @@
     </span>Add Answer
 </button>
 <br />
-<button type="button" class="text-white" style="border:thin solid white;background-color:#5470f0" @onclick="SaveQuestion">
+<button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="SaveQuestion">
     <span aria-hidden="true">
         🔒
     </span>Save Question
@@ -38,7 +38,7 @@
 
 @code {
 
-    public string buttonColor = "#EFEFEF";
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public QuestionDto QuestionDto { get; set; }
@@ -53,7 +53,7 @@
     private void SaveQuestion()
     {
         QuestionDto.Answers = _answers.ToArray();
-        buttonColor = "#99ff66";
+        buttonColor = "#ADD8E6";
     }
 
 

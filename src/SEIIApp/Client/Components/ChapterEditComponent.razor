@@ -53,7 +53,7 @@
     </span>Add Quiz
 </button>
 <br />
-<button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: #5470f0">
+<button @onclick="SaveChapter" type="button" class="text-white" style="font-family: Consolas;border: thin solid white; background-color: @buttonColor">
     <span aria-hidden="true">
         🔒
     </span>Save Chapter
@@ -62,7 +62,7 @@
 
 @code {
 
-    public string buttonColor = "#EFEFEF";
+    public string buttonColor = "#5470f0";
 
     [Parameter]
     public ChapterDto ChapterDto { get; set; }
@@ -98,7 +98,7 @@
         ChapterDto.ChapterQuiz = newQuiz;
         ChapterDto.ChapterContentPdf = _pdfs.ToArray();
         ChapterDto.ChapterContentVideo = _videos.ToArray();
-        buttonColor = "#99ff66";
+        buttonColor = "#ADD8E6";
     }
 
     private async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEventArgs)
