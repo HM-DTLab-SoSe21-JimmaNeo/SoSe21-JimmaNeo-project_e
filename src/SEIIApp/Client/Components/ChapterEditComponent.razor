@@ -93,10 +93,14 @@
 
     private void AddPdf()
     {
-        if (NewPdfFile != null)
+        if (NewPdfFile != null && NewPdfName != null)
         {
             _pdfs.Add(new PdfContentDto() {ContentName = NewPdfName, baseString = NewPdfFile});
             PdfAdded = true;
+        }
+        else
+        {
+            ErrorMessage = "Missing PDF file information.";
         }
     }
 
@@ -113,9 +117,9 @@
 
     private void SaveChapter()
     {
-        if (_pdfs.Count == 0)
+        if (_pdfs.Count == 0 || newQuiz == null || ChapterDto.ChapterName == null || newQuiz.QuizName == null || newQuiz.Questions == null || newQuiz.Questions.Any(dto => dto.QuestionText == null || dto.Answers == null || dto.Answers.Length == 0))
         {
-            ErrorMessage = "Your chapter needs a PDF!";
+            ErrorMessage = "Error, please don't leave fields unfilled.";
         }
         else
         {

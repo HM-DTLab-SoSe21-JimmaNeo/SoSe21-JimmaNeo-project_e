@@ -1,23 +1,22 @@
 ﻿@using SEIIApp.Shared.DomainDto
 
 <label style="font-family: Berlin sans FB ; font-size:larger">Question Text:</label>
-<input type="text" maxlength="10000" size="40"   placeholder="Question"
+<input type="text" maxlength="10000" size="40" placeholder="Question"
        @bind-value="QuestionDto.QuestionText"
-       @bind-value:event="oninput" />
-<br />
-<br />
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
 <ol>
     @foreach (var answer in _answers)
     {
-
         <li>
             <label style="font-family: Berlin sans FB ; font-size:larger"> Answer Text:</label>
-            <br />
+            <br/>
             <textarea cols="35" rows="2" @bind-value="answer.AnswerText" @bind-value:event="oninput">  
           </textarea>
 
             <label style="font-family: Berlin sans FB ; font-size:larger">Correct?</label>
-            <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput" />
+            <input type="checkbox" @bind-value="answer.IsCorrect" @bind-value:event="oninput"/>
         </li>
     }
 </ol>
@@ -27,14 +26,14 @@
         ❕
     </span>Add Answer
 </button>
-<br />
+<br/>
+<p style="color: red">@ErrorMessage</p>
+<br/>
 <button type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor" @onclick="SaveQuestion">
     <span aria-hidden="true">
         🔒
     </span>Save Question
 </button>
-
-
 
 
 @code {
@@ -46,6 +45,8 @@
 
     List<AnswerDto> _answers = new List<AnswerDto>();
 
+    string ErrorMessage = "";
+
     private void AddAnswer()
     {
         _answers.Add(new AnswerDto());
@@ -53,8 +54,16 @@
 
     private void SaveQuestion()
     {
-        QuestionDto.Answers = _answers.ToArray();
-        buttonColor = "#ADD8E6";
+        if (QuestionDto.QuestionText == null || _answers.Count < 1 || (_answers.Any(dto => dto.AnswerText == null)) || _answers.Count < 2 || _answers.TrueForAll(dto => !dto.IsCorrect))
+        {
+            ErrorMessage = "Missing information. Please fill in all fields.";
+        }
+        else
+        {
+            QuestionDto.Answers = _answers.ToArray();
+            buttonColor = "#ADD8E6";
+            ErrorMessage = "";
+        }
     }
 
 

@@ -4,87 +4,97 @@
 @inject Services.BackendAccessService _backendAccessService
 @inject NavigationManager NavigationManager
 
-    
-        <h3 style="font-family:Berlin sans FB Demi">Create a new Course</h3>
 
-        <br />
-        <br />
-        <label style="font-family:Berlin sans FB "><em>Course name:</em> </label>
-        <input type="text" placeholder="Course name"
-               @bind-value="CourseName"
-               @bind-value:event="oninput" />
-        <br />
-        <br />
-        <h4 style="font-family:Berlin sans FB ">Chapters: </h4>
-        <br />
-        <ol>
-            @foreach (var chapter in Chapters)
-            {
-                <li >
-                    <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
-                </li>
-                }
-            </ol>
+<h3 style="font-family:Berlin sans FB Demi">Create a new Course</h3>
 
-        <br />
-        <button type="button" class="text-white" style=" font-family:Berlin sans FB;border:thin solid white;background-color:#5470f0" @onclick="AddChapter">
-            <span aria-hidden="true">
-                ➕
-            </span>Add Chapter
-        </button>
-        <br />
-        <br />
-        <button type="button" class="text-white" style="font-family: Berlin sans FB;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse" disabled="@SavePressed">
-            <span aria-hidden="true">
-                🔒
-            </span>Save Course
-        </button>
-        <br />
-        <br />
-        <button type="button" class="text-white" style="font-family: Berlin sans FB ; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepage">
+<br/>
+<br/>
+<label style="font-family:Berlin sans FB ">
+    <em>Course name:</em>
+</label>
+<input type="text" placeholder="Course name"
+       @bind-value="CourseName"
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
+<h4 style="font-family:Berlin sans FB ">Chapters: </h4>
+<br/>
+<ol>
+    @foreach (var chapter in Chapters)
+    {
+        <li >
+            <ChapterEditComponent ChapterDto="chapter"></ChapterEditComponent>
+        </li>
+    }
+</ol>
 
-            <span aria-hidden="true">
-                🏠
-            </span> Home
-        </button>
-   
+<br/>
+<button type="button" class="text-white" style=" font-family:Berlin sans FB;border:thin solid white;background-color:#5470f0" @onclick="AddChapter">
+    <span aria-hidden="true">
+        ➕
+    </span>Add Chapter
+</button>
+<br/>
+<br/>
+<p style="color: red">@ErrorMessage</p>
+<button type="button" class="text-white" style="font-family: Berlin sans FB;border: thin solid white; background-color: @buttonColor" @onclick="SaveCourse" disabled="@SavePressed">
+    <span aria-hidden="true">
+        🔒
+    </span>Save Course
+</button>
+<br/>
+<br/>
+<button type="button" class="text-white" style="font-family: Berlin sans FB ; border: thin solid white; background-color:  #5470f0" @onclick="RouteToHomepage">
+
+    <span aria-hidden="true">
+        🏠
+    </span> Home
+</button>
 
 
+@code {
 
-    @code {
+    public string buttonColor = "#5470f0";
 
-        public string buttonColor = "#5470f0";
+    private string CourseName { get; set; }
 
-        private string CourseName { get; set; }
+    private List<ChapterDto> Chapters = new();
 
-        private List<ChapterDto> Chapters = new List<ChapterDto>();
+    CourseDto CourseDto { get; set; }
 
-        CourseDto CourseDto { get; set; }
-        
-        private bool SavePressed = false;
+    private bool SavePressed = false;
 
-        private void AddChapter()
+    string ErrorMessage = "";
+
+    private void AddChapter()
+    {
+        Chapters.Add(new ChapterDto() {ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0]});
+        buttonColor = "#5470f0";
+    }
+
+    private async Task SaveCourse()
+    {
+        if (CourseName == null || Chapters.Count < 1 || Chapters.Any(x => x.ChapterName == null || x.ChapterQuiz == null))
         {
-            Chapters.Add(new ChapterDto() { ChapterContentPdf = new PdfContentDto[0], ChapterContentVideo = new VideoContentDto[0] });
-            buttonColor = "#5470f0";
+            ErrorMessage = "Missing input for Course.";
         }
-
-        private async Task SaveCourse()
+        else
         {
             CourseDto = new CourseDto
             {
                 CourseName = CourseName,
                 Chapters = Chapters.ToArray()
             };
-
             await _backendAccessService.PutCourse(CourseDto);
             buttonColor = "#ADD8E6";
             SavePressed = true;
+            ErrorMessage = "";
         }
-
-        private void RouteToHomepage()
-        {
-            NavigationManager.NavigateTo("/CreatorHomepage");
-        }
-
     }
+
+    private void RouteToHomepage()
+    {
+        NavigationManager.NavigateTo("/CreatorHomepage");
+    }
+
+}

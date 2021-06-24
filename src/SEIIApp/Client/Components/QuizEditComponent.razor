@@ -1,12 +1,12 @@
 ﻿@using SEIIApp.Shared.DomainDto
 @using SEIIApp.Client.Components
-<br />
-<label style="font-family: Berlin sans FB ; font-size:larger" >Quiz name: </label>
+<br/>
+<label style="font-family: Berlin sans FB ; font-size:larger">Quiz name: </label>
 <input type="text" placeholder="Quiz-Name"
        @bind-value="QuizDto.QuizName"
-       @bind-value:event="oninput" />
-<br />
-<br />
+       @bind-value:event="oninput"/>
+<br/>
+<br/>
 <ol>
     @foreach (var question in _questions)
     {
@@ -16,19 +16,21 @@
     }
 </ol>
 
-<br />
+<br/>
 <button @onclick="AddQuestion" type="button" class="text-white" style="border:thin solid white;background-color:#5470f0">
     <span aria-hidden="true">
         ❔
     </span>
     Add Question
 </button>
-<br />
+<br/>
+<p style="color: red">@ErrorMessage</p>
 <button @onclick="SaveQuiz" type="button" class="text-white" style="border:thin solid white;background-color:@buttonColor">
     <span aria-hidden="true">
         🔒
     </span>Save Quiz
 </button>
+
 @code {
 
     public string buttonColor = "#5470f0";
@@ -37,6 +39,7 @@
     public QuizDto QuizDto { get; set; }
 
     List<QuestionDto> _questions = new List<QuestionDto>();
+    private string ErrorMessage = "";
 
     private void AddQuestion()
     {
@@ -45,8 +48,16 @@
 
     private void SaveQuiz()
     {
-        QuizDto.Questions = _questions.ToArray();
-        buttonColor = "#ADD8E6";
+        if (QuizDto.QuizName == null || _questions.Count < 1 || _questions.Any(x => x.QuestionText == null || x.Answers == null || x.Answers.Length < 1 || x.Answers.All(y => !y.IsCorrect)))
+        {
+            ErrorMessage = "Missing input for quiz.";
+        }
+        else
+        {
+            QuizDto.Questions = _questions.ToArray();
+            buttonColor = "#ADD8E6";
+            ErrorMessage = "";
+        }
     }
 
 }
