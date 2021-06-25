@@ -49,7 +49,7 @@ namespace SEIIApp.Server.Services.StatusServices
             var user = UserService.GetStudentById(userId);
 
             var result = user.QuestionStatusList.Where(x =>
-                (x.QuestionLevel == 1 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(24))
+                (x.QuestionLevel == 1)
                 || (x.QuestionLevel == 2 && DateTime.Now - x.LastAnswered >= TimeSpan.FromHours(48))
                 || (x.QuestionLevel == 3 && DateTime.Now - x.LastAnswered >= TimeSpan.FromDays(4))
                 || (x.QuestionLevel == 4 && DateTime.Now - x.LastAnswered >= TimeSpan.FromDays(6))
